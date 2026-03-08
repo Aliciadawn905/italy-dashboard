@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-terracotta: #C75B39;
+  --color-terracotta-light: #E8A890;
+  --color-terracotta-dark: #A04428;
+  --color-olive: #5C6B3C;
+  --color-olive-light: #8FA66B;
+  --color-olive-dark: #3E4A28;
+  --color-gold: #D4A843;
+  --color-gold-light: #E8CC7A;
+  --color-gold-dark: #B08A2E;
+  --color-navy: #1E3A5F;
+  --color-navy-light: #2E5A8F;
+  --color-cream: #FDF8F0;
+  --color-warm-gray: #F5F0EB;
+  --color-italian-red: #CE2B37;
+  --color-italian-green: #008C45;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #FFFFFF;
+  color: #1a1a1a;
+}
+
+/* Italian flag accent stripe */
+.italy-stripe {
+  background: linear-gradient(90deg, #008C45 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #CE2B37 66.66%);
+  height: 4px;
+}
+
+/* Warm card hover */
+.card-hover {
+  transition: all 0.2s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 4px 20px rgba(199, 91, 57, 0.12);
+  transform: translateY(-1px);
+}
+
+/* Tabular nums for countdown */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
