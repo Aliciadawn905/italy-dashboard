@@ -46,3 +46,18 @@ body {
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
+
+/* Leaflet popup styling */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+.leaflet-popup-content {
+  margin: 13px 20px !important;
+  font-family: var(--font-sans);
+}
+.leaflet-popup-tip {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}

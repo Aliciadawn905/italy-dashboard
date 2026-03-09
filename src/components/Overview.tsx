@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import CountdownTimer from "./CountdownTimer";
-import { Flight, ItineraryDay, Restaurant, Activity, Note } from "@/lib/types";
+import { Flight, ItineraryDay, Restaurant, Activity, Note, TabId } from "@/lib/types";
 import { Plane, Calendar, UtensilsCrossed, MapPin, StickyNote, X, Star, Camera, Church, Landmark, Wine, Ship, Palette } from "lucide-react";
 
 const destinations = [
@@ -49,7 +49,7 @@ const destinations = [
   {
     name: "Tuscany",
     subtitle: "Rolling hills & wine",
-    image: "https://images.unsplash.com/photo-1467803738586-46b7eb7b16a1?w=800&q=80",
+    image: "https://plus.unsplash.com/premium_photo-1661955358120-a53acdad8a85?w=800&q=80",
     sites: [
       { name: "Florence Cathedral (Duomo)", icon: Church, desc: "Brunelleschi's dome — climb 463 steps for incredible views" },
       { name: "Uffizi Gallery", icon: Palette, desc: "Botticelli's Birth of Venus and Renaissance masterpieces" },
@@ -93,6 +93,7 @@ interface OverviewProps {
   restaurants: Restaurant[];
   activities: Activity[];
   notes: Note[];
+  onTabChange: (tab: TabId) => void;
 }
 
 export default function Overview({
@@ -101,6 +102,7 @@ export default function Overview({
   restaurants,
   activities,
   notes,
+  onTabChange,
 }: OverviewProps) {
   const [selectedDest, setSelectedDest] = useState<typeof destinations[number] | null>(null);
   const stats = [
@@ -111,6 +113,7 @@ export default function Overview({
       booked: flights.filter((f) => f.status === "booked").length,
       color: "text-navy",
       bg: "bg-navy/5",
+      tab: "flights" as TabId,
     },
     {
       icon: Calendar,
@@ -119,6 +122,7 @@ export default function Overview({
       booked: null,
       color: "text-olive",
       bg: "bg-olive/5",
+      tab: "itinerary" as TabId,
     },
     {
       icon: UtensilsCrossed,
@@ -127,6 +131,7 @@ export default function Overview({
       booked: null,
       color: "text-terracotta",
       bg: "bg-terracotta/5",
+      tab: "restaurants" as TabId,
     },
     {
       icon: MapPin,
@@ -135,6 +140,7 @@ export default function Overview({
       booked: activities.filter((a) => a.booked).length,
       color: "text-gold-dark",
       bg: "bg-gold/5",
+      tab: "activities" as TabId,
     },
     {
       icon: StickyNote,
@@ -143,6 +149,7 @@ export default function Overview({
       booked: null,
       color: "text-italian-green",
       bg: "bg-italian-green/5",
+      tab: "notes" as TabId,
     },
   ];
 
@@ -168,9 +175,10 @@ export default function Overview({
           {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div
+              <button
                 key={stat.label}
-                className="bg-white rounded-xl border border-gray-100 p-4 card-hover"
+                onClick={() => onTabChange(stat.tab)}
+                className="bg-white rounded-xl border border-gray-100 p-4 card-hover text-left cursor-pointer"
               >
                 <div className={`w-8 h-8 rounded-lg ${stat.bg} flex items-center justify-center mb-2`}>
                   <Icon className={`w-4 h-4 ${stat.color}`} />
@@ -184,7 +192,7 @@ export default function Overview({
                     {stat.booked} booked
                   </div>
                 )}
-              </div>
+              </button>
             );
           })}
         </div>
@@ -199,9 +207,12 @@ export default function Overview({
           {["Naples", "Amalfi Coast", "Rome", "Tuscany", "Cinque Terre", "Venice"].map(
             (city, i, arr) => (
               <span key={city} className="flex items-center gap-2">
-                <span className="bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm font-medium">
+                <button
+                  onClick={() => onTabChange("map")}
+                  className="bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm font-medium hover:bg-terracotta/20 transition-colors cursor-pointer"
+                >
                   {city}
-                </span>
+                </button>
                 {i < arr.length - 1 && (
                   <span className="text-gray-300">&rarr;</span>
                 )}

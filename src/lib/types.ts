@@ -55,4 +55,4 @@ export interface Note {
   created_at: string;
 }
 
-export type TabId = "overview" | "flights" | "itinerary" | "restaurants" | "activities" | "notes";
+export type TabId = "overview" | "flights" | "itinerary" | "restaurants" | "activities" | "notes" | "map";

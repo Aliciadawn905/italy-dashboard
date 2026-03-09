@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { TabId, Flight, ItineraryDay, Restaurant, Activity, Note } from "@/lib/types";
 import { useSupabaseTable } from "@/hooks/useSupabase";
 import Header from "@/components/Header";
@@ -12,6 +13,15 @@ import Restaurants from "@/components/Restaurants";
 import Activities from "@/components/Activities";
 import Notes from "@/components/Notes";
 import { isSupabaseConfigured } from "@/lib/supabase";
+
+const ItalyMap = dynamic(() => import("@/components/ItalyMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-20">
+      <div className="w-8 h-8 border-2 border-terracotta/30 border-t-terracotta rounded-full animate-spin" />
+    </div>
+  ),
+});
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabId>("overview");
@@ -57,6 +67,7 @@ export default function Dashboard() {
                 restaurants={restaurants.data}
                 activities={activities.data}
                 notes={notes.data}
+                onTabChange={setActiveTab}
               />
             )}
             {activeTab === "flights" && (
@@ -99,6 +110,7 @@ export default function Dashboard() {
                 onRemove={notes.remove}
               />
             )}
+            {activeTab === "map" && <ItalyMap />}
           </>
         )}
       </main>
