@@ -27,10 +27,10 @@ function setLocal<T>(key: string, data: T[]) {
 export function useSupabaseTable<T extends { id: string }>(tableName: string) {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
-  const mounted = useRef(false);
+  const active = useRef(true);
 
   const fetchData = useCallback(async () => {
-    if (!mounted.current) return;
+    if (!isBrowser) return;
 
     const supabase = await getSupabase();
     if (!supabase) {
@@ -51,14 +51,14 @@ export function useSupabaseTable<T extends { id: string }>(tableName: string) {
   }, [tableName]);
 
   useEffect(() => {
-    mounted.current = true;
+    active.current = true;
     fetchData();
 
     let cleanup: (() => void) | undefined;
 
     if (isSupabaseConfigured() && isBrowser) {
       getSupabase().then((supabase) => {
-        if (!supabase || !mounted.current) return;
+        if (!supabase || !active.current) return;
 
         const channel = supabase
           .channel(`${tableName}_changes`)
@@ -74,7 +74,7 @@ export function useSupabaseTable<T extends { id: string }>(tableName: string) {
     }
 
     return () => {
-      mounted.current = false;
+      active.current = false;
       cleanup?.();
     };
   }, [tableName, fetchData]);
