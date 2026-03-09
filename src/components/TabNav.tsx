@@ -9,6 +9,7 @@ import {
   MapPin,
   StickyNote,
   Map,
+  TrainFront,
 } from "lucide-react";
 
 const tabs: { id: TabId; label: string; icon: React.ElementType }[] = [
@@ -17,6 +18,7 @@ const tabs: { id: TabId; label: string; icon: React.ElementType }[] = [
   { id: "itinerary", label: "Itinerary", icon: Calendar },
   { id: "restaurants", label: "Restaurants", icon: UtensilsCrossed },
   { id: "activities", label: "Tours & Activities", icon: MapPin },
+  { id: "transport", label: "Transport", icon: TrainFront },
   { id: "notes", label: "Ideas & Notes", icon: StickyNote },
   { id: "map", label: "Map", icon: Map },
 ];

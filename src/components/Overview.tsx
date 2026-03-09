@@ -23,7 +23,7 @@ const destinations = [
   {
     name: "Amalfi Coast",
     subtitle: "Coastal paradise",
-    image: "https://images.unsplash.com/photo-1533587851505-d119e13fa0d7?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1768322264453-ff345b170a52?w=800&q=80",
     sites: [
       { name: "Positano", icon: Camera, desc: "Iconic pastel-colored cliffside village with pebble beaches" },
       { name: "Ravello", icon: Star, desc: "Hilltop town with stunning gardens and Villa Rufolo" },
@@ -155,15 +155,29 @@ export default function Overview({
 
   return (
     <div className="space-y-8">
-      {/* Countdown */}
-      <div className="bg-cream rounded-2xl p-6">
-        <h2 className="font-serif text-lg font-semibold text-navy mb-1">
-          Countdown to Italy
-        </h2>
-        <p className="text-sm text-gray-400 mb-4">
-          Naples awaits on August 29, 2026
-        </p>
-        <CountdownTimer />
+      {/* Hero Banner with Countdown */}
+      <div className="relative rounded-2xl overflow-hidden h-[260px] sm:h-[280px]">
+        <Image
+          src="https://images.unsplash.com/photo-1746129252998-0a46bfe63551?w=1400&q=80"
+          alt="Positano coastline"
+          fill
+          sizes="(max-width: 768px) 100vw, 1200px"
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/50 to-navy/20" />
+        <div className="relative h-full flex flex-col justify-center px-6 sm:px-10 max-w-md">
+          <p className="text-terracotta-light text-xs font-medium uppercase tracking-widest mb-1">
+            Aug 29 &ndash; Sept 12, 2026
+          </p>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight mb-1">
+            50th Birthday Italian Adventure
+          </h2>
+          <p className="text-white/60 text-sm mb-5">
+            Naples awaits in&hellip;
+          </p>
+          <CountdownTimer variant="overlay" />
+        </div>
       </div>
 
       {/* Quick Stats */}
