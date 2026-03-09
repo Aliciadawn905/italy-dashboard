@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import dynamic from "next/dynamic";
 import {
   Train,
   Bus,
@@ -14,6 +15,136 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+/* ── Route Map (Leaflet, client-only) ─────────────────────── */
+
+const RouteMapInner = dynamic(
+  () =>
+    import("react-leaflet").then((mod) => {
+      const { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } = mod;
+
+      function FitBounds({ bounds }: { bounds: [number, number][] }) {
+        const map = useMap();
+        useEffect(() => {
+          if (bounds.length > 1) {
+            map.fitBounds(bounds, { padding: [32, 32], maxZoom: 10 });
+          }
+        }, [map, bounds]);
+        return null;
+      }
+
+      function RouteMapComponent({
+        waypoints,
+        labels,
+        modeColors: segColors,
+      }: {
+        waypoints: [number, number][][];
+        labels: { name: string; lat: number; lng: number }[];
+        modeColors: string[];
+      }) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const [leaflet, setLeaflet] = useState<any>(null);
+
+        useEffect(() => {
+          import("leaflet").then((mod) => {
+            const L = mod.default || mod;
+            delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+            L.Icon.Default.mergeOptions({
+              iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+              iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+              shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+            });
+            setLeaflet(L);
+          });
+        }, []);
+
+        const allPoints = waypoints.flat();
+        const center: [number, number] = allPoints.length
+          ? [
+              allPoints.reduce((s, p) => s + p[0], 0) / allPoints.length,
+              allPoints.reduce((s, p) => s + p[1], 0) / allPoints.length,
+            ]
+          : [42.5, 12.5];
+
+        const markers = useMemo(() => {
+          if (!leaflet) return null;
+          const L = leaflet;
+          return labels.map((label, i) => {
+            const isFirst = i === 0;
+            const isLast = i === labels.length - 1;
+            const color = isFirst ? "#1E3A5F" : isLast ? "#C75B39" : "#5C6B3C";
+            const icon = L.divIcon({
+              className: "",
+              html: `<div style="width:12px;height:12px;background:${color};border:2px solid white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>`,
+              iconSize: [12, 12],
+              iconAnchor: [6, 6],
+            });
+            return (
+              <Marker key={label.name} position={[label.lat, label.lng]} icon={icon}>
+                <Popup>
+                  <span style={{ fontWeight: 600, fontSize: 13 }}>{label.name}</span>
+                </Popup>
+              </Marker>
+            );
+          });
+        }, [leaflet, labels]);
+
+        if (!leaflet) {
+          return (
+            <div className="flex items-center justify-center h-full">
+              <div className="w-5 h-5 border-2 border-terracotta/30 border-t-terracotta rounded-full animate-spin" />
+            </div>
+          );
+        }
+
+        const dashPatterns: Record<string, string> = {
+          train: "12 0",
+          bus: "8 6",
+          ferry: "4 8",
+        };
+
+        return (
+          <MapContainer
+            center={center}
+            zoom={7}
+            scrollWheelZoom={false}
+            dragging={true}
+            zoomControl={false}
+            style={{ height: "100%", width: "100%", borderRadius: 12 }}
+            attributionControl={false}
+          >
+            <TileLayer url="https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png" />
+            <FitBounds bounds={allPoints} />
+            {waypoints.map((pts, i) => (
+              <Polyline
+                key={i}
+                positions={pts}
+                pathOptions={{
+                  color: segColors[i] || "#C75B39",
+                  weight: 3,
+                  opacity: 0.8,
+                  dashArray: dashPatterns[segColors[i] === "#5C6B3C" ? "bus" : segColors[i] === "#C75B39" ? "ferry" : "train"] || "12 0",
+                }}
+              />
+            ))}
+            {markers}
+          </MapContainer>
+        );
+      }
+
+      return RouteMapComponent;
+    }),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center h-full">
+        <div className="w-5 h-5 border-2 border-terracotta/30 border-t-terracotta rounded-full animate-spin" />
+      </div>
+    ),
+  }
+);
+
+/* ── Data types ────────────────────────────────────────────── */
+
 interface Segment {
   mode: "train" | "bus" | "ferry";
   type: string;
@@ -23,6 +154,12 @@ interface Segment {
   duration: string;
   cost: string;
   reservationRequired: boolean;
+}
+
+interface RoutePoint {
+  name: string;
+  lat: number;
+  lng: number;
 }
 
 interface Leg {
@@ -42,7 +179,20 @@ interface Leg {
   totalDuration: string;
   totalCost: string;
   tips: string[];
+  route: {
+    waypoints: [number, number][][];
+    labels: RoutePoint[];
+    colors: string[];
+  };
 }
+
+/* ── Leg data with route coords ────────────────────────────── */
+
+const modeColorHex = {
+  train: "#1E3A5F",
+  bus: "#5C6B3C",
+  ferry: "#C75B39",
+};
 
 const legs: Leg[] = [
   {
@@ -50,36 +200,10 @@ const legs: Leg[] = [
     from: "Naples",
     to: "Amalfi Coast",
     segments: [
-      {
-        mode: "train",
-        type: "Circumvesuviana",
-        operator: "EAV",
-        from: "Napoli Garibaldi (Centrale underground)",
-        to: "Sorrento",
-        duration: "50-70 min",
-        cost: "\u20AC4.60",
-        reservationRequired: false,
-      },
-      {
-        mode: "bus",
-        type: "SITA Sud #5070",
-        operator: "SITA Sud",
-        from: "Sorrento Bus Terminal",
-        to: "Positano / Amalfi",
-        duration: "40-90 min",
-        cost: "\u20AC1.80-2.60",
-        reservationRequired: false,
-      },
+      { mode: "train", type: "Circumvesuviana", operator: "EAV", from: "Napoli Garibaldi (Centrale underground)", to: "Sorrento", duration: "50-70 min", cost: "\u20AC4.60", reservationRequired: false },
+      { mode: "bus", type: "SITA Sud #5070", operator: "SITA Sud", from: "Sorrento Bus Terminal", to: "Positano / Amalfi", duration: "40-90 min", cost: "\u20AC1.80-2.60", reservationRequired: false },
     ],
-    alternative: {
-      mode: "ferry",
-      operator: "Alilauro / NLG",
-      from: "Napoli Molo Beverello",
-      to: "Amalfi Marina",
-      duration: "75-90 min",
-      cost: "\u20AC18-24",
-      note: "Scenic but weather-dependent. Runs Apr-Oct.",
-    },
+    alternative: { mode: "ferry", operator: "Alilauro / NLG", from: "Napoli Molo Beverello", to: "Amalfi Marina", duration: "75-90 min", cost: "\u20AC18-24", note: "Scenic but weather-dependent. Runs Apr-Oct." },
     totalDuration: "2-2.5 hrs",
     totalCost: "\u20AC7-24",
     tips: [
@@ -89,42 +213,29 @@ const legs: Leg[] = [
       "SITA buses are standing-room in August \u2014 go early",
       "Sit on the right side of the bus for sea views",
     ],
+    route: {
+      waypoints: [
+        [[40.8518, 14.2681], [40.7539, 14.2338], [40.6263, 14.3759]],
+        [[40.6263, 14.3759], [40.6281, 14.4861], [40.6340, 14.6020]],
+      ],
+      labels: [
+        { name: "Napoli Centrale", lat: 40.8518, lng: 14.2681 },
+        { name: "Sorrento", lat: 40.6263, lng: 14.3759 },
+        { name: "Positano", lat: 40.6281, lng: 14.4861 },
+        { name: "Amalfi", lat: 40.6340, lng: 14.6020 },
+      ],
+      colors: [modeColorHex.train, modeColorHex.bus],
+    },
   },
   {
     id: 2,
     from: "Amalfi Coast",
     to: "Rome",
     segments: [
-      {
-        mode: "bus",
-        type: "SITA Sud #5020",
-        operator: "SITA Sud",
-        from: "Amalfi / Positano bus stop",
-        to: "Salerno Centrale",
-        duration: "75 min",
-        cost: "\u20AC2.60",
-        reservationRequired: false,
-      },
-      {
-        mode: "train",
-        type: "Frecciarossa",
-        operator: "Trenitalia",
-        from: "Salerno Centrale",
-        to: "Roma Termini",
-        duration: "1h 23min - 2h 10min",
-        cost: "\u20AC15-45",
-        reservationRequired: true,
-      },
+      { mode: "bus", type: "SITA Sud #5020", operator: "SITA Sud", from: "Amalfi / Positano bus stop", to: "Salerno Centrale", duration: "75 min", cost: "\u20AC2.60", reservationRequired: false },
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia", from: "Salerno Centrale", to: "Roma Termini", duration: "1h 23min - 2h 10min", cost: "\u20AC15-45", reservationRequired: true },
     ],
-    alternative: {
-      mode: "ferry",
-      operator: "TravelMar / Alilauro",
-      from: "Amalfi Marina",
-      to: "Salerno Port",
-      duration: "35 min",
-      cost: "\u20AC8-10",
-      note: "Faster than the bus to Salerno. Seasonal Apr-Oct.",
-    },
+    alternative: { mode: "ferry", operator: "TravelMar / Alilauro", from: "Amalfi Marina", to: "Salerno Port", duration: "35 min", cost: "\u20AC8-10", note: "Faster than the bus to Salerno. Seasonal Apr-Oct." },
     totalDuration: "2.5-3.5 hrs",
     totalCost: "\u20AC18-48",
     tips: [
@@ -132,22 +243,25 @@ const legs: Leg[] = [
       "Book Frecciarossa Super Economy 60-90 days ahead for best price",
       "~27 trains/day from Salerno to Rome",
     ],
+    route: {
+      waypoints: [
+        [[40.6340, 14.6020], [40.6824, 14.7681]],
+        [[40.6824, 14.7681], [41.0092, 14.3419], [41.9028, 12.4964]],
+      ],
+      labels: [
+        { name: "Amalfi", lat: 40.6340, lng: 14.6020 },
+        { name: "Salerno", lat: 40.6824, lng: 14.7681 },
+        { name: "Roma Termini", lat: 41.9028, lng: 12.4964 },
+      ],
+      colors: [modeColorHex.bus, modeColorHex.train],
+    },
   },
   {
     id: 3,
     from: "Rome",
     to: "Florence",
     segments: [
-      {
-        mode: "train",
-        type: "Frecciarossa",
-        operator: "Trenitalia / Italo",
-        from: "Roma Termini",
-        to: "Firenze S.M.N.",
-        duration: "1h 32min - 1h 45min",
-        cost: "\u20AC15-50",
-        reservationRequired: true,
-      },
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Roma Termini", to: "Firenze S.M.N.", duration: "1h 32min - 1h 45min", cost: "\u20AC15-50", reservationRequired: true },
     ],
     totalDuration: "1h 32min",
     totalCost: "\u20AC15-50",
@@ -157,22 +271,23 @@ const legs: Leg[] = [
       "Super Economy fares are non-refundable but half price",
       "Firenze S.M.N. is walking distance to the Duomo",
     ],
+    route: {
+      waypoints: [
+        [[41.9028, 12.4964], [42.4173, 12.1066], [42.7924, 11.7867], [43.0742, 11.3010], [43.7696, 11.2558]],
+      ],
+      labels: [
+        { name: "Roma Termini", lat: 41.9028, lng: 12.4964 },
+        { name: "Firenze S.M.N.", lat: 43.7696, lng: 11.2558 },
+      ],
+      colors: [modeColorHex.train],
+    },
   },
   {
     id: 4,
     from: "Florence",
     to: "Cinque Terre",
     segments: [
-      {
-        mode: "train",
-        type: "Regionale Veloce",
-        operator: "Trenitalia",
-        from: "Firenze S.M.N.",
-        to: "La Spezia Centrale",
-        duration: "2h 00min - 2h 34min",
-        cost: "\u20AC10-16",
-        reservationRequired: false,
-      },
+      { mode: "train", type: "Regionale Veloce", operator: "Trenitalia", from: "Firenze S.M.N.", to: "La Spezia Centrale", duration: "2h 00min - 2h 34min", cost: "\u20AC10-16", reservationRequired: false },
     ],
     totalDuration: "2h - 2h 34min",
     totalCost: "\u20AC10-25",
@@ -183,32 +298,25 @@ const legs: Leg[] = [
       "From La Spezia, Cinque Terre Express connects all 5 villages",
       "Cinque Terre Card: ~\u20AC16/day for unlimited trains + park access",
     ],
+    route: {
+      waypoints: [
+        [[43.7696, 11.2558], [43.7228, 10.4017], [44.1024, 9.8240]],
+      ],
+      labels: [
+        { name: "Firenze S.M.N.", lat: 43.7696, lng: 11.2558 },
+        { name: "Pisa Centrale", lat: 43.7228, lng: 10.4017 },
+        { name: "La Spezia", lat: 44.1024, lng: 9.8240 },
+      ],
+      colors: [modeColorHex.train],
+    },
   },
   {
     id: 5,
     from: "Cinque Terre",
     to: "Venice",
     segments: [
-      {
-        mode: "train",
-        type: "InterCity / Frecciabianca",
-        operator: "Trenitalia",
-        from: "La Spezia Centrale",
-        to: "Milano Centrale",
-        duration: "2h 30min - 3h",
-        cost: "\u20AC18-30",
-        reservationRequired: true,
-      },
-      {
-        mode: "train",
-        type: "Frecciarossa",
-        operator: "Trenitalia / Italo",
-        from: "Milano Centrale",
-        to: "Venezia Santa Lucia",
-        duration: "2h 25min",
-        cost: "\u20AC15-45",
-        reservationRequired: true,
-      },
+      { mode: "train", type: "InterCity / Frecciabianca", operator: "Trenitalia", from: "La Spezia Centrale", to: "Milano Centrale", duration: "2h 30min - 3h", cost: "\u20AC18-30", reservationRequired: true },
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Milano Centrale", to: "Venezia Santa Lucia", duration: "2h 25min", cost: "\u20AC15-45", reservationRequired: true },
     ],
     totalDuration: "5-6 hrs (incl. transfer)",
     totalCost: "\u20AC33-75",
@@ -218,6 +326,18 @@ const legs: Leg[] = [
       "Book both segments separately for best prices",
       "Arrive at Venezia Santa Lucia (island) NOT Mestre (mainland)",
     ],
+    route: {
+      waypoints: [
+        [[44.1024, 9.8240], [44.4056, 9.9766], [44.6471, 10.9252], [45.4654, 9.1860]],
+        [[45.4654, 9.1860], [45.4408, 10.9929], [45.4410, 12.3212]],
+      ],
+      labels: [
+        { name: "La Spezia", lat: 44.1024, lng: 9.8240 },
+        { name: "Milano Centrale", lat: 45.4654, lng: 9.1860 },
+        { name: "Venezia S. Lucia", lat: 45.4410, lng: 12.3212 },
+      ],
+      colors: [modeColorHex.train, modeColorHex.train],
+    },
   },
 ];
 
@@ -230,17 +350,35 @@ const generalTips = [
   "Download Trenitalia and Italo apps for mobile tickets",
 ];
 
-const modeIcons = {
-  train: Train,
-  bus: Bus,
-  ferry: Ship,
-};
-
+const modeIcons = { train: Train, bus: Bus, ferry: Ship };
 const modeColors = {
   train: { bg: "bg-navy/10", text: "text-navy", border: "border-navy/20" },
   bus: { bg: "bg-olive/10", text: "text-olive", border: "border-olive/20" },
   ferry: { bg: "bg-terracotta/10", text: "text-terracotta", border: "border-terracotta/20" },
 };
+
+/* ── Legend dot ─────────────────────────────────────────────── */
+
+function ModeLegend() {
+  return (
+    <div className="flex items-center gap-4 text-[11px] text-gray-400 mt-2">
+      <span className="flex items-center gap-1.5">
+        <span className="w-6 h-0 border-t-2 border-navy" />
+        Train
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="w-6 h-0 border-t-2 border-dashed border-olive" />
+        Bus
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="w-6 h-0 border-t-2 border-dotted border-terracotta" />
+        Ferry
+      </span>
+    </div>
+  );
+}
+
+/* ── Main component ────────────────────────────────────────── */
 
 export default function Transportation() {
   const [expandedLeg, setExpandedLeg] = useState<number | null>(1);
@@ -253,8 +391,8 @@ export default function Transportation() {
           Getting Around Italy
         </h2>
         <p className="text-sm text-gray-400 mt-1">
-          Trains, buses & ferries between each destination \u00b7 Est. total:{" "}
-          <span className="font-medium text-olive">\u20AC83-222 per person</span>
+          Trains, buses & ferries between each destination &middot; Est. total:{" "}
+          <span className="font-medium text-olive">&euro;83-222 per person</span>
         </p>
       </div>
 
@@ -282,25 +420,17 @@ export default function Transportation() {
             >
               {/* Header */}
               <button
-                onClick={() =>
-                  setExpandedLeg(isExpanded ? null : leg.id)
-                }
+                onClick={() => setExpandedLeg(isExpanded ? null : leg.id)}
                 className="w-full flex items-center gap-4 px-5 py-4 text-left hover:bg-cream/50 transition-colors cursor-pointer"
               >
                 <div className="w-8 h-8 rounded-full bg-terracotta/10 flex items-center justify-center shrink-0">
-                  <span className="text-sm font-bold text-terracotta">
-                    {leg.id}
-                  </span>
+                  <span className="text-sm font-bold text-terracotta">{leg.id}</span>
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-gray-800">
-                      {leg.from}
-                    </span>
+                    <span className="font-medium text-gray-800">{leg.from}</span>
                     <ArrowRight className="w-4 h-4 text-terracotta/40" />
-                    <span className="font-medium text-gray-800">
-                      {leg.to}
-                    </span>
+                    <span className="font-medium text-gray-800">{leg.to}</span>
                   </div>
                   <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-400">
                     <span className="flex items-center gap-1">
@@ -314,12 +444,7 @@ export default function Transportation() {
                     <span className="flex items-center gap-1">
                       {leg.segments.map((s) => {
                         const Icon = modeIcons[s.mode];
-                        return (
-                          <Icon
-                            key={s.type}
-                            className="w-3 h-3 text-gray-400"
-                          />
-                        );
+                        return <Icon key={s.type} className="w-3 h-3 text-gray-400" />;
                       })}
                     </span>
                   </div>
@@ -334,90 +459,90 @@ export default function Transportation() {
               {/* Expanded details */}
               {isExpanded && (
                 <div className="px-5 pb-5 pt-0 border-t border-gray-50">
-                  {/* Segments */}
-                  <div className="space-y-3 mt-4">
-                    {leg.segments.map((seg, i) => {
-                      const Icon = modeIcons[seg.mode];
-                      const colors = modeColors[seg.mode];
-                      return (
-                        <div key={i} className="flex gap-3">
-                          <div className="flex flex-col items-center">
-                            <div
-                              className={`w-8 h-8 rounded-lg ${colors.bg} flex items-center justify-center`}
-                            >
-                              <Icon className={`w-4 h-4 ${colors.text}`} />
+                  {/* Map + Segments side by side */}
+                  <div className="flex flex-col lg:flex-row gap-4 mt-4">
+                    {/* Mini route map */}
+                    <div className="lg:w-[280px] h-[200px] lg:h-auto lg:min-h-[220px] rounded-xl overflow-hidden border border-gray-100 shrink-0">
+                      <RouteMapInner
+                        waypoints={leg.route.waypoints}
+                        labels={leg.route.labels}
+                        modeColors={leg.route.colors}
+                      />
+                    </div>
+
+                    {/* Segments + details */}
+                    <div className="flex-1 min-w-0">
+                      <div className="space-y-3">
+                        {leg.segments.map((seg, i) => {
+                          const Icon = modeIcons[seg.mode];
+                          const colors = modeColors[seg.mode];
+                          return (
+                            <div key={i} className="flex gap-3">
+                              <div className="flex flex-col items-center">
+                                <div className={`w-8 h-8 rounded-lg ${colors.bg} flex items-center justify-center`}>
+                                  <Icon className={`w-4 h-4 ${colors.text}`} />
+                                </div>
+                                {i < leg.segments.length - 1 && (
+                                  <div className="w-px h-full bg-gray-200 my-1" />
+                                )}
+                              </div>
+                              <div className="flex-1 pb-2">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="font-medium text-sm text-gray-800">{seg.type}</span>
+                                  <span className="text-[11px] text-gray-400">{seg.operator}</span>
+                                  {seg.reservationRequired && (
+                                    <span className="text-[10px] bg-gold/15 text-gold-dark px-1.5 py-0.5 rounded font-medium">
+                                      Reservation
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-1">
+                                  <MapPin className="w-3 h-3 text-gray-300" />
+                                  <span>{seg.from}</span>
+                                  <ArrowRight className="w-3 h-3 text-gray-300" />
+                                  <span>{seg.to}</span>
+                                </div>
+                                <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-3 h-3" />
+                                    {seg.duration}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Euro className="w-3 h-3" />
+                                    {seg.cost}
+                                  </span>
+                                </div>
+                              </div>
                             </div>
-                            {i < leg.segments.length - 1 && (
-                              <div className="w-px h-full bg-gray-200 my-1" />
-                            )}
+                          );
+                        })}
+                      </div>
+
+                      {/* Alternative */}
+                      {leg.alternative && (
+                        <div className="mt-4 bg-terracotta/5 rounded-lg p-3 border border-terracotta/10">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Ship className="w-3.5 h-3.5 text-terracotta" />
+                            <span className="text-xs font-medium text-terracotta">Scenic Alternative</span>
                           </div>
-                          <div className="flex-1 pb-2">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <span className="font-medium text-sm text-gray-800">
-                                {seg.type}
-                              </span>
-                              <span className="text-[11px] text-gray-400">
-                                {seg.operator}
-                              </span>
-                              {seg.reservationRequired && (
-                                <span className="text-[10px] bg-gold/15 text-gold-dark px-1.5 py-0.5 rounded font-medium">
-                                  Reservation
-                                </span>
-                              )}
-                            </div>
-                            <div className="flex items-center gap-1.5 text-xs text-gray-500 mt-1">
-                              <MapPin className="w-3 h-3 text-gray-300" />
-                              <span>{seg.from}</span>
-                              <ArrowRight className="w-3 h-3 text-gray-300" />
-                              <span>{seg.to}</span>
-                            </div>
-                            <div className="flex items-center gap-3 mt-1.5 text-xs text-gray-400">
-                              <span className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
-                                {seg.duration}
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Euro className="w-3 h-3" />
-                                {seg.cost}
-                              </span>
-                            </div>
-                          </div>
+                          <p className="text-xs text-gray-600">
+                            <span className="font-medium">{leg.alternative.operator}</span>{" "}
+                            {leg.alternative.from} &rarr; {leg.alternative.to} &middot;{" "}
+                            {leg.alternative.duration} &middot; {leg.alternative.cost}
+                          </p>
+                          <p className="text-[11px] text-gray-400 mt-1">{leg.alternative.note}</p>
                         </div>
-                      );
-                    })}
+                      )}
+                    </div>
                   </div>
 
-                  {/* Alternative */}
-                  {leg.alternative && (
-                    <div className="mt-4 bg-terracotta/5 rounded-lg p-3 border border-terracotta/10">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Ship className="w-3.5 h-3.5 text-terracotta" />
-                        <span className="text-xs font-medium text-terracotta">
-                          Scenic Alternative
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-600">
-                        <span className="font-medium">
-                          {leg.alternative.operator}
-                        </span>{" "}
-                        {leg.alternative.from} &rarr;{" "}
-                        {leg.alternative.to} &middot;{" "}
-                        {leg.alternative.duration} &middot;{" "}
-                        {leg.alternative.cost}
-                      </p>
-                      <p className="text-[11px] text-gray-400 mt-1">
-                        {leg.alternative.note}
-                      </p>
-                    </div>
-                  )}
+                  {/* Map legend */}
+                  <ModeLegend />
 
                   {/* Tips */}
                   <div className="mt-4 space-y-1.5">
                     {leg.tips.map((tip, i) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-2 text-xs text-gray-500"
-                      >
+                      <div key={i} className="flex items-start gap-2 text-xs text-gray-500">
                         <Lightbulb className="w-3 h-3 text-gold mt-0.5 shrink-0" />
                         <span>{tip}</span>
                       </div>
@@ -438,10 +563,7 @@ export default function Transportation() {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {generalTips.map((tip, i) => (
-            <div
-              key={i}
-              className="flex items-start gap-2 text-xs text-gray-600"
-            >
+            <div key={i} className="flex items-start gap-2 text-xs text-gray-600">
               <span className="text-terracotta mt-0.5">&bull;</span>
               <span>{tip}</span>
             </div>
