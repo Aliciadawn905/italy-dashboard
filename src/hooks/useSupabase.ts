@@ -90,8 +90,9 @@ export function useSupabaseTable<T extends { id: string }>(tableName: string) {
         return;
       }
       await supabase.from(tableName).insert(item);
+      await fetchData();
     },
-    [data, tableName]
+    [data, tableName, fetchData]
   );
 
   const update = useCallback(
@@ -104,8 +105,9 @@ export function useSupabaseTable<T extends { id: string }>(tableName: string) {
         return;
       }
       await supabase.from(tableName).update(updates).eq("id", id);
+      await fetchData();
     },
-    [data, tableName]
+    [data, tableName, fetchData]
   );
 
   const remove = useCallback(
@@ -118,8 +120,9 @@ export function useSupabaseTable<T extends { id: string }>(tableName: string) {
         return;
       }
       await supabase.from(tableName).delete().eq("id", id);
+      await fetchData();
     },
-    [data, tableName]
+    [data, tableName, fetchData]
   );
 
   return { data, loading, insert, update, remove, refetch: fetchData };
