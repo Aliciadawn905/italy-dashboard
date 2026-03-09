@@ -86,7 +86,7 @@ const destinations: Destination[] = [
       { name: "Chianti Wine Region", icon: Wine, desc: "Vineyards and Tuscan farmhouse lunches", lat: 43.4700, lng: 11.2500, image: "https://images.unsplash.com/photo-1523528283115-9bf9b1699245?w=400&q=80" },
       { name: "Siena", icon: Landmark, desc: "Medieval piazza and Gothic cathedral", lat: 43.3188, lng: 11.3308, image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=80" },
       { name: "San Gimignano", icon: Camera, desc: "Medieval hilltop town famous for towers", lat: 43.4677, lng: 11.0434, image: "https://images.unsplash.com/photo-1595854341625-f2e12dbce3e8?w=400&q=80" },
-      { name: "Val d'Orcia", icon: Camera, desc: "UNESCO cypress-lined roads", lat: 43.0620, lng: 11.5500, image: "https://plus.unsplash.com/premium_photo-1661955358120-a53acdad8a85?w=400&q=80" },
+      { name: "Val d'Orcia", icon: Camera, desc: "UNESCO cypress-lined roads", lat: 43.0620, lng: 11.5500, image: "https://images.unsplash.com/photo-1611264788618-39f1adb1342f?w=400&q=80" },
     ],
   },
   {

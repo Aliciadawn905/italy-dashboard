@@ -49,7 +49,7 @@ const destinations = [
   {
     name: "Tuscany",
     subtitle: "Rolling hills & wine",
-    image: "https://plus.unsplash.com/premium_photo-1661955358120-a53acdad8a85?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1611264788618-39f1adb1342f?w=800&q=80",
     sites: [
       { name: "Florence Cathedral (Duomo)", icon: Church, desc: "Brunelleschi's dome — climb 463 steps for incredible views" },
       { name: "Uffizi Gallery", icon: Palette, desc: "Botticelli's Birth of Venus and Renaissance masterpieces" },
