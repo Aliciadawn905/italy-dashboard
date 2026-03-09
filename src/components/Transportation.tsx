@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import {
   Train,
@@ -15,133 +15,16 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-/* ── Route Map (Leaflet, client-only) ─────────────────────── */
+/* ── Route Map (dynamic, client-only) ─────────────────────── */
 
-const RouteMapInner = dynamic(
-  () =>
-    import("react-leaflet").then((mod) => {
-      const { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } = mod;
-
-      function FitBounds({ bounds }: { bounds: [number, number][] }) {
-        const map = useMap();
-        useEffect(() => {
-          if (bounds.length > 1) {
-            map.fitBounds(bounds, { padding: [32, 32], maxZoom: 10 });
-          }
-        }, [map, bounds]);
-        return null;
-      }
-
-      function RouteMapComponent({
-        waypoints,
-        labels,
-        modeColors: segColors,
-      }: {
-        waypoints: [number, number][][];
-        labels: { name: string; lat: number; lng: number }[];
-        modeColors: string[];
-      }) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const [leaflet, setLeaflet] = useState<any>(null);
-
-        useEffect(() => {
-          import("leaflet").then((mod) => {
-            const L = mod.default || mod;
-            delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
-            L.Icon.Default.mergeOptions({
-              iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-              iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-              shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-            });
-            setLeaflet(L);
-          });
-        }, []);
-
-        const allPoints = waypoints.flat();
-        const center: [number, number] = allPoints.length
-          ? [
-              allPoints.reduce((s, p) => s + p[0], 0) / allPoints.length,
-              allPoints.reduce((s, p) => s + p[1], 0) / allPoints.length,
-            ]
-          : [42.5, 12.5];
-
-        const markers = useMemo(() => {
-          if (!leaflet) return null;
-          const L = leaflet;
-          return labels.map((label, i) => {
-            const isFirst = i === 0;
-            const isLast = i === labels.length - 1;
-            const color = isFirst ? "#1E3A5F" : isLast ? "#C75B39" : "#5C6B3C";
-            const icon = L.divIcon({
-              className: "",
-              html: `<div style="width:12px;height:12px;background:${color};border:2px solid white;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,0.3);"></div>`,
-              iconSize: [12, 12],
-              iconAnchor: [6, 6],
-            });
-            return (
-              <Marker key={label.name} position={[label.lat, label.lng]} icon={icon}>
-                <Popup>
-                  <span style={{ fontWeight: 600, fontSize: 13 }}>{label.name}</span>
-                </Popup>
-              </Marker>
-            );
-          });
-        }, [leaflet, labels]);
-
-        if (!leaflet) {
-          return (
-            <div className="flex items-center justify-center h-full">
-              <div className="w-5 h-5 border-2 border-terracotta/30 border-t-terracotta rounded-full animate-spin" />
-            </div>
-          );
-        }
-
-        const dashPatterns: Record<string, string> = {
-          train: "12 0",
-          bus: "8 6",
-          ferry: "4 8",
-        };
-
-        return (
-          <MapContainer
-            center={center}
-            zoom={7}
-            scrollWheelZoom={false}
-            dragging={true}
-            zoomControl={false}
-            style={{ height: "100%", width: "100%", borderRadius: 12 }}
-            attributionControl={false}
-          >
-            <TileLayer url="https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png" />
-            <FitBounds bounds={allPoints} />
-            {waypoints.map((pts, i) => (
-              <Polyline
-                key={i}
-                positions={pts}
-                pathOptions={{
-                  color: segColors[i] || "#C75B39",
-                  weight: 3,
-                  opacity: 0.8,
-                  dashArray: dashPatterns[segColors[i] === "#5C6B3C" ? "bus" : segColors[i] === "#C75B39" ? "ferry" : "train"] || "12 0",
-                }}
-              />
-            ))}
-            {markers}
-          </MapContainer>
-        );
-      }
-
-      return RouteMapComponent;
-    }),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex items-center justify-center h-full">
-        <div className="w-5 h-5 border-2 border-terracotta/30 border-t-terracotta rounded-full animate-spin" />
-      </div>
-    ),
-  }
-);
+const RouteMap = dynamic(() => import("@/components/RouteMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-full bg-cream/50 rounded-xl">
+      <div className="w-5 h-5 border-2 border-terracotta/30 border-t-terracotta rounded-full animate-spin" />
+    </div>
+  ),
+});
 
 /* ── Data types ────────────────────────────────────────────── */
 
@@ -186,7 +69,7 @@ interface Leg {
   };
 }
 
-/* ── Leg data with route coords ────────────────────────────── */
+/* ── Leg data with route coords + USD equivalents ──────────── */
 
 const modeColorHex = {
   train: "#1E3A5F",
@@ -200,16 +83,16 @@ const legs: Leg[] = [
     from: "Naples",
     to: "Amalfi Coast",
     segments: [
-      { mode: "train", type: "Circumvesuviana", operator: "EAV", from: "Napoli Garibaldi (Centrale underground)", to: "Sorrento", duration: "50-70 min", cost: "\u20AC4.60", reservationRequired: false },
-      { mode: "bus", type: "SITA Sud #5070", operator: "SITA Sud", from: "Sorrento Bus Terminal", to: "Positano / Amalfi", duration: "40-90 min", cost: "\u20AC1.80-2.60", reservationRequired: false },
+      { mode: "train", type: "Circumvesuviana", operator: "EAV", from: "Napoli Garibaldi (Centrale underground)", to: "Sorrento", duration: "50-70 min", cost: "\u20AC4.60 (~$5)", reservationRequired: false },
+      { mode: "bus", type: "SITA Sud #5070", operator: "SITA Sud", from: "Sorrento Bus Terminal", to: "Positano / Amalfi", duration: "40-90 min", cost: "\u20AC1.80-2.60 (~$2-3)", reservationRequired: false },
     ],
-    alternative: { mode: "ferry", operator: "Alilauro / NLG", from: "Napoli Molo Beverello", to: "Amalfi Marina", duration: "75-90 min", cost: "\u20AC18-24", note: "Scenic but weather-dependent. Runs Apr-Oct." },
+    alternative: { mode: "ferry", operator: "Alilauro / NLG", from: "Napoli Molo Beverello", to: "Amalfi Marina", duration: "75-90 min", cost: "\u20AC18-24 (~$20-26)", note: "Scenic but weather-dependent. Runs Apr-Oct." },
     totalDuration: "2-2.5 hrs",
-    totalCost: "\u20AC7-24",
+    totalCost: "\u20AC7-24 (~$8-26)",
     tips: [
       "No direct train to the Amalfi Coast",
       "Circumvesuviana can be crowded \u2014 guard valuables",
-      "Campania Express (~\u20AC15) is a comfort upgrade with A/C",
+      "Campania Express (~\u20AC15 / $16) is a comfort upgrade with A/C",
       "SITA buses are standing-room in August \u2014 go early",
       "Sit on the right side of the bus for sea views",
     ],
@@ -232,12 +115,12 @@ const legs: Leg[] = [
     from: "Amalfi Coast",
     to: "Rome",
     segments: [
-      { mode: "bus", type: "SITA Sud #5020", operator: "SITA Sud", from: "Amalfi / Positano bus stop", to: "Salerno Centrale", duration: "75 min", cost: "\u20AC2.60", reservationRequired: false },
-      { mode: "train", type: "Frecciarossa", operator: "Trenitalia", from: "Salerno Centrale", to: "Roma Termini", duration: "1h 23min - 2h 10min", cost: "\u20AC15-45", reservationRequired: true },
+      { mode: "bus", type: "SITA Sud #5020", operator: "SITA Sud", from: "Amalfi / Positano bus stop", to: "Salerno Centrale", duration: "75 min", cost: "\u20AC2.60 (~$3)", reservationRequired: false },
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia", from: "Salerno Centrale", to: "Roma Termini", duration: "1h 23min - 2h 10min", cost: "\u20AC15-45 (~$16-49)", reservationRequired: true },
     ],
-    alternative: { mode: "ferry", operator: "TravelMar / Alilauro", from: "Amalfi Marina", to: "Salerno Port", duration: "35 min", cost: "\u20AC8-10", note: "Faster than the bus to Salerno. Seasonal Apr-Oct." },
+    alternative: { mode: "ferry", operator: "TravelMar / Alilauro", from: "Amalfi Marina", to: "Salerno Port", duration: "35 min", cost: "\u20AC8-10 (~$9-11)", note: "Faster than the bus to Salerno. Seasonal Apr-Oct." },
     totalDuration: "2.5-3.5 hrs",
-    totalCost: "\u20AC18-48",
+    totalCost: "\u20AC18-48 (~$20-52)",
     tips: [
       "Go via Salerno, not back through Naples \u2014 faster",
       "Book Frecciarossa Super Economy 60-90 days ahead for best price",
@@ -261,10 +144,10 @@ const legs: Leg[] = [
     from: "Rome",
     to: "Florence",
     segments: [
-      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Roma Termini", to: "Firenze S.M.N.", duration: "1h 32min - 1h 45min", cost: "\u20AC15-50", reservationRequired: true },
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Roma Termini", to: "Firenze S.M.N.", duration: "1h 32min - 1h 45min", cost: "\u20AC15-50 (~$16-55)", reservationRequired: true },
     ],
     totalDuration: "1h 32min",
-    totalCost: "\u20AC15-50",
+    totalCost: "\u20AC15-50 (~$16-55)",
     tips: [
       "Italy\u2019s busiest high-speed route \u2014 49 direct trains/day",
       "Compare Trenitalia and Italo prices \u2014 Italo often cheaper",
@@ -287,16 +170,16 @@ const legs: Leg[] = [
     from: "Florence",
     to: "Cinque Terre",
     segments: [
-      { mode: "train", type: "Regionale Veloce", operator: "Trenitalia", from: "Firenze S.M.N.", to: "La Spezia Centrale", duration: "2h 00min - 2h 34min", cost: "\u20AC10-16", reservationRequired: false },
+      { mode: "train", type: "Regionale Veloce", operator: "Trenitalia", from: "Firenze S.M.N.", to: "La Spezia Centrale", duration: "2h 00min - 2h 34min", cost: "\u20AC10-16 (~$11-17)", reservationRequired: false },
     ],
     totalDuration: "2h - 2h 34min",
-    totalCost: "\u20AC10-25",
+    totalCost: "\u20AC10-25 (~$11-27)",
     tips: [
       "Regional trains are cheapest \u2014 no reservation needed",
       "Some routes change at Pisa Centrale \u2014 check for direct",
       "~7 direct trains per day",
       "From La Spezia, Cinque Terre Express connects all 5 villages",
-      "Cinque Terre Card: ~\u20AC16/day for unlimited trains + park access",
+      "Cinque Terre Card: ~\u20AC16/day ($17) for unlimited trains + park access",
     ],
     route: {
       waypoints: [
@@ -315,11 +198,11 @@ const legs: Leg[] = [
     from: "Cinque Terre",
     to: "Venice",
     segments: [
-      { mode: "train", type: "InterCity / Frecciabianca", operator: "Trenitalia", from: "La Spezia Centrale", to: "Milano Centrale", duration: "2h 30min - 3h", cost: "\u20AC18-30", reservationRequired: true },
-      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Milano Centrale", to: "Venezia Santa Lucia", duration: "2h 25min", cost: "\u20AC15-45", reservationRequired: true },
+      { mode: "train", type: "InterCity / Frecciabianca", operator: "Trenitalia", from: "La Spezia Centrale", to: "Milano Centrale", duration: "2h 30min - 3h", cost: "\u20AC18-30 (~$20-33)", reservationRequired: true },
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Milano Centrale", to: "Venezia Santa Lucia", duration: "2h 25min", cost: "\u20AC15-45 (~$16-49)", reservationRequired: true },
     ],
     totalDuration: "5-6 hrs (incl. transfer)",
-    totalCost: "\u20AC33-75",
+    totalCost: "\u20AC33-75 (~$36-82)",
     tips: [
       "No direct train \u2014 transfer in Milan is fastest",
       "Allow 30-45 min for transfer at Milano Centrale",
@@ -352,12 +235,12 @@ const generalTips = [
 
 const modeIcons = { train: Train, bus: Bus, ferry: Ship };
 const modeColors = {
-  train: { bg: "bg-navy/10", text: "text-navy", border: "border-navy/20" },
-  bus: { bg: "bg-olive/10", text: "text-olive", border: "border-olive/20" },
-  ferry: { bg: "bg-terracotta/10", text: "text-terracotta", border: "border-terracotta/20" },
+  train: { bg: "bg-navy/10", text: "text-navy" },
+  bus: { bg: "bg-olive/10", text: "text-olive" },
+  ferry: { bg: "bg-terracotta/10", text: "text-terracotta" },
 };
 
-/* ── Legend dot ─────────────────────────────────────────────── */
+/* ── Legend ─────────────────────────────────────────────────── */
 
 function ModeLegend() {
   return (
@@ -392,7 +275,7 @@ export default function Transportation() {
         </h2>
         <p className="text-sm text-gray-400 mt-1">
           Trains, buses & ferries between each destination &middot; Est. total:{" "}
-          <span className="font-medium text-olive">&euro;83-222 per person</span>
+          <span className="font-medium text-olive">&euro;83-222 (~$91-242) per person</span>
         </p>
       </div>
 
@@ -462,8 +345,8 @@ export default function Transportation() {
                   {/* Map + Segments side by side */}
                   <div className="flex flex-col lg:flex-row gap-4 mt-4">
                     {/* Mini route map */}
-                    <div className="lg:w-[280px] h-[200px] lg:h-auto lg:min-h-[220px] rounded-xl overflow-hidden border border-gray-100 shrink-0">
-                      <RouteMapInner
+                    <div className="lg:w-[300px] h-[220px] lg:h-auto lg:min-h-[240px] rounded-xl overflow-hidden border border-gray-100 shrink-0">
+                      <RouteMap
                         waypoints={leg.route.waypoints}
                         labels={leg.route.labels}
                         modeColors={leg.route.colors}
