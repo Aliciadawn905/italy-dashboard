@@ -2,12 +2,155 @@
 
 import { useState } from "react";
 import { ItineraryDay } from "@/lib/types";
-import { Plus, MapPin, Trash2, Home } from "lucide-react";
+import {
+  Plus,
+  MapPin,
+  Trash2,
+  Home,
+  Sun,
+  Sunset,
+  Moon,
+  Users,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import AddItemModal, {
   FormField,
   inputClass,
   btnPrimary,
 } from "./AddItemModal";
+
+interface SuggestedDay {
+  day: number;
+  city: string;
+  who: string;
+  morning: string;
+  afternoon: string;
+  evening: string;
+}
+
+const suggestedItinerary: SuggestedDay[] = [
+  {
+    day: 1,
+    city: "Amalfi Coast",
+    who: "Alicia & Jamie",
+    morning: "Arrive Naples, transfer to Positano/Ravello",
+    afternoon: "Check in, settle, explore the area",
+    evening: "Evening stroll, first seafood dinner",
+  },
+  {
+    day: 2,
+    city: "Amalfi Coast",
+    who: "Alicia & Jamie",
+    morning: "Boat tour along the coast",
+    afternoon: "Positano shopping & beach",
+    evening: "Villa Rufolo sunset (Ravello)",
+  },
+  {
+    day: 3,
+    city: "Amalfi Coast",
+    who: "Alicia & Jamie",
+    morning: "Valle dei Mulini hike (Amalfi)",
+    afternoon: "Amalfi town, Duomo, limoncello tasting",
+    evening: "Departure prep for Tuscany",
+  },
+  {
+    day: 4,
+    city: "Tuscany / Chianti",
+    who: "Alicia & Jamie",
+    morning: "Drive/transfer to Chianti. Check in, settle",
+    afternoon: "Tenuta Casanova wine tasting (book in advance!)",
+    evening: "Dinner at estate or local trattoria",
+  },
+  {
+    day: 5,
+    city: "Tuscany / Chianti",
+    who: "Alicia & Jamie",
+    morning: "Antinori nel Chianti Classico winery",
+    afternoon: "Drive to Siena, Piazza del Campo. Optional: San Gimignano towers",
+    evening: "Return to Chianti, local dinner",
+  },
+  {
+    day: 6,
+    city: "Florence",
+    who: "Alicia & Jamie",
+    morning: "Arrive Florence, check in",
+    afternoon: "Uffizi Galleries (3–4 hrs)",
+    evening: "Ponte Vecchio, Oltrarno neighborhood dinner",
+  },
+  {
+    day: 7,
+    city: "Florence",
+    who: "Alicia & Jamie",
+    morning: "Duomo + Dome climb (Brunelleschi)",
+    afternoon: "Accademia Gallery (David), leather market",
+    evening: "Piazzale Michelangelo sunset. Departure prep for Rome",
+  },
+  {
+    day: 8,
+    city: "Rome",
+    who: "Full group",
+    morning: "Colosseum + Roman Forum",
+    afternoon: "Palatine Hill",
+    evening: "Dinner in Trastevere",
+  },
+  {
+    day: 9,
+    city: "Rome",
+    who: "Full group",
+    morning: "Vatican Museums + Sistine Chapel (8am slot)",
+    afternoon: "St. Peter's Basilica + dome climb",
+    evening: "Castel Sant'Angelo walk",
+  },
+  {
+    day: 10,
+    city: "Rome",
+    who: "Full group",
+    morning: "Trevi Fountain (early), Pantheon",
+    afternoon: "Piazza Navona, Campo de' Fiori",
+    evening: "Final Rome dinner — birthday celebration option",
+  },
+  {
+    day: 11,
+    city: "Venice",
+    who: "Full group",
+    morning: "Train Rome → Venice",
+    afternoon: "Arrive, Vaporetto Line 1 orientation ride",
+    evening: "First Venice wander",
+  },
+  {
+    day: 12,
+    city: "Venice",
+    who: "Full group",
+    morning: "Piazza San Marco, St. Mark's Basilica, Doge's Palace",
+    afternoon: "Rialto Bridge + market",
+    evening: "Gondola ride (birthday splurge!)",
+  },
+  {
+    day: 13,
+    city: "Venice",
+    who: "Full group",
+    morning: "Murano Island (glass-blowing)",
+    afternoon: "Cannaregio neighborhood, cicchetti bar hop",
+    evening: "Final celebratory dinner",
+  },
+  {
+    day: 14,
+    city: "Venice",
+    who: "Full group",
+    morning: "Last Venice stroll",
+    afternoon: "Depart from Venice Marco Polo Airport",
+    evening: "",
+  },
+];
+
+const cityColors: Record<string, string> = {
+  "Amalfi Coast": "bg-terracotta/10 text-terracotta",
+  "Tuscany / Chianti": "bg-olive/10 text-olive",
+  "Florence": "bg-gold/10 text-gold-dark",
+  "Rome": "bg-navy/10 text-navy",
+  "Venice": "bg-italian-green/10 text-italian-green",
+};
 
 interface ItineraryProps {
   days: ItineraryDay[];
@@ -18,6 +161,8 @@ interface ItineraryProps {
 
 export default function Itinerary({ days, onAdd, onUpdate, onRemove }: ItineraryProps) {
   const [showModal, setShowModal] = useState(false);
+  const [showSuggested, setShowSuggested] = useState(true);
+  const [showCustom, setShowCustom] = useState(true);
   const [form, setForm] = useState({
     date: "",
     city: "",
@@ -51,65 +196,143 @@ export default function Itinerary({ days, onAdd, onUpdate, onRemove }: Itinerary
         </button>
       </div>
 
-      {sorted.length === 0 ? (
-        <div className="text-center py-12 bg-cream rounded-2xl">
-          <MapPin className="w-8 h-8 text-terracotta/40 mx-auto mb-2" />
-          <p className="text-gray-400 text-sm">
-            No itinerary days yet. Start planning your route!
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {sorted.map((day, i) => (
-            <div
-              key={day.id}
-              className="bg-white rounded-xl border border-gray-100 p-5 card-hover"
-            >
-              <div className="flex items-start justify-between">
+      {/* Suggested 14-Day Plan */}
+      <div>
+        <button
+          onClick={() => setShowSuggested(!showSuggested)}
+          className="flex items-center gap-2 mb-3 cursor-pointer"
+        >
+          {showSuggested ? (
+            <ChevronUp className="w-4 h-4 text-gray-400" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-gray-400" />
+          )}
+          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
+            Suggested 14-Day Plan
+          </h3>
+        </button>
+
+        {showSuggested && (
+          <div className="space-y-2">
+            {suggestedItinerary.map((day) => (
+              <div
+                key={day.day}
+                className="bg-white rounded-xl border border-gray-100 p-4"
+              >
                 <div className="flex items-start gap-3">
                   <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 rounded-full bg-terracotta/10 flex items-center justify-center text-terracotta font-serif font-bold text-sm">
-                      {i + 1}
+                    <div className="w-8 h-8 rounded-full bg-terracotta/10 flex items-center justify-center text-terracotta font-serif font-bold text-sm tabular-nums">
+                      {day.day}
                     </div>
-                    {i < sorted.length - 1 && (
-                      <div className="w-px h-6 bg-gray-200 mt-1" />
-                    )}
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-2">
                       <span className="font-medium text-gray-800">
-                        {day.city || "City TBD"}
+                        {day.city}
                       </span>
-                      {day.date && (
-                        <span className="text-xs text-gray-400">
-                          {new Date(day.date + "T12:00:00").toLocaleDateString("en-US", {
-                            weekday: "short",
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </span>
+                      <span
+                        className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                          cityColors[day.city] || "bg-gray-100 text-gray-600"
+                        }`}
+                      >
+                        {day.who}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                      <div className="flex items-start gap-1.5">
+                        <Sun className="w-3 h-3 text-gold mt-0.5 shrink-0" />
+                        <span className="text-gray-600">{day.morning}</span>
+                      </div>
+                      <div className="flex items-start gap-1.5">
+                        <Sunset className="w-3 h-3 text-terracotta mt-0.5 shrink-0" />
+                        <span className="text-gray-600">{day.afternoon}</span>
+                      </div>
+                      {day.evening && (
+                        <div className="flex items-start gap-1.5">
+                          <Moon className="w-3 h-3 text-navy mt-0.5 shrink-0" />
+                          <span className="text-gray-600">{day.evening}</span>
+                        </div>
                       )}
                     </div>
-                    {day.accommodation && (
-                      <div className="flex items-center gap-1 text-xs text-gray-400 mb-1">
-                        <Home className="w-3 h-3" />
-                        {day.accommodation}
-                      </div>
-                    )}
-                    {day.notes && (
-                      <p className="text-sm text-gray-500 mt-1">{day.notes}</p>
-                    )}
                   </div>
                 </div>
-                <button
-                  onClick={() => onRemove(day.id)}
-                  className="p-1.5 hover:bg-red-50 rounded-lg transition-colors"
-                >
-                  <Trash2 className="w-3.5 h-3.5 text-gray-400 hover:text-red-500" />
-                </button>
               </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Custom/User-Added Days */}
+      {sorted.length > 0 && (
+        <div>
+          <button
+            onClick={() => setShowCustom(!showCustom)}
+            className="flex items-center gap-2 mb-3 cursor-pointer"
+          >
+            {showCustom ? (
+              <ChevronUp className="w-4 h-4 text-gray-400" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-gray-400" />
+            )}
+            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
+              Your Custom Days
+            </h3>
+          </button>
+
+          {showCustom && (
+            <div className="space-y-3">
+              {sorted.map((day, i) => (
+                <div
+                  key={day.id}
+                  className="bg-white rounded-xl border border-gray-100 p-5 card-hover"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start gap-3">
+                      <div className="flex flex-col items-center">
+                        <div className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center text-olive font-serif font-bold text-sm">
+                          {i + 1}
+                        </div>
+                        {i < sorted.length - 1 && (
+                          <div className="w-px h-6 bg-gray-200 mt-1" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-medium text-gray-800">
+                            {day.city || "City TBD"}
+                          </span>
+                          {day.date && (
+                            <span className="text-xs text-gray-400">
+                              {new Date(day.date + "T12:00:00").toLocaleDateString("en-US", {
+                                weekday: "short",
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </span>
+                          )}
+                        </div>
+                        {day.accommodation && (
+                          <div className="flex items-center gap-1 text-xs text-gray-400 mb-1">
+                            <Home className="w-3 h-3" />
+                            {day.accommodation}
+                          </div>
+                        )}
+                        {day.notes && (
+                          <p className="text-sm text-gray-500 mt-1">{day.notes}</p>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => onRemove(day.id)}
+                      className="p-1.5 hover:bg-red-50 rounded-lg transition-colors"
+                    >
+                      <Trash2 className="w-3.5 h-3.5 text-gray-400 hover:text-red-500" />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       )}
 

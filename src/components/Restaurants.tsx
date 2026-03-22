@@ -2,13 +2,93 @@
 
 import { useState } from "react";
 import { Restaurant } from "@/lib/types";
-import { Plus, Heart, Trash2, ExternalLink, UtensilsCrossed } from "lucide-react";
+import { Plus, Heart, Trash2, ExternalLink, UtensilsCrossed, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import AddItemModal, {
   FormField,
   inputClass,
   selectClass,
   btnPrimary,
 } from "./AddItemModal";
+
+interface FoodRec {
+  name: string;
+  category: string;
+  price: string;
+  mustTry: string;
+  vibe: string;
+  reservation: boolean;
+}
+
+interface CityFood {
+  city: string;
+  week: string;
+  recs: FoodRec[];
+}
+
+const foodGuide: CityFood[] = [
+  {
+    city: "Amalfi Coast",
+    week: "Week 1 — Relaxing",
+    recs: [
+      { name: "Lo Scoglio (Marina del Cantone)", category: "Fine Dining", price: "€€€", mustTry: "Spaghetti alle vongole", vibe: "Seafood temple on the water. Perfect for a relaxed long lunch.", reservation: true },
+      { name: "Da Adolfo (Positano)", category: "Beach Restaurant", price: "€€", mustTry: "Fresh grilled fish", vibe: "Boat-access only! Take the free red-pennant boat. Utterly relaxing.", reservation: false },
+      { name: "Villa Maria Restaurant (Ravello)", category: "Fine Dining", price: "€€€", mustTry: "Tasting menu with local wine", vibe: "Elegant terrace overlooking the valley. Perfect for a special dinner.", reservation: true },
+      { name: "Bar dell'Hotel Caruso (Ravello)", category: "Bar", price: "€€", mustTry: "Aperol Spritz with infinity pool views", vibe: "Ultimate relaxation aperitivo spot", reservation: false },
+      { name: "Sfogliatella + pizza fritta in Amalfi town", category: "Street Food", price: "€", mustTry: "Sfogliatella (flaky pastry)", vibe: "Casual wandering and tasting", reservation: false },
+    ],
+  },
+  {
+    city: "Tuscany / Chianti",
+    week: "Week 1 — Relaxing",
+    recs: [
+      { name: "Osteria di Passignano", category: "Fine Dining", price: "€€€", mustTry: "Anything from the wine cellar pairing menu", vibe: "Inside a 1,000-year-old wine cellar. Reserve months ahead. Unforgettable.", reservation: true },
+      { name: "Dario Cecchini's Solociccia (Panzano)", category: "Fine Dining", price: "€€€", mustTry: "Fixed-menu meat feast", vibe: "World-famous butcher's restaurant. A show and a meal. Must book.", reservation: true },
+      { name: "Trattoria del Montagliari (Panzano)", category: "Trattoria", price: "€€", mustTry: "Bistecca Fiorentina", vibe: "Old-world Chianti trattoria. Rustic, relaxed, perfect.", reservation: false },
+      { name: "Gelato in San Gimignano", category: "Street Food", price: "€", mustTry: "Award-winning artisan gelato", vibe: "Wander the medieval towers with a cone in hand", reservation: false },
+    ],
+  },
+  {
+    city: "Florence",
+    week: "Week 1 — Relaxing",
+    recs: [
+      { name: "Buca Mario (near Uffizi)", category: "Fine Dining", price: "€€€", mustTry: "Bistecca Fiorentina for two", vibe: "Florence's oldest restaurant. Perfect for a special evening.", reservation: true },
+      { name: "Il Latini (Oltrarno)", category: "Trattoria", price: "€€", mustTry: "Anything — communal tables, boisterous, traditional", vibe: "No reservations, queue early. An experience more than just dinner.", reservation: false },
+      { name: "All'Antico Vinaio", category: "Street Food", price: "€", mustTry: "Schiacciata panino stuffed with cured meats", vibe: "Best sandwich in Florence. Insanely popular, queues move fast.", reservation: false },
+      { name: "Vivoli", category: "Gelato", price: "€€", mustTry: "Rice flavor (riso)", vibe: "Florence's most historic gelateria since 1930", reservation: false },
+      { name: "Oltrarno neighborhood restaurants", category: "Trattoria", price: "€€", mustTry: "Wander via dei Serragli for authentic spots", vibe: "Most authentic restaurants are south of the Arno", reservation: false },
+    ],
+  },
+  {
+    city: "Rome",
+    week: "Week 2 — Family Sightseeing",
+    recs: [
+      { name: "Da Enzo al 29 (Trastevere)", category: "Trattoria", price: "€€", mustTry: "Cacio e pepe + carbonara", vibe: "Tiny, perfect Roman trattoria. The family will love it.", reservation: false },
+      { name: "Roscioli (Campo de' Fiori)", category: "Wine Bar", price: "€€", mustTry: "Charcuterie board + house wines", vibe: "Part deli, part wine bar, part restaurant. Extraordinary.", reservation: true },
+      { name: "Pizzarium (Prati, near Vatican)", category: "Street Food", price: "€", mustTry: "Pizza al taglio (by the slice)", vibe: "Rome's best pizza. Perfect quick lunch after the Vatican.", reservation: false },
+      { name: "Grazia & Graziella (Trastevere)", category: "Trattoria", price: "€€", mustTry: "Pasta all'amatriciana", vibe: "Family-run, cash only, soul of Rome. The kids will love it.", reservation: false },
+      { name: "Fatamorgana (near Navona)", category: "Gelato", price: "€", mustTry: "Creative seasonal flavors", vibe: "Best creative gelato in Rome", reservation: false },
+      { name: "Aperitivo in Campo de' Fiori", category: "Bar", price: "€€", mustTry: "Negroni or Aperol Spritz around 6–7pm", vibe: "Classic Roman evening ritual. People watching at its finest.", reservation: false },
+    ],
+  },
+  {
+    city: "Venice",
+    week: "Week 2 — Family Sightseeing",
+    recs: [
+      { name: "Alle Testiere", category: "Fine Dining", price: "€€€", mustTry: "Tasting menu — only 22 seats", vibe: "Venice's best small seafood restaurant. Reserve 2+ weeks ahead.", reservation: true },
+      { name: "Osteria Al Squero (Dorsoduro)", category: "Wine Bar", price: "€€", mustTry: "Cicchetti + prosecco by the canal", vibe: "In front of a gondola workshop. Most charming bacaro in Venice.", reservation: false },
+      { name: "Cantina Do Mori (near Rialto)", category: "Wine Bar", price: "€€", mustTry: "Stand-up cicchetti + prosecco", vibe: "Venice's oldest wine bar since 1462. Tiny, authentic, unforgettable.", reservation: false },
+      { name: "Trattoria alla Madonna", category: "Trattoria", price: "€€", mustTry: "Risotto al nero di seppia (squid ink)", vibe: "Old-school Venetian. Best for families. Big portions.", reservation: false },
+      { name: "Cicchetti bar hop in Cannaregio", category: "Experience", price: "€€", mustTry: "Small plates + ombra at 5–6 bars in a row", vibe: "The local way to eat dinner in Venice. Fun for the whole family.", reservation: false },
+      { name: "Suso (near Rialto)", category: "Gelato", price: "€", mustTry: "Pistachio or seasonal fruit", vibe: "Best gelato in Venice", reservation: false },
+    ],
+  },
+];
+
+const recPriceColors: Record<string, string> = {
+  "€": "text-italian-green",
+  "€€": "text-olive",
+  "€€€": "text-gold-dark",
+};
 
 interface RestaurantsProps {
   restaurants: Restaurant[];
@@ -58,10 +138,12 @@ export default function Restaurants({
 
   const cities = [...new Set(restaurants.map((r) => r.city).filter(Boolean))];
 
+  const [showGuide, setShowGuide] = useState(true);
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-xl font-semibold text-navy">Restaurants</h2>
+        <h2 className="font-serif text-xl font-semibold text-navy">Food & Drink</h2>
         <button
           onClick={() => setShowModal(true)}
           className="flex items-center gap-1.5 px-3 py-2 bg-terracotta text-white rounded-lg text-sm font-medium hover:bg-terracotta-dark transition-colors"
@@ -70,6 +152,68 @@ export default function Restaurants({
           Add Restaurant
         </button>
       </div>
+
+      {/* Recommended Dining Guide */}
+      <div>
+        <button
+          onClick={() => setShowGuide(!showGuide)}
+          className="flex items-center gap-2 mb-3 cursor-pointer"
+        >
+          {showGuide ? (
+            <ChevronUp className="w-4 h-4 text-gray-400" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-gray-400" />
+          )}
+          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-gold" />
+            Dining Guide by City
+          </h3>
+        </button>
+
+        {showGuide && (
+          <div className="space-y-4">
+            {foodGuide.map((city) => (
+              <div key={city.city} className="bg-white rounded-xl border border-gray-100 p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-serif font-semibold text-navy text-sm">{city.city}</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-olive/10 text-olive font-medium">
+                    {city.week}
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {city.recs.map((rec) => (
+                    <div key={rec.name} className="bg-cream rounded-lg p-3">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-gray-800 text-xs">{rec.name}</span>
+                        <span className={`text-[10px] font-medium ${recPriceColors[rec.price] || "text-gray-500"}`}>
+                          {rec.price}
+                        </span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">
+                          {rec.category}
+                        </span>
+                        {rec.reservation && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-italian-red/10 text-italian-red font-medium">
+                            Reserve
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-[11px] text-gray-500 mt-1">
+                        <span className="font-medium text-terracotta">Must try:</span> {rec.mustTry}
+                      </p>
+                      <p className="text-[11px] text-gray-400 mt-0.5 italic">{rec.vibe}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* User's Saved Restaurants */}
+      <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">
+        Your Saved Restaurants
+      </h3>
 
       {restaurants.length === 0 ? (
         <div className="text-center py-12 bg-cream rounded-2xl">

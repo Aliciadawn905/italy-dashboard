@@ -95,7 +95,7 @@ export default function RouteMap({ waypoints, labels, modeColors: segColors }: R
       style={{ height: "100%", width: "100%", borderRadius: 12 }}
       attributionControl={false}
     >
-      <TileLayer url="https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png" />
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <FitBounds bounds={allPoints} />
       {waypoints.map((pts, i) => {
         const mode = colorToMode[segColors[i]] || "train";

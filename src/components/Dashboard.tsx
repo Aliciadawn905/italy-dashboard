@@ -13,6 +13,10 @@ import Restaurants from "@/components/Restaurants";
 import Activities from "@/components/Activities";
 import Notes from "@/components/Notes";
 import Transportation from "@/components/Transportation";
+import Destinations from "@/components/Destinations";
+import Hotels from "@/components/Hotels";
+import Checklist from "@/components/Checklist";
+import BudgetTracker from "@/components/BudgetTracker";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
 const ItalyMap = dynamic(() => import("@/components/ItalyMap"), {
@@ -103,6 +107,10 @@ export default function Dashboard() {
                 onRemove={activities.remove}
               />
             )}
+            {activeTab === "destinations" && <Destinations />}
+            {activeTab === "hotels" && <Hotels />}
+            {activeTab === "checklist" && <Checklist />}
+            {activeTab === "budget" && <BudgetTracker />}
             {activeTab === "transport" && <Transportation />}
             {activeTab === "notes" && (
               <Notes

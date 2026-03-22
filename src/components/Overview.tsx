@@ -22,67 +22,65 @@ const destinations = [
   },
   {
     name: "Amalfi Coast",
-    subtitle: "Coastal paradise",
+    subtitle: "Coastal paradise · Days 1–3",
     image: "https://images.unsplash.com/photo-1768322264453-ff345b170a52?w=800&q=80",
     sites: [
-      { name: "Positano", icon: Camera, desc: "Iconic pastel-colored cliffside village with pebble beaches" },
-      { name: "Ravello", icon: Star, desc: "Hilltop town with stunning gardens and Villa Rufolo" },
-      { name: "Path of the Gods", icon: Camera, desc: "Breathtaking coastal hiking trail between Agerola and Positano" },
-      { name: "Amalfi Cathedral", icon: Church, desc: "9th-century cathedral with Arab-Norman architecture" },
-      { name: "Emerald Grotto", icon: Ship, desc: "Sea cave with emerald-green water illuminated by light" },
-      { name: "Limoncello Tasting", icon: Wine, desc: "Sample the famous lemon liqueur made from local Sfusato lemons" },
+      { name: "Positano Village", icon: Camera, desc: "Iconic pastel-colored cliffside village — best photos early morning or evening" },
+      { name: "Villa Rufolo, Ravello", icon: Star, desc: "Stunning gardens with panoramic sea views. €8 entry, daily 9am–4:30pm" },
+      { name: "Valle dei Mulini Hike", icon: Camera, desc: "1km trail to waterfalls through ruins of old paper mills — wear good shoes" },
+      { name: "Amalfi Cathedral", icon: Church, desc: "Arab-Norman architecture reflecting Amalfi's medieval trading history" },
+      { name: "Boat Tour", icon: Ship, desc: "Morning is best (calmer seas). €40–120/person. Private gives flexibility for caves and beaches" },
+      { name: "Limoncello Tasting", icon: Wine, desc: "Buy direct from local producers along SS163 coastal road — free to €5" },
+    ],
+  },
+  {
+    name: "Tuscany / Chianti",
+    subtitle: "Rolling hills & wine · Days 4–5",
+    image: "https://images.unsplash.com/photo-1611264788618-39f1adb1342f?w=800&q=80",
+    sites: [
+      { name: "Tenuta Casanova", icon: Wine, desc: "5-star family-run estate — balsamic, olive oil + wine tasting. €35–60, book 1–2 weeks ahead" },
+      { name: "Antinori nel Chianti Classico", icon: Wine, desc: "Stunning architecture — vineyard grows over the roof. €25–55, weekday mornings best" },
+      { name: "Piazza del Campo, Siena", icon: Landmark, desc: "Medieval shell-shaped piazza — most atmospheric in the evening" },
+      { name: "San Gimignano", icon: Camera, desc: "Medieval towers and award-winning gelato. Go morning before day-trippers arrive" },
+      { name: "Chiantigiana Road (SR222)", icon: Camera, desc: "One of Italy's most scenic drives — stop at roadside cantinas for tastings" },
+    ],
+  },
+  {
+    name: "Florence",
+    subtitle: "Renaissance masterpieces · Days 6–7",
+    image: "https://images.unsplash.com/photo-1541370976299-4d24ebbc9077?w=800&q=80",
+    sites: [
+      { name: "Uffizi Galleries", icon: Palette, desc: "Botticelli's Birth of Venus. €20, book 2–4 weeks ahead. Closed Mondays. Allow 3+ hrs" },
+      { name: "Duomo + Dome Climb", icon: Church, desc: "Brunelleschi's dome — 463 steps, incredible views. €20 combined pass. Book dome slot in advance" },
+      { name: "Accademia Gallery", icon: Palette, desc: "Michelangelo's David — more impressive in person than any photo. €16, book ahead" },
+      { name: "Ponte Vecchio", icon: Landmark, desc: "Iconic bridge — dawn for empty photos, sunset for golden light" },
+      { name: "Piazzale Michelangelo", icon: Camera, desc: "Panoramic sunset viewpoint — bring wine and snacks, everyone does" },
     ],
   },
   {
     name: "Rome",
-    subtitle: "The Eternal City",
+    subtitle: "The Eternal City · Days 8–10",
     image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80",
     sites: [
-      { name: "Colosseum", icon: Landmark, desc: "Iconic amphitheater and symbol of Imperial Rome" },
-      { name: "Vatican Museums & Sistine Chapel", icon: Palette, desc: "Michelangelo's masterpiece ceiling and vast art collections" },
-      { name: "Trevi Fountain", icon: Star, desc: "Baroque fountain — throw a coin to guarantee your return" },
-      { name: "Roman Forum", icon: Landmark, desc: "Ruins of ancient government buildings in the heart of Rome" },
-      { name: "Trastevere", icon: Wine, desc: "Charming neighborhood with cobblestone streets and great restaurants" },
-      { name: "Pantheon", icon: Church, desc: "Best-preserved ancient Roman building with its famous dome" },
-    ],
-  },
-  {
-    name: "Tuscany",
-    subtitle: "Rolling hills & wine",
-    image: "https://images.unsplash.com/photo-1611264788618-39f1adb1342f?w=800&q=80",
-    sites: [
-      { name: "Florence Cathedral (Duomo)", icon: Church, desc: "Brunelleschi's dome — climb 463 steps for incredible views" },
-      { name: "Uffizi Gallery", icon: Palette, desc: "Botticelli's Birth of Venus and Renaissance masterpieces" },
-      { name: "Chianti Wine Region", icon: Wine, desc: "Rolling vineyards, wine tastings, and Tuscan farmhouse lunches" },
-      { name: "Siena & Piazza del Campo", icon: Landmark, desc: "Medieval shell-shaped piazza and Gothic cathedral" },
-      { name: "San Gimignano", icon: Camera, desc: "Medieval hilltop town famous for its towers and gelato" },
-      { name: "Val d'Orcia", icon: Camera, desc: "UNESCO landscape of cypress-lined roads and golden fields" },
-    ],
-  },
-  {
-    name: "Cinque Terre",
-    subtitle: "Colorful villages",
-    image: "https://images.unsplash.com/photo-1514890547357-a9ee288728e0?w=800&q=80",
-    sites: [
-      { name: "Monterosso al Mare", icon: Camera, desc: "Largest village with the best beach and old town charm" },
-      { name: "Vernazza Harbor", icon: Ship, desc: "Most photogenic village with a tiny harbor and castle ruins" },
-      { name: "Manarola", icon: Camera, desc: "Colorful houses stacked on cliffs — stunning at sunset" },
-      { name: "Sentiero Azzurro Trail", icon: Star, desc: "Coastal hiking trail connecting all five villages" },
-      { name: "Corniglia", icon: Wine, desc: "Quiet hilltop village surrounded by vineyards and terraces" },
-      { name: "Riomaggiore", icon: Camera, desc: "Southernmost village with dramatic cliffside setting" },
+      { name: "Colosseum + Forum + Palatine Hill", icon: Landmark, desc: "€18 combo ticket. Book skip-the-line. 8:30am opening to beat crowds" },
+      { name: "Vatican Museums + Sistine Chapel", icon: Palette, desc: "€20. Get 8am slot — go straight to Sistine Chapel first. Gallery of Maps is a highlight" },
+      { name: "St. Peter's Basilica", icon: Church, desc: "Free entry, €8 dome climb. Arrive before 9am. Michelangelo's Pietà is to the right" },
+      { name: "Trevi Fountain", icon: Star, desc: "Go 6–7am (nearly deserted) or 10pm (beautiful lighting). Two coins = return + love" },
+      { name: "Pantheon", icon: Church, desc: "€5. Engineering marvel — when it rains, the floor drains perfectly through the oculus" },
+      { name: "Trastevere", icon: Wine, desc: "Most charming neighborhood for dinner — cobblestone streets, ivy-covered buildings" },
     ],
   },
   {
     name: "Venice",
-    subtitle: "Grand finale",
+    subtitle: "Grand finale · Days 11–14",
     image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800&q=80",
     sites: [
-      { name: "St. Mark's Basilica", icon: Church, desc: "Byzantine cathedral with golden mosaics on Piazza San Marco" },
-      { name: "Grand Canal by Vaporetto", icon: Ship, desc: "Ride the water bus past palaces, bridges, and gondolas" },
-      { name: "Rialto Bridge & Market", icon: Landmark, desc: "Iconic stone bridge and centuries-old fish and produce market" },
-      { name: "Doge's Palace", icon: Landmark, desc: "Gothic masterpiece and seat of Venetian power for 700 years" },
-      { name: "Murano & Burano Islands", icon: Palette, desc: "Murano for glass-blowing, Burano for rainbow-colored houses" },
-      { name: "Gondola Ride at Sunset", icon: Star, desc: "Classic Venetian experience through quiet canals" },
+      { name: "Grand Canal Vaporetto Ride", icon: Ship, desc: "Line 1 orientation ride — sit front or back. 45 min each way. Buy multi-day pass" },
+      { name: "St. Mark's Basilica + Piazza", icon: Church, desc: "Free basilica, free online reservation. Before 9am or after 5pm for fewer crowds" },
+      { name: "Doge's Palace", icon: Landmark, desc: "€25. 'Secret Itineraries' tour accesses rooms not open to general public" },
+      { name: "Rialto Bridge + Market", icon: Landmark, desc: "Bridge at sunrise for photos. Market 7–11am for fresh lagoon seafood and produce" },
+      { name: "Gondola Ride", icon: Star, desc: "€80–90 for 30 min. Official stands have fixed pricing. Late afternoon golden hour is perfect" },
+      { name: "Murano Island", icon: Palette, desc: "Free glass-blowing demonstrations. Vaporetto covered by pass. Great for all ages" },
     ],
   },
 ];
@@ -218,11 +216,11 @@ export default function Overview({
           Trip Route
         </h3>
         <div className="flex flex-wrap items-center gap-2 text-sm">
-          {["Naples", "Amalfi Coast", "Rome", "Tuscany", "Cinque Terre", "Venice"].map(
+          {["Naples", "Amalfi Coast", "Tuscany / Chianti", "Florence", "Rome", "Venice"].map(
             (city, i, arr) => (
               <span key={city} className="flex items-center gap-2">
                 <button
-                  onClick={() => onTabChange("map")}
+                  onClick={() => onTabChange("destinations")}
                   className="bg-terracotta/10 text-terracotta px-3 py-1 rounded-full text-sm font-medium hover:bg-terracotta/20 transition-colors cursor-pointer"
                 >
                   {city}
@@ -233,6 +231,20 @@ export default function Overview({
               </span>
             )
           )}
+        </div>
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="bg-cream rounded-lg p-3">
+            <div className="text-xs font-medium text-olive mb-1">Week 1 &middot; Days 1–7</div>
+            <p className="text-xs text-gray-600">
+              Amalfi Coast &rarr; Tuscany/Chianti &rarr; Florence
+            </p>
+          </div>
+          <div className="bg-cream rounded-lg p-3">
+            <div className="text-xs font-medium text-olive mb-1">Week 2 &middot; Days 8–14</div>
+            <p className="text-xs text-gray-600">
+              Rome &rarr; Venice &rarr; Departure
+            </p>
+          </div>
         </div>
       </div>
 

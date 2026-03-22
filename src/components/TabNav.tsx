@@ -10,16 +10,24 @@ import {
   StickyNote,
   Map,
   TrainFront,
+  Compass,
+  Hotel,
+  CheckSquare,
+  Euro,
 } from "lucide-react";
 
 const tabs: { id: TabId; label: string; icon: React.ElementType }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "flights", label: "Flights", icon: Plane },
   { id: "itinerary", label: "Itinerary", icon: Calendar },
-  { id: "restaurants", label: "Restaurants", icon: UtensilsCrossed },
-  { id: "activities", label: "Tours & Activities", icon: MapPin },
+  { id: "destinations", label: "Destinations", icon: Compass },
+  { id: "restaurants", label: "Food & Drink", icon: UtensilsCrossed },
+  { id: "activities", label: "Attractions", icon: MapPin },
+  { id: "hotels", label: "Hotels", icon: Hotel },
   { id: "transport", label: "Transport", icon: TrainFront },
-  { id: "notes", label: "Ideas & Notes", icon: StickyNote },
+  { id: "checklist", label: "Checklist", icon: CheckSquare },
+  { id: "budget", label: "Budget", icon: Euro },
+  { id: "notes", label: "Notes", icon: StickyNote },
   { id: "map", label: "Map", icon: Map },
 ];
 
