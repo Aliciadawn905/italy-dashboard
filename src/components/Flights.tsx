@@ -26,47 +26,74 @@ interface FlightOption {
 const flightOptions: FlightOption[] = [
   {
     id: "opt1",
-    label: "Return: Venice → Connect → Home",
-    airline: "American Airlines / ITA Airways / Delta",
-    routing: "Venice VCE → Connection city → DFW/LAX",
+    label: "Return: Venice → Philadelphia → LAX (AA)",
+    airline: "American Airlines",
+    routing: "VCE → PHL (nonstop) → LAX",
     details: [
-      "No nonstop flights from Venice to the US",
-      "Common connections: Rome FCO, London LHR, Paris CDG, Munich MUC",
-      "Total travel time: ~14–18 hrs depending on connection",
+      "AA715 · VCE → PHL nonstop · ~9h 15m · Boeing 787",
+      "Then PHL → LAX connection (~5h 30m)",
+      "Total travel: ~16-18 hrs with layover",
+      "Jamie connects PHL → DFW separately",
     ],
-    price: "~$500–$900 Economy one-way",
+    price: "~$700–$1,100 Economy one-way",
     pros: [
-      "Multiple connection options to choose from",
-      "Can fly home together if routing through same hub",
+      "Only one stop — no Venice backtracking",
+      "AA nonstop transatlantic leg from Venice",
+      "Same airline as outbound (AAdvantage miles/status)",
     ],
     cons: [
-      "All options require at least one stop",
-      "Longer travel day than outbound",
+      "Alicia and Jamie split at PHL",
+      "PHL layover adds time vs nonstop FCO",
     ],
+    recommended: true,
     person: "Together",
   },
   {
     id: "opt2",
-    label: "Return: Rome → Home",
-    airline: "American Airlines / ITA Airways / Delta",
-    routing: "Train Venice → Rome · Then Rome FCO → DFW/LAX",
+    label: "Return: Venice → Rome → LAX (ITA Airways)",
+    airline: "ITA Airways",
+    routing: "Train Venice → Rome · Then FCO → LAX nonstop",
     details: [
-      "High-speed train Venice → Rome (~3.5 hrs, from €20)",
-      "Multiple nonstop options from Rome FCO to US",
-      "AA: FCO → DFW nonstop · ITA/Delta: FCO → LAX nonstop",
+      "High-speed train Venice → Rome (~3h 45m, from €50)",
+      "ITA Airways FCO → LAX nonstop · ~13h 20m · A330/787",
+      "7 weekly nonstop flights — most popular on this route",
+      "Norse Atlantic also flies FCO → LAX nonstop",
     ],
-    price: "~$500–$800 Economy one-way + train",
+    price: "~$600–$1,000 Economy + ~€50 train",
     pros: [
-      "Nonstop transatlantic leg from Rome",
-      "More flight options than Venice",
-      "Could split at DFW — Jamie home, Alicia → LAX",
+      "Nonstop transatlantic leg — no US connection",
+      "One plane from Italy to LAX",
+      "ITA is the SkyTeam successor to Alitalia",
     ],
     cons: [
-      "Need to backtrack to Rome (3.5 hr train)",
-      "Extra logistics on departure day",
+      "Need to train back to Rome on departure day",
+      "Jamie would need separate routing home to DFW",
+      "Earlier start to make train + flight",
     ],
-    recommended: true,
-    person: "Together",
+    person: "Alicia",
+  },
+  {
+    id: "opt3",
+    label: "Return: Venice → Munich/Frankfurt → LAX",
+    airline: "Lufthansa / United (Star Alliance)",
+    routing: "VCE → MUC or FRA → LAX",
+    details: [
+      "Lufthansa flies VCE → MUC/FRA multiple times daily",
+      "Then MUC → LAX or FRA → LAX nonstop (~11-12 hrs)",
+      "Smooth connection at European hub",
+      "United codeshare available",
+    ],
+    price: "~$700–$1,200 Economy one-way",
+    pros: [
+      "European hub connection (no US layover)",
+      "Star Alliance — United miles if preferred",
+      "Frequent VCE departures for flexibility",
+    ],
+    cons: [
+      "Different alliance than AA outbound",
+      "Longer total travel time than VCE → PHL",
+    ],
+    person: "Alicia",
   },
 ];
 
@@ -280,7 +307,7 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
             ))}
 
             <div className="bg-gold/5 border border-gold/10 rounded-lg p-3 text-xs text-gray-500">
-              <span className="font-medium text-gold-dark">Note:</span> Delta has no DFW transatlantic routes. For flying together from DFW, American Airlines is the only option. Prices based on Feb 2026 fares — book early for best rates.
+              <span className="font-medium text-gold-dark">Note:</span> No nonstop VCE → LAX exists. AA's VCE → PHL is the only US-direct option from Venice. ITA's FCO → LAX nonstop requires a train back to Rome. Prices based on April 2026 research — book 2–3 months out for best rates.
             </div>
           </div>
         )}
