@@ -6,9 +6,15 @@ import { MapContainer, TileLayer, Polyline, Marker, Popup, useMap } from "react-
 function FitBounds({ bounds }: { bounds: [number, number][] }) {
   const map = useMap();
   useEffect(() => {
-    if (bounds.length > 1) {
-      map.fitBounds(bounds, { padding: [32, 32], maxZoom: 10 });
-    }
+    // Invalidate size after a short delay — fixes maps inside accordions/tabs
+    // where the container has zero dimensions on first render
+    const timer = setTimeout(() => {
+      map.invalidateSize();
+      if (bounds.length > 1) {
+        map.fitBounds(bounds, { padding: [32, 32], maxZoom: 10 });
+      }
+    }, 100);
+    return () => clearTimeout(timer);
   }, [map, bounds]);
   return null;
 }

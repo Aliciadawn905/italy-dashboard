@@ -48,7 +48,7 @@ const destinations = [
   {
     name: "Florence",
     subtitle: "Renaissance masterpieces · Days 6–7",
-    image: "https://images.unsplash.com/photo-1541370976299-4d24ebbc9077?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1543429776-2782f8f3c8e4?w=800&q=80",
     sites: [
       { name: "Uffizi Galleries", icon: Palette, desc: "Botticelli's Birth of Venus. €20, book 2–4 weeks ahead. Closed Mondays. Allow 3+ hrs" },
       { name: "Duomo + Dome Climb", icon: Church, desc: "Brunelleschi's dome — 463 steps, incredible views. €20 combined pass. Book dome slot in advance" },
@@ -217,6 +217,7 @@ export default function Overview({
         </h3>
         <div className="flex flex-wrap items-center gap-2 text-sm">
           {["Naples", "Amalfi Coast", "Tuscany / Chianti", "Florence", "Rome", "Venice"].map(
+            // Route: Naples (arrive) → Amalfi (Days 1-3) → Tuscany (Days 4-5) → Florence (Days 6-7) → Rome (Days 8-10) → Venice (Days 11-14)
             (city, i, arr) => (
               <span key={city} className="flex items-center gap-2">
                 <button
@@ -234,16 +235,18 @@ export default function Overview({
         </div>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="bg-cream rounded-lg p-3">
-            <div className="text-xs font-medium text-olive mb-1">Week 1 &middot; Days 1–7</div>
+            <div className="text-xs font-medium text-olive mb-1">Week 1 &middot; Days 1–7 &middot; Alicia + Jamie</div>
             <p className="text-xs text-gray-600">
               Amalfi Coast &rarr; Tuscany/Chianti &rarr; Florence
             </p>
+            <p className="text-[11px] text-gray-400 mt-1 italic">Relaxing — just the two of you</p>
           </div>
           <div className="bg-cream rounded-lg p-3">
-            <div className="text-xs font-medium text-olive mb-1">Week 2 &middot; Days 8–14</div>
+            <div className="text-xs font-medium text-olive mb-1">Week 2 &middot; Days 8–14 &middot; Full Family</div>
             <p className="text-xs text-gray-600">
               Rome &rarr; Venice &rarr; Departure
             </p>
+            <p className="text-[11px] text-gray-400 mt-1 italic">Sightseeing — Jamie&apos;s family joins (kids 23, 21, 15)</p>
           </div>
         </div>
       </div>

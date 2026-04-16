@@ -8,6 +8,7 @@ import {
   Lightbulb,
   Hotel,
   Sparkles,
+  ExternalLink,
 } from "lucide-react";
 
 interface HotelEntry {
@@ -17,6 +18,7 @@ interface HotelEntry {
   features: string;
   bestFor: string;
   recommended?: boolean;
+  link?: string;
 }
 
 interface CityHotels {
@@ -41,6 +43,7 @@ const hotelData: CityHotels[] = [
         features: "Infinity pool overlooking the sea, peaceful hilltop setting, Belmond luxury. The most relaxing hotel on the coast.",
         bestFor: "Ultimate relaxation — our top pick for Week 1 vibe",
         recommended: true,
+        link: "https://www.belmond.com/hotels/europe/italy/amalfi-coast/belmond-hotel-caruso/",
       },
       {
         name: "Villa Cimbrone (Ravello)",
@@ -49,6 +52,7 @@ const hotelData: CityHotels[] = [
         features: "Historic gardens, refined rooms, Terrace of Infinity with panoramic views. Quiet and serene.",
         bestFor: "Peaceful luxury with world-famous gardens",
         recommended: true,
+        link: "https://www.hotelvillacimbrone.com/",
       },
       {
         name: "Palazzo Murat (Positano)",
@@ -56,6 +60,7 @@ const hotelData: CityHotels[] = [
         price: "$$$",
         features: "Beautiful courtyard with lemon trees, in the heart of Positano but feels tucked away. Romantic.",
         bestFor: "Great value + central Positano location",
+        link: "https://palazzomurat.it/en",
       },
       {
         name: "Hotel Villa Franca (Positano)",
@@ -63,6 +68,7 @@ const hotelData: CityHotels[] = [
         price: "$$$",
         features: "Rooftop pool, excellent views, spa treatments available",
         bestFor: "Pool + views without the 5-star price",
+        link: "https://www.villafrancahotel.it/en/index.php",
       },
       {
         name: "Il San Pietro di Positano",
@@ -70,6 +76,7 @@ const hotelData: CityHotels[] = [
         price: "$$$$",
         features: "Carved into cliffs, private beach, Michelin restaurant. Absolute top tier.",
         bestFor: "Once-in-a-lifetime splurge for the birthday trip",
+        link: "https://www.ilsanpietro.com/",
       },
     ],
   },
@@ -86,6 +93,7 @@ const hotelData: CityHotels[] = [
         features: "Medieval village converted to luxury resort. Vineyard views, pool, total tranquility. Feels like your own private hamlet.",
         bestFor: "Most relaxing option — our top pick",
         recommended: true,
+        link: "https://www.borgosanfelice.com/en/index",
       },
       {
         name: "Podere Felceto (Greve in Chianti)",
@@ -94,6 +102,7 @@ const hotelData: CityHotels[] = [
         features: "Authentic agriturismo — rustic charm, farm-to-table breakfast, surrounded by vines and olive trees",
         bestFor: "Best value + most authentic Tuscan experience",
         recommended: true,
+        link: "https://www.poderefelceto.com/en/",
       },
       {
         name: "Castello di Casole (Casole d'Elsa)",
@@ -101,6 +110,7 @@ const hotelData: CityHotels[] = [
         price: "$$$$",
         features: "1,000-acre estate with spa, extraordinary Tuscan landscape. Complete escape.",
         bestFor: "Grand estate spa retreat",
+        link: "https://www.belmond.com/hotels/europe/italy/tuscany/belmond-castello-di-casole/",
       },
       {
         name: "Tenuta di Ricavo (Castellina in Chianti)",
@@ -108,6 +118,7 @@ const hotelData: CityHotels[] = [
         price: "$$$",
         features: "Intimate hamlet hotel with pool, excellent wine list, peaceful setting",
         bestFor: "Wine lovers in a quiet setting",
+        link: "https://www.ricavo.com/",
       },
     ],
   },
@@ -124,6 +135,7 @@ const hotelData: CityHotels[] = [
         features: "Boutique, artsy, in the heart of Oltrarno. Feels like a local apartment, not a tourist hotel. Quiet streets.",
         bestFor: "Authentic local experience — our top pick for Florence",
         recommended: true,
+        link: "https://www.soprarnosuites.com/",
       },
       {
         name: "Portrait Firenze",
@@ -131,6 +143,7 @@ const hotelData: CityHotels[] = [
         price: "$$$$",
         features: "Lungarno Collection, views over Arno from Ponte Vecchio. Intimate suites, rooftop terrace.",
         bestFor: "Luxury with river views",
+        link: "https://www.lungarnocollection.com/portrait-firenze/",
       },
       {
         name: "Hotel Lungarno",
@@ -138,6 +151,7 @@ const hotelData: CityHotels[] = [
         price: "$$$$",
         features: "Facing the Arno, Ferragamo family-owned, excellent breakfast with a view",
         bestFor: "Classic Florentine luxury",
+        link: "https://www.lungarnocollection.com/hotel-lungarno/",
       },
       {
         name: "Hotel Davanzati",
@@ -145,6 +159,7 @@ const hotelData: CityHotels[] = [
         price: "$$",
         features: "Central, well-run, friendly staff. Simple but comfortable.",
         bestFor: "Good value in a central location",
+        link: "https://www.hoteldavanzati.it/",
       },
     ],
   },
@@ -168,6 +183,7 @@ const hotelData: CityHotels[] = [
         price: "$$$$",
         features: "Near Piazza del Popolo, gardens, spa. Family-friendly with plenty of space.",
         bestFor: "Luxury option that works for families",
+        link: "https://www.roccofortehotels.com/hotels-and-resorts/hotel-de-russie/",
       },
       {
         name: "Hotel Locarno",
@@ -175,6 +191,7 @@ const hotelData: CityHotels[] = [
         price: "$$$",
         features: "Art Deco charm, near Piazza del Popolo, romantic courtyard",
         bestFor: "Stylish mid-range option",
+        link: "https://www.hotellocarno.com/en",
       },
       {
         name: "Il Palazzetto",
@@ -182,6 +199,7 @@ const hotelData: CityHotels[] = [
         price: "$$$",
         features: "Small, elegant, rooftop views over Rome from the Spanish Steps",
         bestFor: "Great value for quality — smaller group",
+        link: "https://www.hotelhasslerroma.com/il-palazzetto/",
       },
     ],
   },
@@ -198,6 +216,7 @@ const hotelData: CityHotels[] = [
         features: "Grand Canal views, stunning frescoed rooms, extraordinary architecture. In the authentic Cannaregio neighborhood.",
         bestFor: "Best location for family week — our top pick",
         recommended: true,
+        link: "https://www.casagredohotel.com/",
       },
       {
         name: "Palazzetto Pisani",
@@ -205,13 +224,15 @@ const hotelData: CityHotels[] = [
         price: "$$$$",
         features: "Grand Canal views, historic palazzo, excellent service",
         bestFor: "Grand Canal views at a slightly lower price",
+        link: "https://www.palazzettopisani.com/",
       },
       {
         name: "Hotel Danieli",
         stars: 5,
         price: "$$$$",
-        features: "Iconic Gothic palazzo near Piazza San Marco. Legendary Venice institution.",
+        features: "Iconic Gothic palazzo near Piazza San Marco. Reopening Aug 2026 as Four Seasons Venice.",
         bestFor: "Birthday splurge — most iconic hotel in Venice",
+        link: "https://www.fourseasons.com/venice/",
       },
       {
         name: "Aman Venice",
@@ -219,6 +240,7 @@ const hotelData: CityHotels[] = [
         price: "$$$$$",
         features: "16th-century palazzo with only 24 rooms. The most extraordinary hotel in Venice.",
         bestFor: "Once-in-a-lifetime — if budget allows",
+        link: "https://www.aman.com/hotels/aman-venice",
       },
     ],
   },
@@ -302,9 +324,21 @@ export default function Hotels() {
                               {hotel.recommended && (
                                 <Sparkles className="w-3.5 h-3.5 text-olive" />
                               )}
-                              <span className="font-medium text-gray-800 text-sm">
-                                {hotel.name}
-                              </span>
+                              {hotel.link ? (
+                                <a
+                                  href={hotel.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="font-medium text-navy text-sm hover:underline inline-flex items-center gap-1"
+                                >
+                                  {hotel.name}
+                                  <ExternalLink className="w-3 h-3 text-gray-400" />
+                                </a>
+                              ) : (
+                                <span className="font-medium text-gray-800 text-sm">
+                                  {hotel.name}
+                                </span>
+                              )}
                               <span
                                 className={`text-xs font-medium ${
                                   priceColors[hotel.price] || "text-gray-500"

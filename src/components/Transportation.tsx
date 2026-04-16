@@ -84,7 +84,7 @@ const legs: Leg[] = [
     to: "Amalfi Coast",
     segments: [
       { mode: "train", type: "Circumvesuviana", operator: "EAV", from: "Napoli Garibaldi (Centrale underground)", to: "Sorrento", duration: "50-70 min", cost: "\u20AC4.60 (~$5)", reservationRequired: false },
-      { mode: "bus", type: "SITA Sud #5070", operator: "SITA Sud", from: "Sorrento Bus Terminal", to: "Positano / Amalfi", duration: "40-90 min", cost: "\u20AC1.80-2.60 (~$2-3)", reservationRequired: false },
+      { mode: "bus", type: "SITA Sud #5070", operator: "SITA Sud", from: "Sorrento Bus Terminal", to: "Positano / Ravello", duration: "40-90 min", cost: "\u20AC1.80-2.60 (~$2-3)", reservationRequired: false },
     ],
     alternative: { mode: "ferry", operator: "Alilauro / NLG", from: "Napoli Molo Beverello", to: "Amalfi Marina", duration: "75-90 min", cost: "\u20AC18-24 (~$20-26)", note: "Scenic but weather-dependent. Runs Apr-Oct." },
     totalDuration: "2-2.5 hrs",
@@ -95,6 +95,7 @@ const legs: Leg[] = [
       "Campania Express (~\u20AC15 / $16) is a comfort upgrade with A/C",
       "SITA buses are standing-room in August \u2014 go early",
       "Sit on the right side of the bus for sea views",
+      "Private transfer from Naples airport is \u20AC80-120 (~$87-130) and avoids all hassle",
     ],
     route: {
       waypoints: [
@@ -113,38 +114,64 @@ const legs: Leg[] = [
   {
     id: 2,
     from: "Amalfi Coast",
-    to: "Rome",
+    to: "Tuscany / Chianti",
     segments: [
-      { mode: "bus", type: "SITA Sud #5020", operator: "SITA Sud", from: "Amalfi / Positano bus stop", to: "Salerno Centrale", duration: "75 min", cost: "\u20AC2.60 (~$3)", reservationRequired: false },
-      { mode: "train", type: "Frecciarossa", operator: "Trenitalia", from: "Salerno Centrale", to: "Roma Termini", duration: "1h 23min - 2h 10min", cost: "\u20AC15-45 (~$16-49)", reservationRequired: true },
+      { mode: "bus", type: "SITA Sud / car", operator: "Rental car or hired driver", from: "Ravello / Positano", to: "Chianti (Greve / Castellina)", duration: "4-5 hrs", cost: "\u20AC200-300 (~$218-327) hired driver, or rental car", reservationRequired: false },
     ],
-    alternative: { mode: "ferry", operator: "TravelMar / Alilauro", from: "Amalfi Marina", to: "Salerno Port", duration: "35 min", cost: "\u20AC8-10 (~$9-11)", note: "Faster than the bus to Salerno. Seasonal Apr-Oct." },
-    totalDuration: "2.5-3.5 hrs",
-    totalCost: "\u20AC18-48 (~$20-52)",
+    totalDuration: "4-5 hrs",
+    totalCost: "\u20AC200-300 (~$218-327) driver, or rental car from \u20AC40/day",
     tips: [
-      "Go via Salerno, not back through Naples \u2014 faster",
-      "Book Frecciarossa Super Economy 60-90 days ahead for best price",
-      "~27 trains/day from Salerno to Rome",
+      "Rental car recommended for full Tuscany flexibility",
+      "Alternatively hire a driver for the Amalfi \u2192 Chianti transfer (\u20AC200-300)",
+      "The drive itself is beautiful \u2014 stop wherever looks good",
+      "Pick up rental car in Amalfi/Salerno, return in Florence",
+      "Avoid driving the narrow Amalfi coast roads if possible \u2014 let a local do it",
     ],
     route: {
       waypoints: [
-        [[40.6340, 14.6020], [40.6824, 14.7681]],
-        [[40.6824, 14.7681], [41.0092, 14.3419], [41.9028, 12.4964]],
+        [[40.6340, 14.6020], [40.6824, 14.7681], [41.2, 14.0], [42.0, 12.5], [43.0, 11.5], [43.4667, 11.3167]],
       ],
       labels: [
         { name: "Amalfi", lat: 40.6340, lng: 14.6020 },
         { name: "Salerno", lat: 40.6824, lng: 14.7681 },
-        { name: "Roma Termini", lat: 41.9028, lng: 12.4964 },
+        { name: "Greve in Chianti", lat: 43.4667, lng: 11.3167 },
       ],
-      colors: [modeColorHex.bus, modeColorHex.train],
+      colors: [modeColorHex.bus],
     },
   },
   {
     id: 3,
-    from: "Rome",
+    from: "Tuscany / Chianti",
     to: "Florence",
     segments: [
-      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Roma Termini", to: "Firenze S.M.N.", duration: "1h 32min - 1h 45min", cost: "\u20AC15-50 (~$16-55)", reservationRequired: true },
+      { mode: "bus", type: "Car / Bus", operator: "Rental car or local bus", from: "Greve in Chianti", to: "Florence city center", duration: "30-60 min", cost: "\u20AC0 (own car) or \u20AC7 (~$8) bus", reservationRequired: false },
+    ],
+    totalDuration: "30-60 min",
+    totalCost: "\u20AC0-7 (~$0-8)",
+    tips: [
+      "Return rental car at Florence airport or city drop-off before entering ZTL zone",
+      "Florence\u2019s ZTL (restricted traffic zone) covers the entire historic center \u2014 do NOT drive in",
+      "ZTL cameras automatically fine you \u20AC100+ \u2014 drop the car before the center",
+      "SITA bus from Greve to Florence takes ~1 hour, runs regularly",
+      "Almost everything in Florence is walkable once you arrive",
+    ],
+    route: {
+      waypoints: [
+        [[43.4667, 11.3167], [43.5833, 11.2833], [43.7696, 11.2558]],
+      ],
+      labels: [
+        { name: "Greve in Chianti", lat: 43.4667, lng: 11.3167 },
+        { name: "Firenze S.M.N.", lat: 43.7696, lng: 11.2558 },
+      ],
+      colors: [modeColorHex.bus],
+    },
+  },
+  {
+    id: 4,
+    from: "Florence",
+    to: "Rome",
+    segments: [
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Firenze S.M.N.", to: "Roma Termini", duration: "1h 32min - 1h 45min", cost: "\u20AC15-50 (~$16-55)", reservationRequired: true },
     ],
     totalDuration: "1h 32min",
     totalCost: "\u20AC15-50 (~$16-55)",
@@ -152,74 +179,46 @@ const legs: Leg[] = [
       "Italy\u2019s busiest high-speed route \u2014 49 direct trains/day",
       "Compare Trenitalia and Italo prices \u2014 Italo often cheaper",
       "Super Economy fares are non-refundable but half price",
-      "Firenze S.M.N. is walking distance to the Duomo",
+      "Book 60-90 days ahead for best prices",
+      "Jamie\u2019s family arrives in Rome on Day 8 \u2014 coordinate timing",
     ],
     route: {
       waypoints: [
-        [[41.9028, 12.4964], [42.4173, 12.1066], [42.7924, 11.7867], [43.0742, 11.3010], [43.7696, 11.2558]],
+        [[43.7696, 11.2558], [43.0742, 11.3010], [42.7924, 11.7867], [42.4173, 12.1066], [41.9028, 12.4964]],
       ],
       labels: [
+        { name: "Firenze S.M.N.", lat: 43.7696, lng: 11.2558 },
         { name: "Roma Termini", lat: 41.9028, lng: 12.4964 },
-        { name: "Firenze S.M.N.", lat: 43.7696, lng: 11.2558 },
-      ],
-      colors: [modeColorHex.train],
-    },
-  },
-  {
-    id: 4,
-    from: "Florence",
-    to: "Cinque Terre",
-    segments: [
-      { mode: "train", type: "Regionale Veloce", operator: "Trenitalia", from: "Firenze S.M.N.", to: "La Spezia Centrale", duration: "2h 00min - 2h 34min", cost: "\u20AC10-16 (~$11-17)", reservationRequired: false },
-    ],
-    totalDuration: "2h - 2h 34min",
-    totalCost: "\u20AC10-25 (~$11-27)",
-    tips: [
-      "Regional trains are cheapest \u2014 no reservation needed",
-      "Some routes change at Pisa Centrale \u2014 check for direct",
-      "~7 direct trains per day",
-      "From La Spezia, Cinque Terre Express connects all 5 villages",
-      "Cinque Terre Card: ~\u20AC16/day ($17) for unlimited trains + park access",
-    ],
-    route: {
-      waypoints: [
-        [[43.7696, 11.2558], [43.7228, 10.4017], [44.1024, 9.8240]],
-      ],
-      labels: [
-        { name: "Firenze S.M.N.", lat: 43.7696, lng: 11.2558 },
-        { name: "Pisa Centrale", lat: 43.7228, lng: 10.4017 },
-        { name: "La Spezia", lat: 44.1024, lng: 9.8240 },
       ],
       colors: [modeColorHex.train],
     },
   },
   {
     id: 5,
-    from: "Cinque Terre",
+    from: "Rome",
     to: "Venice",
     segments: [
-      { mode: "train", type: "InterCity / Frecciabianca", operator: "Trenitalia", from: "La Spezia Centrale", to: "Milano Centrale", duration: "2h 30min - 3h", cost: "\u20AC18-30 (~$20-33)", reservationRequired: true },
-      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Milano Centrale", to: "Venezia Santa Lucia", duration: "2h 25min", cost: "\u20AC15-45 (~$16-49)", reservationRequired: true },
+      { mode: "train", type: "Frecciarossa", operator: "Trenitalia / Italo", from: "Roma Termini", to: "Venezia Santa Lucia", duration: "3h 25min - 3h 45min", cost: "\u20AC30-60 (~$33-65)", reservationRequired: true },
     ],
-    totalDuration: "5-6 hrs (incl. transfer)",
-    totalCost: "\u20AC33-75 (~$36-82)",
+    totalDuration: "3h 25min - 3h 45min",
+    totalCost: "\u20AC30-60 (~$33-65)",
     tips: [
-      "No direct train \u2014 transfer in Milan is fastest",
-      "Allow 30-45 min for transfer at Milano Centrale",
-      "Book both segments separately for best prices",
+      "Spectacular scenery \u2014 watch for the Apennines and Bologna approach",
+      "Book ahead for family of 5 \u2014 try to get seats together",
       "Arrive at Venezia Santa Lucia (island) NOT Mestre (mainland)",
+      "Buy a multi-day Vaporetto pass immediately on arrival (\u20AC9.50/day, \u20AC35/72hrs)",
+      "Water taxi from station to hotel is ~\u20AC80-120 but saves hauling luggage on vaporetti",
     ],
     route: {
       waypoints: [
-        [[44.1024, 9.8240], [44.4056, 9.9766], [44.6471, 10.9252], [45.4654, 9.1860]],
-        [[45.4654, 9.1860], [45.4408, 10.9929], [45.4410, 12.3212]],
+        [[41.9028, 12.4964], [42.4, 12.3], [43.3, 11.8], [44.4942, 11.3426], [45.0, 11.8], [45.4410, 12.3212]],
       ],
       labels: [
-        { name: "La Spezia", lat: 44.1024, lng: 9.8240 },
-        { name: "Milano Centrale", lat: 45.4654, lng: 9.1860 },
+        { name: "Roma Termini", lat: 41.9028, lng: 12.4964 },
+        { name: "Bologna", lat: 44.4942, lng: 11.3426 },
         { name: "Venezia S. Lucia", lat: 45.4410, lng: 12.3212 },
       ],
-      colors: [modeColorHex.train, modeColorHex.train],
+      colors: [modeColorHex.train],
     },
   },
 ];
@@ -274,8 +273,8 @@ export default function Transportation() {
           Getting Around Italy
         </h2>
         <p className="text-sm text-gray-400 mt-1">
-          Trains, buses & ferries between each destination &middot; Est. total:{" "}
-          <span className="font-medium text-olive">&euro;83-222 (~$91-242) per person</span>
+          Getting between each destination &middot; Est. total:{" "}
+          <span className="font-medium text-olive">&euro;53-167 (~$58-182) per person (trains/buses only)</span>
         </p>
       </div>
 
