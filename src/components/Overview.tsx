@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import CountdownTimer from "./CountdownTimer";
 import { Flight, ItineraryDay, Restaurant, Activity, Note, TabId } from "@/lib/types";
-import { Plane, Calendar, UtensilsCrossed, MapPin, StickyNote, X, Star, Camera, Church, Landmark, Wine, Ship, Palette } from "lucide-react";
+import { Plane, Calendar, UtensilsCrossed, MapPin, StickyNote, X, Star, Camera, Church, Landmark, Wine, Ship, Palette, Phone, Mail, Facebook } from "lucide-react";
 
 const destinations = [
   {
@@ -286,7 +286,7 @@ export default function Overview({
       </div>
 
       {/* Key Info */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border border-gray-100 p-5">
           <h4 className="font-medium text-gray-700 mb-2">Alicia</h4>
           <p className="text-sm text-gray-400">Departing from LAX</p>
@@ -294,6 +294,32 @@ export default function Overview({
         <div className="bg-white rounded-xl border border-gray-100 p-5">
           <h4 className="font-medium text-gray-700 mb-2">Jamie</h4>
           <p className="text-sm text-gray-400">Departing from DFW</p>
+        </div>
+        <div className="bg-white rounded-xl border border-olive/20 p-5">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-8 h-8 rounded-full bg-olive/10 flex items-center justify-center">
+              <MapPin className="w-4 h-4 text-olive" />
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-700">Massimo Ciceroni</h4>
+              <p className="text-[11px] text-olive">Local Tour Guide</p>
+            </div>
+          </div>
+          <div className="space-y-1.5 mt-3">
+            <a href="tel:+39336539533" className="flex items-center gap-2 text-sm text-gray-500 hover:text-navy transition-colors">
+              <Phone className="w-3.5 h-3.5" />
+              <span>+39 336 539 533</span>
+            </a>
+            <a href="mailto:mciceroni@aliceposta.it" className="flex items-center gap-2 text-sm text-gray-500 hover:text-navy transition-colors">
+              <Mail className="w-3.5 h-3.5" />
+              <span>mciceroni@aliceposta.it</span>
+            </a>
+            <a href="https://facebook.com/mciceroni" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-gray-500 hover:text-navy transition-colors">
+              <Facebook className="w-3.5 h-3.5" />
+              <span>mciceroni</span>
+            </a>
+          </div>
+          <p className="text-[11px] text-gray-400 mt-2 italic">Referred to Jamie &middot; Rome-based private guide</p>
         </div>
       </div>
 
