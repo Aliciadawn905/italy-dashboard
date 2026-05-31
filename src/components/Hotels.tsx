@@ -9,7 +9,30 @@ import {
   Hotel,
   Sparkles,
   ExternalLink,
+  CheckCircle2,
+  CalendarCheck,
+  BedDouble,
+  Phone,
+  MapPin,
+  Coffee,
+  Ban,
 } from "lucide-react";
+
+interface BookingDetails {
+  reservationCode: string;
+  bookedBy: string;
+  checkIn: string;
+  checkOut: string;
+  nights: number;
+  room: string;
+  guests: string;
+  total: string;
+  prepaymentDate: string;
+  refundable: boolean;
+  breakfast: boolean;
+  address: string;
+  phone: string;
+}
 
 interface HotelEntry {
   name: string;
@@ -19,6 +42,8 @@ interface HotelEntry {
   bestFor: string;
   recommended?: boolean;
   link?: string;
+  booked?: boolean;
+  booking?: BookingDetails;
 }
 
 interface CityHotels {
@@ -31,11 +56,36 @@ interface CityHotels {
 
 const hotelData: CityHotels[] = [
   {
-    city: "Amalfi Coast",
+    city: "Sorrento / Amalfi Coast",
     week: "Week 1 · Days 1–3",
     vibe: "Relaxing — just the two of you",
-    tip: "Book 6–12 months in advance for summer. Ravello is quieter and more elevated with better views than Positano. Perfect for unwinding after the flight.",
+    tip: "Sorrento is the classic base for the Amalfi Coast — easy ferries to Positano, Amalfi & Capri, and a calmer atmosphere than the cliffside towns. Ravello & Positano below remain as alternatives.",
     hotels: [
+      {
+        name: "Hotel La Tonnarella (Sorrento)",
+        stars: 4,
+        price: "$$$$",
+        features: "Clifftop boutique above Marina Grande with 270° views of the Gulf of Naples, Vietri-tiled suites, jacuzzi bathrooms, and a private beach lift. Traditional Sorrentine elegance.",
+        bestFor: "Booked — 3 nights Aug 30 → Sept 2",
+        recommended: true,
+        booked: true,
+        link: "https://www.latonnarella.com/",
+        booking: {
+          reservationCode: "2605312308GRWEPZFT",
+          bookedBy: "Alicia Sorensen",
+          checkIn: "Sun, Aug 30, 2026",
+          checkOut: "Wed, Sept 2, 2026",
+          nights: 3,
+          room: "Suite Deluxe — sea-view terrace, jacuzzi for two",
+          guests: "2 adults",
+          total: "€2,271 (~$2,498)",
+          prepaymentDate: "Charged May 31, 2026 via SysPay",
+          refundable: false,
+          breakfast: true,
+          address: "Via Capo 31, 80067 Sorrento (NA), Italy",
+          phone: "+39 081 878 11 53",
+        },
+      },
       {
         name: "Hotel Caruso (Ravello)",
         stars: 5,
@@ -262,7 +312,7 @@ const vibeColors: Record<string, string> = {
 };
 
 export default function Hotels() {
-  const [expanded, setExpanded] = useState<string | null>("Amalfi Coast");
+  const [expanded, setExpanded] = useState<string | null>("Sorrento / Amalfi Coast");
 
   return (
     <div className="space-y-6">
@@ -316,14 +366,22 @@ export default function Hotels() {
                     {city.hotels.map((hotel) => (
                       <div
                         key={hotel.name}
-                        className={`rounded-xl p-4 ${hotel.recommended ? "bg-olive/5 border border-olive/15" : "bg-cream"}`}
+                        className={`rounded-xl p-4 ${
+                          hotel.booked
+                            ? "bg-italian-green/5 border border-italian-green/30"
+                            : hotel.recommended
+                            ? "bg-olive/5 border border-olive/15"
+                            : "bg-cream"
+                        }`}
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div>
                             <div className="flex items-center gap-2 flex-wrap">
-                              {hotel.recommended && (
+                              {hotel.booked ? (
+                                <CheckCircle2 className="w-3.5 h-3.5 text-italian-green" />
+                              ) : hotel.recommended ? (
                                 <Sparkles className="w-3.5 h-3.5 text-olive" />
-                              )}
+                              ) : null}
                               {hotel.link ? (
                                 <a
                                   href={hotel.link}
@@ -346,6 +404,11 @@ export default function Hotels() {
                               >
                                 {hotel.price}
                               </span>
+                              {hotel.booked && (
+                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-italian-green text-white font-medium uppercase tracking-wide">
+                                  Booked
+                                </span>
+                              )}
                             </div>
                             {hotel.stars > 0 && (
                               <div className="flex items-center gap-0.5 mt-1">
@@ -364,10 +427,115 @@ export default function Hotels() {
                         <p className="text-xs text-gray-500 mt-2">
                           {hotel.features}
                         </p>
-                        <p className={`text-[11px] mt-1.5 font-medium ${hotel.recommended ? "text-olive" : "text-gray-500"}`}>
-                          {hotel.recommended ? "★ " : ""}
+                        <p
+                          className={`text-[11px] mt-1.5 font-medium ${
+                            hotel.booked
+                              ? "text-italian-green"
+                              : hotel.recommended
+                              ? "text-olive"
+                              : "text-gray-500"
+                          }`}
+                        >
+                          {hotel.booked ? "✓ " : hotel.recommended ? "★ " : ""}
                           {hotel.bestFor}
                         </p>
+
+                        {hotel.booked && hotel.booking && (
+                          <div className="mt-3 bg-white rounded-lg border border-italian-green/20 p-3 space-y-3">
+                            {/* Stay summary */}
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                              <div>
+                                <div className="text-[10px] uppercase tracking-wide text-gray-400 flex items-center gap-1">
+                                  <CalendarCheck className="w-3 h-3" /> Check-in
+                                </div>
+                                <div className="font-medium text-gray-800 mt-0.5 tabular-nums">
+                                  {hotel.booking.checkIn}
+                                </div>
+                              </div>
+                              <div>
+                                <div className="text-[10px] uppercase tracking-wide text-gray-400 flex items-center gap-1">
+                                  <CalendarCheck className="w-3 h-3" /> Check-out
+                                </div>
+                                <div className="font-medium text-gray-800 mt-0.5 tabular-nums">
+                                  {hotel.booking.checkOut}
+                                </div>
+                              </div>
+                              <div>
+                                <div className="text-[10px] uppercase tracking-wide text-gray-400">Nights</div>
+                                <div className="font-medium text-gray-800 mt-0.5 tabular-nums">
+                                  {hotel.booking.nights} &middot; {hotel.booking.guests}
+                                </div>
+                              </div>
+                              <div>
+                                <div className="text-[10px] uppercase tracking-wide text-gray-400">Total</div>
+                                <div className="font-semibold text-italian-green mt-0.5 tabular-nums">
+                                  {hotel.booking.total}
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Room */}
+                            <div className="flex items-start gap-2 text-xs text-gray-700 bg-cream rounded-md px-2.5 py-2">
+                              <BedDouble className="w-3.5 h-3.5 text-olive mt-0.5 shrink-0" />
+                              <span>{hotel.booking.room}</span>
+                            </div>
+
+                            {/* Inclusion chips */}
+                            <div className="flex items-center gap-2 flex-wrap">
+                              {hotel.booking.breakfast && (
+                                <span className="text-[11px] px-2 py-1 rounded-full bg-gold/10 text-gold-dark font-medium flex items-center gap-1">
+                                  <Coffee className="w-3 h-3" /> Breakfast included
+                                </span>
+                              )}
+                              <span
+                                className={`text-[11px] px-2 py-1 rounded-full font-medium flex items-center gap-1 ${
+                                  hotel.booking.refundable
+                                    ? "bg-italian-green/10 text-italian-green"
+                                    : "bg-terracotta/10 text-terracotta"
+                                }`}
+                              >
+                                <Ban className="w-3 h-3" />
+                                {hotel.booking.refundable ? "Refundable" : "Non-refundable"}
+                              </span>
+                            </div>
+
+                            {/* Contact */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-gray-600">
+                              <div className="flex items-start gap-1.5">
+                                <MapPin className="w-3 h-3 text-navy mt-0.5 shrink-0" />
+                                <span>{hotel.booking.address}</span>
+                              </div>
+                              <div className="flex items-start gap-1.5">
+                                <Phone className="w-3 h-3 text-navy mt-0.5 shrink-0" />
+                                <a
+                                  href={`tel:${hotel.booking.phone.replace(/\s/g, "")}`}
+                                  className="hover:underline tabular-nums"
+                                >
+                                  {hotel.booking.phone}
+                                </a>
+                              </div>
+                            </div>
+
+                            {/* Confirmation */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs bg-cream rounded-lg p-2.5">
+                              <div>
+                                <span className="text-gray-400">Confirmation:</span>{" "}
+                                <span className="font-medium text-gray-700 tabular-nums">
+                                  {hotel.booking.reservationCode}
+                                </span>
+                              </div>
+                              <div>
+                                <span className="text-gray-400">Booked by:</span>{" "}
+                                <span className="font-medium text-gray-700">
+                                  {hotel.booking.bookedBy}
+                                </span>
+                              </div>
+                              <div className="sm:col-span-2 text-[11px] text-gray-500">
+                                {hotel.booking.prepaymentDate}
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
