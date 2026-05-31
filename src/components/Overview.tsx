@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import CountdownTimer from "./CountdownTimer";
 import { Flight, ItineraryDay, Restaurant, Activity, Note, TabId } from "@/lib/types";
-import { Plane, Calendar, UtensilsCrossed, MapPin, StickyNote, X, Star, Camera, Church, Landmark, Wine, Ship, Palette, Phone, Mail, Facebook } from "lucide-react";
+import { Plane, Calendar, UtensilsCrossed, MapPin, StickyNote, X, Star, Camera, Church, Landmark, Wine, Ship, Palette, Phone, Mail, Facebook, Map as MapIcon, Ticket, ExternalLink } from "lucide-react";
 
 const destinations = [
   {
@@ -249,6 +249,53 @@ export default function Overview({
             <p className="text-[11px] text-gray-400 mt-1 italic">Sightseeing — Jamie&apos;s family joins (kids 23, 21, 15)</p>
           </div>
         </div>
+      </div>
+
+      {/* Trip Map + Tickets CTAs */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <button
+          onClick={() => onTabChange("map")}
+          className="group relative overflow-hidden rounded-2xl border border-navy/10 bg-gradient-to-br from-navy/90 via-navy to-italian-green text-left p-6 cursor-pointer card-hover"
+        >
+          <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=60')] bg-cover bg-center" />
+          <div className="relative">
+            <div className="w-10 h-10 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center mb-3">
+              <MapIcon className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="font-serif text-xl font-semibold text-white">
+              Interactive Trip Map
+            </h3>
+            <p className="text-white/70 text-sm mt-1">
+              Pan, zoom &amp; explore all 6 destinations and 36 sites on one map
+            </p>
+            <span className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-white bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full group-hover:bg-white/25 transition-colors">
+              Open Map &rarr;
+            </span>
+          </div>
+        </button>
+
+        <a
+          href="https://www.getyourguide.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative overflow-hidden rounded-2xl border border-terracotta/20 bg-gradient-to-br from-terracotta via-terracotta-dark to-gold-dark text-left p-6 cursor-pointer card-hover block"
+        >
+          <div className="relative">
+            <div className="w-10 h-10 rounded-lg bg-white/15 backdrop-blur-sm flex items-center justify-center mb-3">
+              <Ticket className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="font-serif text-xl font-semibold text-white">
+              Book Attractions in Advance
+            </h3>
+            <p className="text-white/80 text-sm mt-1">
+              GetYourGuide &mdash; skip-the-line tickets, tours &amp; experiences across Italy
+            </p>
+            <span className="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-white bg-white/15 backdrop-blur-sm px-3 py-1.5 rounded-full group-hover:bg-white/25 transition-colors">
+              Browse on getyourguide.com
+              <ExternalLink className="w-3 h-3" />
+            </span>
+          </div>
+        </a>
       </div>
 
       {/* Destinations Gallery */}

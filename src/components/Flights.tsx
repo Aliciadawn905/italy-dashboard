@@ -2,13 +2,198 @@
 
 import { useState } from "react";
 import { Flight } from "@/lib/types";
-import { Plus, Plane, Trash2, Sparkles, ChevronDown, ChevronUp, Star } from "lucide-react";
+import { Plus, Plane, Trash2, Sparkles, ChevronDown, ChevronUp, Star, CheckCircle2, Shield, Zap } from "lucide-react";
 import AddItemModal, {
   FormField,
   inputClass,
   selectClass,
   btnPrimary,
 } from "./AddItemModal";
+
+interface BookedFlight {
+  id: string;
+  person: "Alicia" | "Jamie";
+  direction: "outbound" | "return";
+  airline: string;
+  routing: string;
+  date: string;
+  depart: string;
+  arrive: string;
+  totalDuration: string;
+  segments: {
+    flightNumber: string;
+    from: string;
+    fromCode: string;
+    to: string;
+    toCode: string;
+    departTime: string;
+    arriveTime: string;
+    duration: string;
+    cabin: string;
+  }[];
+  layover?: string;
+  price: string;
+  bookingSite: string;
+  confirmation: string;
+  pin?: string;
+  addOns: string[];
+  watchNote?: string;
+}
+
+const bookedFlights: BookedFlight[] = [
+  {
+    id: "alicia-outbound",
+    person: "Alicia",
+    direction: "outbound",
+    airline: "American Airlines",
+    routing: "Los Angeles (LAX) → Dallas (DFW) → Rome (FCO)",
+    date: "Sat, Aug 29 → Sun, Aug 30, 2026",
+    depart: "12:15 PM (Aug 29 · LAX)",
+    arrive: "12:05 PM next day (Aug 30 · FCO)",
+    totalDuration: "1 stop at DFW · meets Jamie for transatlantic leg",
+    segments: [
+      {
+        flightNumber: "AA (LAX→DFW)",
+        from: "Los Angeles International",
+        fromCode: "LAX",
+        to: "Dallas/Fort Worth",
+        toCode: "DFW",
+        departTime: "Sat, Aug 29 · 12:15 PM PT",
+        arriveTime: "Sat, Aug 29 · ~5:15 PM CT (verify)",
+        duration: "~3h",
+        cabin: "Flagship · verify flight #",
+      },
+      {
+        flightNumber: "AA 240",
+        from: "Dallas/Fort Worth",
+        fromCode: "DFW",
+        to: "Rome Fiumicino",
+        toCode: "FCO",
+        departTime: "Sat, Aug 29 · 6:40 PM CT",
+        arriveTime: "Sun, Aug 30 · 12:05 PM",
+        duration: "~10h 25m",
+        cabin: "Flagship · same flight as Jamie",
+      },
+    ],
+    layover: "~1h 25m at Dallas (DFW) — meet up with Jamie",
+    price: "$3,620 + $295 insurance",
+    bookingSite: "American Airlines",
+    confirmation: "LCFSID",
+    addOns: ["Trip Insurance"],
+    watchNote: "Together with Jamie on AA 240 DFW→FCO · watching Fri Aug 28 for Flagship price drop",
+  },
+  {
+    id: "alicia-return",
+    person: "Alicia",
+    direction: "return",
+    airline: "Aer Lingus",
+    routing: "Venice (VCE) → Dublin (DUB) → Los Angeles (LAX)",
+    date: "Sat, Sep 12, 2026",
+    depart: "12:15 PM",
+    arrive: "6:25 PM (same day)",
+    totalDuration: "1 stop · 15h 10m",
+    segments: [
+      {
+        flightNumber: "EI423",
+        from: "Venice Marco Polo",
+        fromCode: "VCE",
+        to: "Dublin Airport",
+        toCode: "DUB",
+        departTime: "Sat, Sep 12 · 12:15 PM",
+        arriveTime: "Sat, Sep 12 · 2:10 PM",
+        duration: "2h 55m",
+        cabin: "Economy",
+      },
+      {
+        flightNumber: "EI69",
+        from: "Dublin Airport",
+        fromCode: "DUB",
+        to: "Los Angeles International",
+        toCode: "LAX",
+        departTime: "Sat, Sep 12 · 3:25 PM",
+        arriveTime: "Sat, Sep 12 · 6:25 PM",
+        duration: "11h 0m",
+        cabin: "Business",
+      },
+    ],
+    layover: "1h 15m at Dublin (DUB)",
+    price: "$4,027.90",
+    bookingSite: "Booking.com",
+    confirmation: "40-953279322",
+    pin: "1651",
+    addOns: ["Fast Track", "Trip Insurance"],
+  },
+  {
+    id: "jamie-outbound",
+    person: "Jamie",
+    direction: "outbound",
+    airline: "American Airlines",
+    routing: "Dallas/Fort Worth (DFW) → Rome (FCO)",
+    date: "Sat, Aug 29 → Sun, Aug 30, 2026",
+    depart: "6:40 PM (Aug 29)",
+    arrive: "12:05 PM next day (Aug 30)",
+    totalDuration: "Direct · ~10h 25m overnight",
+    segments: [
+      {
+        flightNumber: "AA 240",
+        from: "Dallas/Fort Worth",
+        fromCode: "DFW",
+        to: "Rome Fiumicino",
+        toCode: "FCO",
+        departTime: "Sat, Aug 29 · 6:40 PM",
+        arriveTime: "Sun, Aug 30 · 12:05 PM",
+        duration: "~10h 25m",
+        cabin: "Business (I) · Seat 9H",
+      },
+    ],
+    price: "TBC",
+    bookingSite: "American Airlines",
+    confirmation: "TBC",
+    addOns: [],
+    watchNote: "Same flight as Alicia from DFW (she connects from LAX) — together for transatlantic leg",
+  },
+  {
+    id: "jamie-return",
+    person: "Jamie",
+    direction: "return",
+    airline: "American Airlines / British Airways",
+    routing: "Venice (VCE) → London (LHR) → Dallas (DFW)",
+    date: "Sat, Sep 12, 2026",
+    depart: "12:30 PM",
+    arrive: "TBC (verify final segment)",
+    totalDuration: "1 stop · TBC",
+    segments: [
+      {
+        flightNumber: "AA 6744",
+        from: "Venice Marco Polo",
+        fromCode: "VCE",
+        to: "London Heathrow",
+        toCode: "LHR",
+        departTime: "Sat, Sep 12 · 12:30 PM",
+        arriveTime: "Sat, Sep 12 · 1:55 PM",
+        duration: "~2h 25m",
+        cabin: "Business (J) · op. by British Airways",
+      },
+      {
+        flightNumber: "AA 81",
+        from: "London Heathrow",
+        fromCode: "LHR",
+        to: "Dallas/Fort Worth",
+        toCode: "DFW",
+        departTime: "Sat, Sep 12 · 4:25 PM",
+        arriveTime: "Sat, Sep 12 · TBC (verify)",
+        duration: "~10h",
+        cabin: "Business",
+      },
+    ],
+    layover: "2h 30m at London Heathrow (LHR)",
+    price: "TBC",
+    bookingSite: "American Airlines",
+    confirmation: "TBC",
+    addOns: [],
+    watchNote: "Departs Venice 15 min after Alicia — share airport transport",
+  },
+];
 
 interface FlightOption {
   id: string;
@@ -219,8 +404,12 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
     });
   };
 
-  const outbound = flights.filter((f) => f.direction === "outbound");
-  const returnFlights = flights.filter((f) => f.direction === "return");
+  const isInBooked = (f: Flight) =>
+    bookedFlights.some(
+      (bf) => bf.person === f.person && bf.direction === f.direction
+    );
+  const outbound = flights.filter((f) => f.direction === "outbound" && !isInBooked(f));
+  const returnFlights = flights.filter((f) => f.direction === "return" && !isInBooked(f));
 
   const FlightCard = ({ flight }: { flight: Flight }) => (
     <div className="bg-white rounded-xl border border-gray-100 p-5 card-hover">
@@ -282,7 +471,7 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
     </div>
   );
 
-  const [showResearch, setShowResearch] = useState(true);
+  const [showResearch, setShowResearch] = useState(false);
 
   return (
     <div className="space-y-6">
@@ -298,15 +487,139 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
       </div>
 
       {/* Trip dates banner */}
-      <div className="bg-navy/5 rounded-xl p-4 flex items-center justify-between">
+      <div className="bg-italian-green/5 border border-italian-green/15 rounded-xl p-4 flex items-center justify-between flex-wrap gap-3">
         <div>
-          <div className="text-sm font-medium text-navy">Return: Sept 12, 2026 · Depart Venice</div>
+          <div className="text-sm font-medium text-italian-green">All flights booked &middot; Aug 29 → Sept 12, 2026</div>
           <div className="text-xs text-gray-500 mt-0.5">
-            Alicia &rarr; LAX &middot; Jamie &rarr; DFW &middot; Likely separate flights direct home
+            Together on AA 240 DFW→FCO &middot; arrive Aug 30 at 12:05 PM &middot; Both depart VCE Sept 12 within 15 min
           </div>
         </div>
-        <div className="text-xs text-gray-400">Outbound booked</div>
+        <div className="text-xs text-italian-green font-medium">4 of 4 flights confirmed</div>
       </div>
+
+      {/* Booked Flights */}
+      {bookedFlights.length > 0 && (
+        <div>
+          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-italian-green" />
+            Confirmed Bookings
+          </h3>
+          <div className="space-y-3">
+            {bookedFlights.map((bf) => (
+              <div
+                key={bf.id}
+                className="rounded-xl border border-italian-green/30 bg-italian-green/5 p-5"
+              >
+                <div className="flex items-start justify-between gap-2 mb-3 flex-wrap">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-full bg-italian-green/10 flex items-center justify-center shrink-0">
+                      <Plane className="w-5 h-5 text-italian-green" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-medium text-gray-800">
+                          {bf.person} &middot; {bf.direction === "return" ? "Return Flight" : "Outbound Flight"}
+                        </span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-italian-green text-white font-medium uppercase tracking-wide">
+                          Booked
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray-500 mt-0.5">
+                        {bf.airline} &middot; {bf.routing}
+                      </div>
+                      <div className="text-xs text-gray-400 mt-0.5">
+                        {bf.date} &middot; {bf.totalDuration}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="text-sm font-semibold text-italian-green tabular-nums">
+                      {bf.price}
+                    </div>
+                    <div className="text-[10px] text-gray-400 mt-0.5">
+                      via {bf.bookingSite}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Segments */}
+                <div className="bg-white rounded-lg p-3 mb-3 space-y-3">
+                  {bf.segments.map((seg, idx) => (
+                    <div key={idx}>
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 text-sm font-medium text-gray-800">
+                            <span className="tabular-nums">{seg.fromCode}</span>
+                            <span className="text-gray-300">&rarr;</span>
+                            <span className="tabular-nums">{seg.toCode}</span>
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-navy/5 text-navy font-medium">
+                              {seg.cabin}
+                            </span>
+                          </div>
+                          <div className="text-xs text-gray-500 mt-0.5">
+                            {seg.from} &rarr; {seg.to}
+                          </div>
+                          <div className="text-xs text-gray-400 mt-1 tabular-nums">
+                            {seg.departTime} &rarr; {seg.arriveTime}
+                          </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <div className="text-xs font-medium text-gray-700">{seg.flightNumber}</div>
+                          <div className="text-[10px] text-gray-400 mt-0.5 tabular-nums">{seg.duration}</div>
+                        </div>
+                      </div>
+                      {idx < bf.segments.length - 1 && bf.layover && (
+                        <div className="ml-1 mt-2 pl-3 border-l-2 border-dashed border-gray-200 text-[11px] text-gray-400 py-1">
+                          Layover &middot; {bf.layover}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Watch note */}
+                {bf.watchNote && (
+                  <div className="text-[11px] text-gold-dark bg-gold/10 border border-gold/15 rounded-lg px-2.5 py-1.5 mb-3">
+                    <span className="font-medium">Watching: </span>{bf.watchNote}
+                  </div>
+                )}
+
+                {/* Add-ons */}
+                {bf.addOns.length > 0 && (
+                  <div className="flex items-center gap-2 flex-wrap mb-3">
+                    {bf.addOns.map((addOn) => {
+                      const Icon = addOn === "Fast Track" ? Zap : Shield;
+                      return (
+                        <span
+                          key={addOn}
+                          className="text-[11px] px-2 py-1 rounded-full bg-gold/10 text-gold-dark font-medium flex items-center gap-1"
+                        >
+                          <Icon className="w-3 h-3" />
+                          {addOn}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Confirmation */}
+                <div className="grid grid-cols-2 gap-2 text-xs bg-cream rounded-lg p-2.5">
+                  <div>
+                    <span className="text-gray-400">Confirmation:</span>{" "}
+                    <span className="font-medium text-gray-700 tabular-nums">{bf.confirmation}</span>
+                  </div>
+                  {bf.pin && (
+                    <div>
+                      <span className="text-gray-400">PIN:</span>{" "}
+                      <span className="font-medium text-gray-700 tabular-nums">{bf.pin}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Flight Research / Options */}
       <div>
@@ -321,13 +634,13 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
           )}
           <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
-            Return Flight Options &middot; Separate Routes Home
+            Original Research Notes &middot; Archive (all flights now booked)
           </h3>
         </button>
 
         {showResearch && (
           <div className="space-y-3">
-            {flightOptions.map((opt) => (
+            {flightOptions.filter((opt) => opt.person === "Jamie").map((opt) => (
               <div
                 key={opt.id}
                 className={`rounded-xl border p-4 ${
@@ -379,7 +692,7 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
             ))}
 
             <div className="bg-gold/5 border border-gold/10 rounded-lg p-3 text-xs text-gray-500">
-              <span className="font-medium text-gold-dark">Note:</span> Alicia and Jamie will likely fly separately, each direct home to LAX and DFW respectively. No nonstop exists from Venice to either LAX or DFW — best options involve a train to Rome (FCO nonstop) or a European hub connection (LHR, FRA, MUC, PHL). Prices based on April 2026 research — book 2–3 months out for best rates.
+              <span className="font-medium text-gold-dark">Note:</span> All flights are now booked &mdash; Jamie chose the LHR routing (AA 6744 + AA 81). These options remain as historical research.
             </div>
           </div>
         )}
@@ -388,11 +701,11 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
       {/* Outbound */}
       <div>
         <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">
-          Outbound &middot; To Naples
+          Outbound &middot; Other Tracking
         </h3>
         {outbound.length === 0 ? (
           <div className="text-sm text-gray-400 bg-cream rounded-xl p-4 text-center">
-            No outbound flights added yet
+            All booked outbound flights are shown above
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -406,11 +719,11 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
       {/* Return */}
       <div>
         <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">
-          Return &middot; From Venice / Rome
+          Return &middot; Other Tracking
         </h3>
         {returnFlights.length === 0 ? (
           <div className="text-sm text-gray-400 bg-cream rounded-xl p-4 text-center">
-            No return flights added yet
+            All booked return flights are shown above
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

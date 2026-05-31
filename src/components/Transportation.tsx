@@ -79,6 +79,42 @@ const modeColorHex = {
 
 const legs: Leg[] = [
   {
+    id: 0,
+    from: "Rome (FCO)",
+    to: "Sorrento (La Tonnarella)",
+    segments: [
+      { mode: "train", type: "Leonardo Express", operator: "Trenitalia", from: "Fiumicino Aeroporto (FCO)", to: "Roma Termini", duration: "32 min", cost: "€14 (~$15)", reservationRequired: false },
+      { mode: "train", type: "Frecciarossa / Italo", operator: "Trenitalia / Italo", from: "Roma Termini", to: "Napoli Centrale", duration: "1h 10m - 1h 25m", cost: "€30-60 advance (~$33-65)", reservationRequired: true },
+      { mode: "train", type: "Campania Express", operator: "EAV", from: "Napoli Garibaldi (Centrale underground)", to: "Sorrento", duration: "~1h 15m", cost: "€15 (~$16)", reservationRequired: true },
+    ],
+    alternative: { mode: "ferry", operator: "Alilauro / NLG / Gescab", from: "Napoli Molo Beverello", to: "Sorrento Marina Piccola", duration: "35-45 min", cost: "€15-19 (~$16-21)", note: "Replaces the Campania Express leg. Taxi (€15) Napoli Centrale → Molo Beverello. ~7-10 departures/day in summer, last ~7 PM. Weather-dependent." },
+    totalDuration: "~5.5 hrs FCO to hotel",
+    totalCost: "€75-105 per person (~$82-115) + €15-20 station taxi",
+    tips: [
+      "AA 240 lands FCO 12:05 PM Aug 30 — realistic Termini boarding ~1:45 PM after customs + bags",
+      "La Tonnarella is on Via Capo, ~2 km west of Sorrento station — take a taxi at the station rank (€15-20, ~7 min). Don't walk it with luggage in August heat.",
+      "Campania Express has only ~8 daily departures — target the ~4:30 PM ex-Naples departure",
+      "Book Frecciarossa Roma → Napoli 60+ days ahead for sub-€30 Super Economy fares",
+      "Ferry alternative arrives at Marina Piccola (bottom of cliffs) — taxi up to Via Capo €20-25, ~10 min",
+      "Leaning plan: Frecciarossa Rome → Naples, then private car Naples → La Tonnarella (~4.5 hrs total, ~€110-170 transfer + train). Skips the Campania Express crowd and the Sorrento taxi rank. Quote requested from La Tonnarella.",
+      "Full FCO → La Tonnarella private car: ~3.5 hrs door-to-door, ~€380-480 sedan. Fastest but priciest.",
+    ],
+    route: {
+      waypoints: [
+        [[41.8045, 12.2508], [41.9008, 12.5018]],
+        [[41.9008, 12.5018], [41.5, 13.0], [40.8518, 14.2681]],
+        [[40.8518, 14.2681], [40.7539, 14.2338], [40.6263, 14.3759]],
+      ],
+      labels: [
+        { name: "Rome FCO", lat: 41.8045, lng: 12.2508 },
+        { name: "Roma Termini", lat: 41.9008, lng: 12.5018 },
+        { name: "Napoli Centrale", lat: 40.8518, lng: 14.2681 },
+        { name: "Sorrento", lat: 40.6263, lng: 14.3759 },
+      ],
+      colors: [modeColorHex.train, modeColorHex.train, modeColorHex.train],
+    },
+  },
+  {
     id: 1,
     from: "Naples",
     to: "Amalfi Coast",
@@ -263,7 +299,7 @@ function ModeLegend() {
 /* ── Main component ────────────────────────────────────────── */
 
 export default function Transportation() {
-  const [expandedLeg, setExpandedLeg] = useState<number | null>(1);
+  const [expandedLeg, setExpandedLeg] = useState<number | null>(0);
 
   return (
     <div className="space-y-6">
@@ -273,8 +309,8 @@ export default function Transportation() {
           Getting Around Italy
         </h2>
         <p className="text-sm text-gray-400 mt-1">
-          Getting between each destination &middot; Est. total:{" "}
-          <span className="font-medium text-olive">&euro;53-167 (~$58-182) per person (trains/buses only)</span>
+          FCO arrival + inter-city travel &middot; Est. total:{" "}
+          <span className="font-medium text-olive">&euro;128-272 (~$140-297) per person (trains/ferries only)</span>
         </p>
       </div>
 
