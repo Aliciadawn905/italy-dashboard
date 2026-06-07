@@ -328,6 +328,44 @@ const legs: Leg[] = [
       colors: [modeColorHex.ferry, modeColorHex.train, modeColorHex.train],
     },
   },
+  {
+    id: 8,
+    from: "Amalfi Coast (Marmorata)",
+    to: "Rome",
+    segments: [
+      { mode: "bus", type: "Hotel taxi", operator: "Marmorata reception", from: "Hotel Marmorata, Marmorata hamlet ~08:50", to: "Amalfi Marina Grande ~09:00", duration: "~10 min", cost: "~€15 (~$16)", reservationRequired: true },
+      { mode: "ferry", type: "Travelmar or Alicost", operator: "Travelmar / Alicost", from: "Amalfi Marina Grande 09:30", to: "Salerno Porto Concordia 10:05", duration: "~35 min", cost: "€12 pp (~$13)", reservationRequired: false },
+      { mode: "train", type: "Frecciarossa or Italo", operator: "Trenitalia / Italo", from: "Salerno 10:40", to: "Roma Termini 12:45", duration: "~2h 5m", cost: "€30–60 pp Standard advance (~$33–65)", reservationRequired: true },
+    ],
+    alternative: { mode: "bus", operator: "SITA Sud", from: "Amalfi", to: "Salerno", duration: "~1h 15m", cost: "€3 pp (~$3)", note: "Backup if Amalfi → Salerno ferry is cancelled (weather, strike). Slower & curvier but reliable. Adds ~40 min to total trip." },
+    totalDuration: "~4h door-to-door (Marmorata → Roma Termini)",
+    totalCost: "€57–87 per person (~$62–95) + ~€15 hotel taxi",
+    tips: [
+      "Sept 5 (Sat) — Week 1 → Week 2 transit. Target: in Rome by 2 PM. Plan-of-record arrives Termini 12:45, giving ~1h 15m buffer.",
+      "Leave Marmorata by ~9:00 AM. Pre-arrange the morning taxi with reception the night before — Ravello-area taxis don't 'just show up.'",
+      "Recommended train: 10:40 Frecciarossa Salerno → Roma Termini, arrives 12:45. Backup: 11:45 → arrives 13:50 (cuts the 2 PM deadline close).",
+      "DO NOT take a noon-or-later ferry/train combo — arrival drifts past 14:45 and blows the deadline.",
+      "Ferry tickets buy day-of at the Travelmar office on the Amalfi pier. Cash or card, no pre-booking needed.",
+      "Skip Naples entirely — Salerno → Rome Frecciarossa is the cleanest 2-hour ride on the network and dodges the Sorrento/Naples transfer madness.",
+      "⚠ Timetable caveat: Travelmar's Sept ferry schedule and Trenitalia's seasonal Sept timetable aren't fully published until ~30–60 days before. These times are based on summer 2025 patterns + Trenitalia historical data. Re-verify in mid-July before booking the Frecciarossa.",
+      "Book the Frecciarossa Salerno → Roma Termini NOW for Super Economy fares (~120 days out, mid-July window). Sat departures fill fast.",
+      "Splurge alternative: private NCC car door-to-door Marmorata → Rome, ~3.5 hrs, ~€600–700 for two. Worth it only if heavy bags or zero-transfer preference.",
+    ],
+    route: {
+      waypoints: [
+        [[40.6313, 14.6080], [40.6342, 14.6029]],
+        [[40.6342, 14.6029], [40.66, 14.70], [40.6747, 14.7654]],
+        [[40.6747, 14.7654], [41.5, 13.0], [41.9008, 12.5018]],
+      ],
+      labels: [
+        { name: "Marmorata", lat: 40.6313, lng: 14.6080 },
+        { name: "Amalfi", lat: 40.6342, lng: 14.6029 },
+        { name: "Salerno", lat: 40.6747, lng: 14.7654 },
+        { name: "Roma Termini", lat: 41.9008, lng: 12.5018 },
+      ],
+      colors: [modeColorHex.bus, modeColorHex.ferry, modeColorHex.train],
+    },
+  },
 ];
 
 const generalTips = [
