@@ -258,6 +258,76 @@ const legs: Leg[] = [
       colors: [modeColorHex.train],
     },
   },
+  {
+    id: 6,
+    from: "Rome (Alicia solo)",
+    to: "Lake Como — Bellagio",
+    segments: [
+      { mode: "train", type: "Frecciarossa or Italo", operator: "Trenitalia / Italo", from: "Roma Termini 07:00", to: "Milano Centrale ~10:05", duration: "~3h", cost: "€30–90 advance (~$33–98)", reservationRequired: true },
+      { mode: "train", type: "Trenord regional (R/RV)", operator: "Trenord", from: "Milano Centrale ~11:20", to: "Varenna-Esino ~12:35", duration: "~1h 15m", cost: "€7 (~$8) — buy at station, no booking needed", reservationRequired: false },
+      { mode: "ferry", type: "Public ferry", operator: "Navigazione Lago di Como", from: "Varenna Imbarcadero ~13:00", to: "Bellagio Imbarcadero ~13:15", duration: "~15 min", cost: "€5 (~$5)", reservationRequired: false },
+    ],
+    alternative: { mode: "bus", operator: "Private car (NCC)", from: "Milano Centrale", to: "Bellagio (via Varenna ferry, or direct via Como)", duration: "~1h 30m – 2h", cost: "€180–250 (~$195–270)", note: "Backup if Trenord cancelled or strike. Direct car can't fully reach Bellagio peninsula — usually drops at Varenna for the ferry." },
+    totalDuration: "~5h 45m Rome → Bellagio (door-to-door)",
+    totalCost: "€42–102 per person (~$46–111) for Alicia solo",
+    tips: [
+      "Sept 7 (Mon) — Alicia's solo leg while Jamie + family stay in Rome. Reunite in Venice on Sept 10.",
+      "Book the 07:00 Frecciarossa now — Super Economy fares open ~120 days out and disappear fast. Italo 07:15 is an independent backup if Trenitalia has issues.",
+      "1h 20m buffer at Milano Centrale absorbs all typical Freccia delays. Grab a panzerotti at Luini (5 min from platform) while you wait.",
+      "Trenord ticket is cheap (€7) and bought on arrival — full flexibility to grab whichever regional runs next if the connection slips.",
+      "Sciopero (rail strike) is the only real 'don't get there' scenario. Strikes are announced 10+ days ahead at mit.gov.it — check the week before Sept 7.",
+      "Varenna → Bellagio ferry runs frequently during the day (~every 30 min). Last fast hydrofoil ~7 PM, last slow ferry ~10 PM — don't push it late.",
+      "Hotel Du Lac is ~30 seconds from Bellagio's Imbarcadero — drop the bags and you're at the pier for the next ferry to Tremezzo/Menaggio.",
+    ],
+    route: {
+      waypoints: [
+        [[41.9028, 12.4964], [44.0, 10.5], [45.4863, 9.2049]],
+        [[45.4863, 9.2049], [45.85, 9.27], [46.0119, 9.2854]],
+        [[46.0119, 9.2854], [45.9869, 9.2613]],
+      ],
+      labels: [
+        { name: "Roma Termini", lat: 41.9028, lng: 12.4964 },
+        { name: "Milano Centrale", lat: 45.4863, lng: 9.2049 },
+        { name: "Varenna-Esino", lat: 46.0119, lng: 9.2854 },
+        { name: "Bellagio", lat: 45.9869, lng: 9.2613 },
+      ],
+      colors: [modeColorHex.train, modeColorHex.train, modeColorHex.ferry],
+    },
+  },
+  {
+    id: 7,
+    from: "Lake Como — Bellagio (Alicia solo)",
+    to: "Venice",
+    segments: [
+      { mode: "ferry", type: "Public ferry", operator: "Navigazione Lago di Como", from: "Bellagio Imbarcadero", to: "Varenna Imbarcadero", duration: "~15 min", cost: "€5 (~$5)", reservationRequired: false },
+      { mode: "train", type: "Trenord regional (R/RV)", operator: "Trenord", from: "Varenna-Esino", to: "Milano Centrale", duration: "~1h 15m", cost: "€7 (~$8)", reservationRequired: false },
+      { mode: "train", type: "Frecciarossa or Italo", operator: "Trenitalia / Italo", from: "Milano Centrale", to: "Venezia Santa Lucia", duration: "~2h 30m", cost: "€25–80 advance (~$27–87)", reservationRequired: true },
+    ],
+    totalDuration: "~4h 30m – 5h Bellagio → Venice (door-to-door)",
+    totalCost: "€37–92 per person (~$40–100) for Alicia solo",
+    tips: [
+      "Sept 10 (Thu) — Alicia rejoins Jamie + family in Venice. Aim for an 8–9 AM Bellagio ferry so you're in Venice by mid-afternoon.",
+      "Bellagio → Varenna ferry runs hourly+ from ~7 AM. Walk 30 seconds from Hotel Du Lac to the Imbarcadero.",
+      "Varenna-Esino station is a 7-min uphill walk from the ferry pier — give yourself 15 min with bags.",
+      "Book the Milano → Venezia Frecciarossa in advance for Super Economy fares (often <€30 if booked 60+ days out).",
+      "Venezia Santa Lucia is on the island (Grand Canal) — NOT Mestre (mainland). Confirm 'S. Lucia' on the ticket.",
+      "Arrival in Venice: vaporetto Line 1 or 2 from the station to your hotel stop (~€9.50 single, ~€35 for 72hr pass).",
+    ],
+    route: {
+      waypoints: [
+        [[45.9869, 9.2613], [46.0119, 9.2854]],
+        [[46.0119, 9.2854], [45.85, 9.27], [45.4863, 9.2049]],
+        [[45.4863, 9.2049], [45.5, 10.2], [45.4410, 12.3212]],
+      ],
+      labels: [
+        { name: "Bellagio", lat: 45.9869, lng: 9.2613 },
+        { name: "Varenna-Esino", lat: 46.0119, lng: 9.2854 },
+        { name: "Milano Centrale", lat: 45.4863, lng: 9.2049 },
+        { name: "Venezia S. Lucia", lat: 45.4410, lng: 12.3212 },
+      ],
+      colors: [modeColorHex.ferry, modeColorHex.train, modeColorHex.train],
+    },
+  },
 ];
 
 const generalTips = [

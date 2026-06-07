@@ -20,6 +20,7 @@ import {
 
 interface BookingDetails {
   reservationCode: string;
+  pin?: string;
   bookedBy: string;
   checkIn: string;
   checkOut: string;
@@ -254,6 +255,40 @@ const hotelData: CityHotels[] = [
     ],
   },
   {
+    city: "Lake Como (Bellagio)",
+    week: "Week 2 · Days 10–13 · Alicia solo",
+    vibe: "Solo escape — Alicia only",
+    tip: "Alicia's solo detour while Jamie + family are in Rome. Bellagio is the central pier hub on Lake Como — every ferry route converges here, perfect for the no-car, boat-everywhere plan. Reunites with Jamie + family in Venice on Sept 10.",
+    hotels: [
+      {
+        name: "Hotel Du Lac & SPA (Bellagio)",
+        stars: 4,
+        price: "$$$",
+        features: "Family-run 4★ on Piazza Mazzini, directly across from the Bellagio ferry pier. Lake-view rooms, classic Italian elegance, walk-everywhere village location.",
+        bestFor: "Booked — 3 nights Sept 7 → Sept 10",
+        recommended: true,
+        booked: true,
+        link: "https://www.bellagiohoteldulac.com/",
+        booking: {
+          reservationCode: "5301340135",
+          pin: "7004",
+          bookedBy: "Alicia Sorensen (via Booking.com)",
+          checkIn: "Mon, Sept 7, 2026",
+          checkOut: "Thu, Sept 10, 2026",
+          nights: 3,
+          room: "Standard Double Room",
+          guests: "1 adult (solo)",
+          total: "€960 (~$1,110)",
+          prepaymentDate: "Pay at hotel · free modify/cancel until check-in",
+          refundable: true,
+          breakfast: false,
+          address: "Piazza Mazzini 32, 22021 Bellagio (CO), Italy",
+          phone: "+39 031 950320",
+        },
+      },
+    ],
+  },
+  {
     city: "Venice",
     week: "Week 2 · Days 11–14",
     vibe: "Grand finale with family",
@@ -309,6 +344,7 @@ const vibeColors: Record<string, string> = {
   "Relaxing base for art & culture": "bg-olive/10 text-olive",
   "Sightseeing with Jamie's family": "bg-navy/10 text-navy",
   "Grand finale with family": "bg-navy/10 text-navy",
+  "Solo escape — Alicia only": "bg-terracotta/10 text-terracotta",
 };
 
 export default function Hotels() {
@@ -524,6 +560,14 @@ export default function Hotels() {
                                   {hotel.booking.reservationCode}
                                 </span>
                               </div>
+                              {hotel.booking.pin && (
+                                <div>
+                                  <span className="text-gray-400">PIN:</span>{" "}
+                                  <span className="font-medium text-gray-700 tabular-nums">
+                                    {hotel.booking.pin}
+                                  </span>
+                                </div>
+                              )}
                               <div>
                                 <span className="text-gray-400">Booked by:</span>{" "}
                                 <span className="font-medium text-gray-700">
