@@ -52,39 +52,7 @@ const suggestedItinerary: SuggestedDay[] = [
     who: "Alicia & Jamie",
     morning: "Valle dei Mulini hike (Amalfi)",
     afternoon: "Amalfi town, Duomo, limoncello tasting",
-    evening: "Departure prep for Tuscany",
-  },
-  {
-    day: 4,
-    city: "Tuscany / Chianti",
-    who: "Alicia & Jamie",
-    morning: "Drive/transfer to Chianti. Check in, settle",
-    afternoon: "Tenuta Casanova wine tasting (book in advance!)",
-    evening: "Dinner at estate or local trattoria",
-  },
-  {
-    day: 5,
-    city: "Tuscany / Chianti",
-    who: "Alicia & Jamie",
-    morning: "Antinori nel Chianti Classico winery",
-    afternoon: "Drive to Siena, Piazza del Campo. Optional: San Gimignano towers",
-    evening: "Return to Chianti, local dinner",
-  },
-  {
-    day: 6,
-    city: "Florence",
-    who: "Alicia & Jamie",
-    morning: "Arrive Florence, check in",
-    afternoon: "Uffizi Galleries (3–4 hrs)",
-    evening: "Ponte Vecchio, Oltrarno neighborhood dinner",
-  },
-  {
-    day: 7,
-    city: "Florence",
-    who: "Alicia & Jamie",
-    morning: "Duomo + Dome climb (Brunelleschi)",
-    afternoon: "Accademia Gallery (David), leather market",
-    evening: "Piazzale Michelangelo sunset. Departure prep for Rome",
+    evening: "Departure prep for Marmorata (Sept 5 → Rome)",
   },
   {
     day: 8,
@@ -146,8 +114,6 @@ const suggestedItinerary: SuggestedDay[] = [
 
 const cityColors: Record<string, string> = {
   "Amalfi Coast": "bg-terracotta/10 text-terracotta",
-  "Tuscany / Chianti": "bg-olive/10 text-olive",
-  "Florence": "bg-gold/10 text-gold-dark",
   "Rome": "bg-navy/10 text-navy",
   "Venice": "bg-italian-green/10 text-italian-green",
 };

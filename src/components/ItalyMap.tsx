@@ -74,22 +74,6 @@ const destinations: Destination[] = [
     ],
   },
   {
-    name: "Tuscany",
-    subtitle: "Rolling hills & wine",
-    lat: 43.7696,
-    lng: 11.2558,
-    color: "#5C6B3C",
-    order: 4,
-    sites: [
-      { name: "Florence Duomo", icon: Church, desc: "Brunelleschi's dome — 463 steps to the top", lat: 43.7731, lng: 11.2560, image: "https://images.unsplash.com/photo-1541370976299-4d24ebbc9077?w=400&q=80" },
-      { name: "Uffizi Gallery", icon: Palette, desc: "Botticelli's Birth of Venus", lat: 43.7677, lng: 11.2553, image: "https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=400&q=80" },
-      { name: "Chianti Wine Region", icon: Wine, desc: "Vineyards and Tuscan farmhouse lunches", lat: 43.4700, lng: 11.2500, image: "https://images.unsplash.com/photo-1523528283115-9bf9b1699245?w=400&q=80" },
-      { name: "Siena", icon: Landmark, desc: "Medieval piazza and Gothic cathedral", lat: 43.3188, lng: 11.3308, image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=80" },
-      { name: "San Gimignano", icon: Camera, desc: "Medieval hilltop town famous for towers", lat: 43.4677, lng: 11.0434, image: "https://images.unsplash.com/photo-1595854341625-f2e12dbce3e8?w=400&q=80" },
-      { name: "Val d'Orcia", icon: Camera, desc: "UNESCO cypress-lined roads", lat: 43.0620, lng: 11.5500, image: "https://images.unsplash.com/photo-1611264788618-39f1adb1342f?w=400&q=80" },
-    ],
-  },
-  {
     name: "Cinque Terre",
     subtitle: "Colorful villages",
     lat: 44.1461,

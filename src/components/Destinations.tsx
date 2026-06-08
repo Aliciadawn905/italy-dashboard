@@ -57,59 +57,6 @@ const destinations: DestinationInfo[] = [
     ],
   },
   {
-    name: "Tuscany / Chianti",
-    region: "Toscana",
-    days: "Days 4–5",
-    who: "Alicia & Jamie",
-    overview:
-      "Rolling hills blanketed in vineyards, olive groves, and cypress-lined roads. Chianti is the heart of Tuscan wine country — a landscape that hasn't changed much in centuries.",
-    bestMonths: "April–June, September–October (harvest season in Sept/Oct is magical)",
-    weather: "18–25°C in shoulder seasons. Hot in summer.",
-    baseRecommendation:
-      "Greve in Chianti or Castellina in Chianti for central access to wineries",
-    gettingThere:
-      "Rental car recommended from Naples or train to Florence then car hire",
-    highlights: [
-      "Tenuta Casanova wine estate — family-run with balsamic vinegar + olive oil tasting",
-      "Antinori nel Chianti Classico — stunning modern winery built into the hillside",
-      "Piazza del Campo in Siena — medieval shell-shaped piazza",
-      "San Gimignano — medieval hilltop town famous for its towers and gelato",
-      "Drive the SR222 (Chiantigiana road) — one of Italy's most scenic drives",
-    ],
-    insiderTips: [
-      "Most wineries require advance booking for tastings",
-      "Harvest season (late Sept–Oct) offers special experiences",
-      "An agriturismo (farm stay) is uniquely Tuscan and often better value than hotels",
-      "The Vernaccia wine in San Gimignano is the local specialty — try it cold with pecorino",
-    ],
-  },
-  {
-    name: "Florence",
-    region: "Toscana",
-    days: "Days 6–7",
-    who: "Alicia & Jamie",
-    overview:
-      "The birthplace of the Renaissance packed into a compact, walkable city. Florence holds more masterpieces per square foot than anywhere on earth — from Botticelli to Brunelleschi.",
-    bestMonths: "April–May or September–October",
-    weather: "20–25°C in spring/fall. Very hot and crowded in summer.",
-    baseRecommendation: "Oltrarno neighborhood for a quieter, more local experience",
-    gettingThere:
-      "Train from nearby Chianti area (Greve → Florence SMN, ~1hr by bus/car)",
-    highlights: [
-      "Uffizi Galleries — Botticelli's Birth of Venus and Renaissance masterpieces",
-      "Cathedral + Brunelleschi's Dome — 463-step climb with incredible views",
-      "Accademia Gallery — Michelangelo's David",
-      "Ponte Vecchio — iconic bridge lined with jewelry shops",
-      "Piazzale Michelangelo — panoramic sunset viewpoint over Florence",
-    ],
-    insiderTips: [
-      "Uffizi is closed Mondays. Book tickets 2–4 weeks ahead minimum.",
-      "The Oltrarno neighborhood (south of Arno) is more authentic and less touristy",
-      "Get a combined Duomo pass — covers cathedral, dome, baptistery, campanile, and museum",
-      "Book dome time slot in advance. The climb is worth every step for the view.",
-    ],
-  },
-  {
     name: "Rome",
     region: "Lazio",
     days: "Days 8–10",
@@ -121,7 +68,7 @@ const destinations: DestinationInfo[] = [
     baseRecommendation:
       "Trastevere for charm and restaurants, or near Termini for transit convenience",
     gettingThere:
-      "Train from Florence (Frecciargento/Frecciarossa, ~1.5 hrs, book on Trenitalia or Italo)",
+      "Ferry Amalfi → Salerno (~35 min) + Frecciarossa Salerno → Roma Termini (~2h direct). Book the Frecciarossa ahead for Super Economy fares.",
     highlights: [
       "Colosseum + Roman Forum + Palatine Hill — the heart of ancient Rome",
       "Vatican Museums + Sistine Chapel — Michelangelo's masterpiece ceiling",

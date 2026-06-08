@@ -38,27 +38,6 @@ const foodGuide: CityFood[] = [
     ],
   },
   {
-    city: "Tuscany / Chianti",
-    week: "Week 1 — Relaxing",
-    recs: [
-      { name: "Osteria di Passignano", category: "Fine Dining", price: "€€€", mustTry: "Anything from the wine cellar pairing menu", vibe: "Inside a 1,000-year-old wine cellar. Reserve months ahead. Unforgettable.", reservation: true },
-      { name: "Dario Cecchini's Solociccia (Panzano)", category: "Fine Dining", price: "€€€", mustTry: "Fixed-menu meat feast", vibe: "World-famous butcher's restaurant. A show and a meal. Must book.", reservation: true },
-      { name: "Trattoria del Montagliari (Panzano)", category: "Trattoria", price: "€€", mustTry: "Bistecca Fiorentina", vibe: "Old-world Chianti trattoria. Rustic, relaxed, perfect.", reservation: false },
-      { name: "Gelato in San Gimignano", category: "Street Food", price: "€", mustTry: "Award-winning artisan gelato", vibe: "Wander the medieval towers with a cone in hand", reservation: false },
-    ],
-  },
-  {
-    city: "Florence",
-    week: "Week 1 — Relaxing",
-    recs: [
-      { name: "Buca Mario (near Uffizi)", category: "Fine Dining", price: "€€€", mustTry: "Bistecca Fiorentina for two", vibe: "Florence's oldest restaurant. Perfect for a special evening.", reservation: true },
-      { name: "Il Latini (Oltrarno)", category: "Trattoria", price: "€€", mustTry: "Anything — communal tables, boisterous, traditional", vibe: "No reservations, queue early. An experience more than just dinner.", reservation: false },
-      { name: "All'Antico Vinaio", category: "Street Food", price: "€", mustTry: "Schiacciata panino stuffed with cured meats", vibe: "Best sandwich in Florence. Insanely popular, queues move fast.", reservation: false },
-      { name: "Vivoli", category: "Gelato", price: "€€", mustTry: "Rice flavor (riso)", vibe: "Florence's most historic gelateria since 1930", reservation: false },
-      { name: "Oltrarno neighborhood restaurants", category: "Trattoria", price: "€€", mustTry: "Wander via dei Serragli for authentic spots", vibe: "Most authentic restaurants are south of the Arno", reservation: false },
-    ],
-  },
-  {
     city: "Rome",
     week: "Week 2 — Family Sightseeing",
     recs: [

@@ -34,27 +34,15 @@ const destinations = [
     ],
   },
   {
-    name: "Tuscany / Chianti",
-    subtitle: "Rolling hills & wine · Days 4–5",
-    image: "https://images.unsplash.com/photo-1611264788618-39f1adb1342f?w=800&q=80",
+    name: "Lake Como (Bellagio)",
+    subtitle: "Solo lake retreat · Alicia only · Sept 7–10",
+    image: "https://images.unsplash.com/photo-1602080858428-57174f9431cf?w=800&q=80",
     sites: [
-      { name: "Tenuta Casanova", icon: Wine, desc: "5-star family-run estate — balsamic, olive oil + wine tasting. €35–60, book 1–2 weeks ahead" },
-      { name: "Antinori nel Chianti Classico", icon: Wine, desc: "Stunning architecture — vineyard grows over the roof. €25–55, weekday mornings best" },
-      { name: "Piazza del Campo, Siena", icon: Landmark, desc: "Medieval shell-shaped piazza — most atmospheric in the evening" },
-      { name: "San Gimignano", icon: Camera, desc: "Medieval towers and award-winning gelato. Go morning before day-trippers arrive" },
-      { name: "Chiantigiana Road (SR222)", icon: Camera, desc: "One of Italy's most scenic drives — stop at roadside cantinas for tastings" },
-    ],
-  },
-  {
-    name: "Florence",
-    subtitle: "Renaissance masterpieces · Days 6–7",
-    image: "https://images.unsplash.com/photo-1543429776-2782f8f3c8e4?w=800&q=80",
-    sites: [
-      { name: "Uffizi Galleries", icon: Palette, desc: "Botticelli's Birth of Venus. €20, book 2–4 weeks ahead. Closed Mondays. Allow 3+ hrs" },
-      { name: "Duomo + Dome Climb", icon: Church, desc: "Brunelleschi's dome — 463 steps, incredible views. €20 combined pass. Book dome slot in advance" },
-      { name: "Accademia Gallery", icon: Palette, desc: "Michelangelo's David — more impressive in person than any photo. €16, book ahead" },
-      { name: "Ponte Vecchio", icon: Landmark, desc: "Iconic bridge — dawn for empty photos, sunset for golden light" },
-      { name: "Piazzale Michelangelo", icon: Camera, desc: "Panoramic sunset viewpoint — bring wine and snacks, everyone does" },
+      { name: "Villa del Balbianello", icon: Landmark, desc: "Dramatic 18th-c villa on a peninsula — Star Wars Episode II + Casino Royale filming location" },
+      { name: "Villa Carlotta (Tremezzo)", icon: Star, desc: "Famous botanical gardens · ferry across from Bellagio · €12 entry" },
+      { name: "Villa Melzi Gardens (Bellagio)", icon: Camera, desc: "Lakeside neoclassical gardens with statues and rare plants — walkable from town" },
+      { name: "Centro Lago Triangle", icon: Ship, desc: "Ferry-hop Bellagio ↔ Varenna ↔ Menaggio — three iconic villages, one afternoon" },
+      { name: "Aperitivo on the Lake", icon: Wine, desc: "Sunset spritz on a Bellagio waterfront terrace — pure Como" },
     ],
   },
   {
@@ -216,8 +204,7 @@ export default function Overview({
           Trip Route
         </h3>
         <div className="flex flex-wrap items-center gap-2 text-sm">
-          {["Naples", "Amalfi Coast", "Tuscany / Chianti", "Florence", "Rome", "Venice"].map(
-            // Route: Naples (arrive) → Amalfi (Days 1-3) → Tuscany (Days 4-5) → Florence (Days 6-7) → Rome (Days 8-10) → Venice (Days 11-14)
+          {["Sorrento", "Amalfi Coast (Marmorata)", "Rome", "Lake Como (Bellagio)", "Venice"].map(
             (city, i, arr) => (
               <span key={city} className="flex items-center gap-2">
                 <button
@@ -235,18 +222,18 @@ export default function Overview({
         </div>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="bg-cream rounded-lg p-3">
-            <div className="text-xs font-medium text-olive mb-1">Week 1 &middot; Days 1–7 &middot; Alicia + Jamie</div>
+            <div className="text-xs font-medium text-olive mb-1">Week 1 &middot; Aug 30 – Sept 5 &middot; Alicia + Jamie</div>
             <p className="text-xs text-gray-600">
-              Amalfi Coast &rarr; Tuscany/Chianti &rarr; Florence
+              Sorrento (La Tonnarella) &rarr; Marmorata (Amalfi Coast)
             </p>
             <p className="text-[11px] text-gray-400 mt-1 italic">Relaxing — just the two of you</p>
           </div>
           <div className="bg-cream rounded-lg p-3">
-            <div className="text-xs font-medium text-olive mb-1">Week 2 &middot; Days 8–14 &middot; Full Family</div>
+            <div className="text-xs font-medium text-navy mb-1">Week 2 &middot; Sept 5 – Sept 12 &middot; Family + Solo split</div>
             <p className="text-xs text-gray-600">
-              Rome &rarr; Venice &rarr; Departure
+              Rome &rarr; Bellagio (Alicia solo) &rarr; Venice &rarr; Departure
             </p>
-            <p className="text-[11px] text-gray-400 mt-1 italic">Sightseeing — Jamie&apos;s family joins (kids 23, 21, 15)</p>
+            <p className="text-[11px] text-gray-400 mt-1 italic">Family in Rome &middot; Alicia solo lake retreat &middot; All reunite in Venice</p>
           </div>
         </div>
       </div>

@@ -22,14 +22,14 @@ interface TripWideCost {
 const STORAGE_KEY = "italy_trip_budget";
 
 const defaultWeek1: BudgetRow[] = [
-  { id: "w1_1", segment: "Amalfi Coast", nights: 3, hotelPerNight: "200–400", foodPerDay: "80", attractions: "50", transport: "50" },
-  { id: "w1_2", segment: "Tuscany / Chianti", nights: 2, hotelPerNight: "150–300", foodPerDay: "100", attractions: "80", transport: "30" },
-  { id: "w1_3", segment: "Florence", nights: 2, hotelPerNight: "150–250", foodPerDay: "80", attractions: "60", transport: "20" },
+  { id: "w1_1", segment: "Sorrento (La Tonnarella) ✓ booked", nights: 3, hotelPerNight: "757", foodPerDay: "100", attractions: "120", transport: "85" },
+  { id: "w1_2", segment: "Amalfi/Marmorata ✓ booked", nights: 3, hotelPerNight: "830", foodPerDay: "100", attractions: "100", transport: "60" },
 ];
 
 const defaultWeek2: BudgetRow[] = [
-  { id: "w2_1", segment: "Rome", nights: 3, hotelPerNight: "100–200", foodPerDay: "70", attractions: "60", transport: "20" },
-  { id: "w2_2", segment: "Venice", nights: 3, hotelPerNight: "120–250", foodPerDay: "80", attractions: "50", transport: "20" },
+  { id: "w2_1", segment: "Rome", nights: 2, hotelPerNight: "200–350", foodPerDay: "70", attractions: "60", transport: "20" },
+  { id: "w2_2", segment: "Lake Como (Bellagio) ✓ booked · Alicia solo", nights: 3, hotelPerNight: "320", foodPerDay: "80", attractions: "80", transport: "50" },
+  { id: "w2_3", segment: "Venice (3 rooms)", nights: 2, hotelPerNight: "750–1,250 total", foodPerDay: "80", attractions: "50", transport: "30" },
 ];
 
 const defaultTripWide: TripWideCost[] = [
@@ -283,14 +283,14 @@ export default function BudgetTracker() {
       </div>
 
       <BudgetTable
-        title="Week 1 — Amalfi, Tuscany, Florence"
+        title="Week 1 — Sorrento + Amalfi/Marmorata"
         subtitle="Estimates per person"
         rows={budget.week1}
         onEdit={(id, field, value) => editRow("week1", id, field, value)}
       />
 
       <BudgetTable
-        title="Week 2 — Rome & Venice"
+        title="Week 2 — Rome, Lake Como (Alicia solo), Venice"
         subtitle="Estimates per person"
         rows={budget.week2}
         onEdit={(id, field, value) => editRow("week2", id, field, value)}
