@@ -93,7 +93,7 @@ const hotelData: CityHotels[] = [
     city: "Amalfi Coast — Ravello",
     week: "Week 1 · Days 4–6 · Sept 2–5",
     vibe: "Relaxing — just the two of you",
-    tip: "Marmorata locked in with the Junior Suite (private balcony overlooking Amalfi). Already paid in full and NON-REFUNDABLE — no flexibility once booked. Garden Ravello backup was cancelled within the free window (Jun 8, well before the Jul 3 deadline) — cancellation reference kept in HANDOFF.md.",
+    tip: "Marmorata locked in with the Junior Suite (private balcony overlooking Amalfi). Already paid in full and NON-REFUNDABLE — no flexibility once booked.",
     hotels: [
       {
         name: "Ravello Art Hotel Marmorata",
