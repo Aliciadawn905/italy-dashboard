@@ -85,20 +85,21 @@ const legs: Leg[] = [
     segments: [
       { mode: "train", type: "Leonardo Express", operator: "Trenitalia", from: "Fiumicino Aeroporto (FCO)", to: "Roma Termini", duration: "32 min", cost: "€14 (~$15)", reservationRequired: false },
       { mode: "train", type: "Intercity 707 — BOOKED", operator: "Trenitalia", from: "Roma Termini 15:26", to: "Napoli Centrale 17:34", duration: "2h 8m", cost: "€26.90 × 2 = €53.80 (1st Class)", reservationRequired: true },
-      { mode: "bus", type: "Private car (La Tonnarella, Option 2) — CONFIRMED PLAN", operator: "Hotel La Tonnarella (Annalisa)", from: "Napoli Centrale (driver meets at platform)", to: "Hotel La Tonnarella, Via Capo 31", duration: "~70 min", cost: "€170 flat (~$185), 8:00–19:00 window", reservationRequired: true },
+      { mode: "bus", type: "Private car (La Tonnarella, Option 2) — CONFIRMED Jun 20", operator: "Hotel La Tonnarella (Annalisa)", from: "Napoli Centrale · driver waits at arrival with 'Sorensen' sign", to: "Hotel La Tonnarella, Via Capo 31", duration: "~70 min", cost: "€170 added to room folio · PAID AT CHECKOUT (not pre-paid)", reservationRequired: true },
     ],
     alternative: { mode: "ferry", operator: "Alilauro / NLG / Gescab", from: "Napoli Molo Beverello", to: "Sorrento Marina Piccola", duration: "35-45 min", cost: "€15-19 (~$16-21)", note: "Backup only if private car cancelled. Taxi (€15) Napoli Centrale → Molo Beverello, then taxi up Via Capo €20-25. Weather-dependent." },
     totalDuration: "~3.5–4 hrs FCO to hotel (door-to-door)",
-    totalCost: "€238 total for two (~$259) — €14 Leonardo + €54 IC 707 + €170 private car",
+    totalCost: "€238 total for two (~$259) — €14 Leonardo + €54 IC 707 + €170 transfer (€170 at checkout)",
     tips: [
       "✅ BOOKED — Intercity 707, Roma Termini 15:26 → Napoli Centrale 17:34, Sun Aug 30. 1st Class, Carriage 1, Seats 6C (Alicia) & 6D (Jamie). PNR ZQ5M25. Tickets in /tickets folder.",
-      "✅ CONFIRMED — Hotel La Tonnarella private car from Napoli Centrale, €170 (Option 2 — daytime tariff 8:00–19:00). Hotel agrees this is the best option. IC 707 arrives 17:34, comfortably inside the window.",
-      "TO DO — Reply to Annalisa (info@latonnarella.it) with train number (IC 707) and arrival time (Napoli Centrale 17:34, Sun 30 Aug) to lock in the transfer.",
-      "Vehicle confirmed suitable for 2 adults + 2 standard suitcases each. If we pack a 3rd large bag, ask Annalisa to upsize the vehicle.",
-      "Delay policy: up to 1h late = free, 1–2h late = €50 surcharge, beyond 2h = no-show (must pay double). Buffer is generous given AA 240 lands FCO 12:05 PM and IC 707 doesn't board until 15:26.",
-      "Cancellation: must notify ≥72 hrs before service. Effective deadline: 5 PM Thu Aug 27.",
+      "✅ CONFIRMED Jun 20 — Hotel La Tonnarella transfer locked in. €170 will be added to room folio and paid at checkout on Sept 2 (NOT pre-paid). Don't try to hand cash to the driver.",
+      "Meeting protocol: Driver waits at arrival holding a 'Sorensen' sign — likely near the head of the train or platform exit. Annalisa has forwarded Alicia's +1 310-872-4508 (WhatsApp) to the driver.",
+      "⏳ Driver's contact number arrives the night before (Aug 29) — Annalisa or reception will email/WhatsApp. Save it to your phone immediately.",
+      "🆘 Emergency hotel contact: +39 081 878 11 53 · info@latonnarella.it · WhatsApp the hotel if you can't find the driver after a few minutes — don't wander away from the platform area.",
+      "Vehicle confirmed suitable for 2 adults + 2 standard suitcases + 2 carry-ons. If we pack a 3rd large bag, ask Annalisa to upsize.",
+      "Delay policy (per Annalisa): up to 1h late = free, 1–2h late = €50 surcharge, beyond 2h = no-show + double charge. Buffer is generous given AA 240 lands FCO 12:05 PM and IC 707 doesn't board until 15:26.",
+      "Cancellation: notify ≥72 hrs before service (deadline: 5 PM Thu Aug 27). Not relevant now that the transfer is locked.",
       "AA 240 lands FCO 12:05 PM Aug 30 — realistic Termini boarding ~1:45 PM after customs + bags (1h 21m buffer before 15:26 train).",
-      "Other hotel tariffs (FYI, not used): Option 1 full FCO door-to-door €650; Option 3 taxi from Sorrento station ~€30 (only relevant if we abandon the private car and ride Campania Express to Sorrento ourselves).",
     ],
     route: {
       waypoints: [
@@ -196,6 +197,7 @@ const legs: Leg[] = [
       "Sciopero (rail strike) is the only real 'don't get there' scenario. Strikes are announced 10+ days ahead at mit.gov.it — check the week before Sept 7.",
       "Varenna → Bellagio ferry runs frequently during the day (~every 30 min). Last fast hydrofoil ~7 PM, last slow ferry ~10 PM — don't push it late.",
       "Hotel Du Lac is ~30 seconds from Bellagio's Imbarcadero — drop the bags and you're at the pier for the next ferry to Tremezzo/Menaggio.",
+      "🆘 Hotel Du Lac Bellagio: +39 031 950320 · info@bellagiohoteldulac.com — call ahead if arrival slips past late evening.",
     ],
     route: {
       waypoints: [
@@ -260,13 +262,15 @@ const legs: Leg[] = [
     totalCost: "€57–87 per person (~$62–95) + ~€15 hotel taxi",
     tips: [
       "Sept 5 (Sat) — Week 1 → Week 2 transit. Target: in Rome by 2 PM. Plan-of-record arrives Termini 12:45, giving ~1h 15m buffer.",
+      "⚠ NEEDS RE-BOOKING — Previous Frecciarossa 9642 (13:05 → 14:40) was cancelled by Alicia. Re-book at earlier slot to hit 2 PM target.",
       "Leave Marmorata by ~9:00 AM. Pre-arrange the morning taxi with reception the night before — Ravello-area taxis don't 'just show up.'",
       "Recommended train: 10:40 Frecciarossa Salerno → Roma Termini, arrives 12:45. Backup: 11:45 → arrives 13:50 (cuts the 2 PM deadline close).",
       "DO NOT take a noon-or-later ferry/train combo — arrival drifts past 14:45 and blows the deadline.",
       "Ferry tickets buy day-of at the Travelmar office on the Amalfi pier. Cash or card, no pre-booking needed.",
       "Skip Naples entirely — Salerno → Rome Frecciarossa is the cleanest 2-hour ride on the network and dodges the Sorrento/Naples transfer madness.",
-      "⚠ Timetable caveat: Travelmar's Sept ferry schedule and Trenitalia's seasonal Sept timetable aren't fully published until ~30–60 days before. These times are based on summer 2025 patterns + Trenitalia historical data. Re-verify in mid-July before booking the Frecciarossa.",
-      "Book the Frecciarossa Salerno → Roma Termini NOW for Super Economy fares (~120 days out, mid-July window). Sat departures fill fast.",
+      "🆘 Hotel Marmorata emergency contact: +39 089 877 777 · info@marmorata.it — call reception for taxi arrangements + any morning-of issues.",
+      "⚠ Timetable caveat: Travelmar's Sept ferry schedule and Trenitalia's seasonal Sept timetable aren't fully published until ~30–60 days before. These times are based on summer 2025 patterns + Trenitalia historical data. Re-verify before re-booking.",
+      "Book on Trenitalia.com, Italo.com, or via ItaliaRail (where the previous Frecciarossa 9642 was originally booked under order #68EFH4PC8ZE5B).",
       "Splurge alternative: private NCC car door-to-door Marmorata → Rome, ~3.5 hrs, ~€600–700 for two. Worth it only if heavy bags or zero-transfer preference.",
     ],
     route: {
