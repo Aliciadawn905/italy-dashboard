@@ -44,9 +44,9 @@ const defaultChecklist: ChecklistItem[] = [
   { id: "f5", text: "Coordinate same flights from DFW so you travel together", category: "Flights", priority: "high", alicia: false, jamie: false, notes: "" },
 
   // TRANSPORT
-  { id: "t1", text: "RE-BOOK Salerno → Roma Termini Frecciarossa for Sept 5", category: "Transport", priority: "high", alicia: false, jamie: false, notes: "Previous booking (Frecciarossa 9642, 13:05 → 14:40, order #68EFH4PC8ZE5B) CANCELLED. Target: 10:40 train (arrives 12:45) to hit 2 PM Rome target. Backup: 11:45 (arrives 13:50)." },
-  { id: "t1b", text: "Book Roma Termini → Milano Centrale Frecciarossa for Sept 7 (Alicia solo)", category: "Transport", priority: "high", alicia: false, jamie: false, notes: "07:00 departure recommended. Super Economy ~120 days out." },
-  { id: "t1c", text: "Book Milano Centrale → Venezia S. Lucia Frecciarossa for Sept 10 (Alicia solo)", category: "Transport", priority: "high", alicia: false, jamie: false, notes: "~2h 30m. Super Economy ~120 days out." },
+  { id: "t1", text: "Salerno → Roma Termini Frecciarossa for Sept 5 ✓", category: "Transport", priority: "high", alicia: true, jamie: true, notes: "BOOKED Jul 8 — Frecciarossa 8509, Salerno 09:11 → Roma Termini 10:40. Business Area Silenzio, carriage 2, seats 3D + 4D. PNR NLKYF5, €84 each. Taxi to Salerno CONFIRMED: 07:30 pickup, €120, driver Dino — WhatsApp him Sept 4 to reconfirm (+39 339 391 7300)." },
+  { id: "t1b", text: "Roma Termini → Milano Centrale Frecciarossa for Sept 7 (Alicia solo) ✓", category: "Transport", priority: "high", alicia: true, jamie: false, notes: "BOOKED — Frecciarossa 9608, Roma Termini 06:50 → Milano Centrale 10:00. Business Area Silenzio, carriage 2, seat 3D. PNR N36HBN." },
+  { id: "t1c", text: "Milano Centrale → Venezia S. Lucia Frecciarossa for Sept 10 (Alicia solo) ✓", category: "Transport", priority: "high", alicia: true, jamie: false, notes: "BOOKED — Frecciarossa 9731, Milano Centrale 13:45 → Venezia S. Lucia 16:12. Business, carriage 3, seat 9D. PNR N8AMY5." },
   { id: "t2", text: "Book Rome → Venice train for Jamie's family (Frecciarossa)", category: "Transport", priority: "medium", alicia: false, jamie: false, notes: "Date TBD based on when Jamie's family travels north" },
   { id: "t1a", text: "Send Annalisa @ La Tonnarella the IC 707 train # + 17:34 Napoli arrival ✓", category: "Transport", priority: "high", alicia: true, jamie: true, notes: "DONE Jun 19. Annalisa confirmed Jun 20: driver waits at arrival with 'Sorensen' sign · €170 charged to room folio (pay at checkout) · driver's # comes night before." },
   { id: "t1d", text: "Save Aug 30 transfer driver's phone number (arrives night of Aug 29)", category: "Transport", priority: "high", alicia: false, jamie: false, notes: "La Tonnarella reception will email/WhatsApp the driver's contact the night before. Save it on your phone immediately + add to Apple Wallet/Notes." },
@@ -87,7 +87,26 @@ export default function Checklist() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        setItems(JSON.parse(stored));
+        // Sync default item content (text/notes/priority) into stored items so
+        // dashboard updates propagate, while preserving check state, custom
+        // items, and removals.
+        const parsed: ChecklistItem[] = JSON.parse(stored);
+        const defaults = new Map(defaultChecklist.map((d) => [d.id, d]));
+        setItems(
+          parsed.map((item) => {
+            const def = defaults.get(item.id);
+            if (!def) return item;
+            return {
+              ...item,
+              text: def.text,
+              notes: def.notes,
+              priority: def.priority,
+              category: def.category,
+              alicia: item.alicia || def.alicia,
+              jamie: item.jamie || def.jamie,
+            };
+          })
+        );
       } catch {
         setItems(defaultChecklist);
       }

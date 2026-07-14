@@ -68,7 +68,7 @@ const destinations: DestinationInfo[] = [
     baseRecommendation:
       "Trastevere for charm and restaurants, or near Termini for transit convenience",
     gettingThere:
-      "Ferry Amalfi → Salerno (~35 min) + Frecciarossa Salerno → Roma Termini (~2h direct). Book the Frecciarossa ahead for Super Economy fares.",
+      "BOOKED: 07:30 taxi Marmorata → Salerno station (€120, driver Dino), then Frecciarossa 8509 Salerno 09:11 → Roma Termini 10:40 (PNR NLKYF5, seats 3D/4D).",
     highlights: [
       "Colosseum + Roman Forum + Palatine Hill — the heart of ancient Rome",
       "Vatican Museums + Sistine Chapel — Michelangelo's masterpiece ceiling",
