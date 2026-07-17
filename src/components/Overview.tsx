@@ -40,7 +40,7 @@ const destinations = [
     sites: [
       { name: "Villa del Balbianello", icon: Landmark, desc: "Dramatic 18th-c villa on a peninsula — Star Wars Episode II + Casino Royale filming location" },
       { name: "Villa Carlotta (Tremezzo)", icon: Star, desc: "Famous botanical gardens · ferry across from Bellagio · €12 entry" },
-      { name: "Villa Melzi Gardens (Bellagio)", icon: Camera, desc: "Lakeside neoclassical gardens with statues and rare plants — walkable from town" },
+      { name: "Villa Melzi Gardens (Bellagio)", icon: Camera, desc: "✅ BOOKED — wine tasting + gardens entry, Tue Sept 8, 12:00 PM · meet at Salita Serbelloni 34 (GetYourGuide ref GYGBLHKK529Q)" },
       { name: "Centro Lago Triangle", icon: Ship, desc: "Ferry-hop Bellagio ↔ Varenna ↔ Menaggio — three iconic villages, one afternoon" },
       { name: "Aperitivo on the Lake", icon: Wine, desc: "Sunset spritz on a Bellagio waterfront terrace — pure Como" },
     ],

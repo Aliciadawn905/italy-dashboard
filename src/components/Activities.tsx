@@ -107,6 +107,43 @@ export default function Activities({
         </div>
       </a>
 
+      {/* Confirmed bookings (hardcoded — booked outside the add-your-own list) */}
+      <div>
+        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">
+          Confirmed Bookings
+        </h3>
+        <div className="bg-italian-green/5 border border-italian-green/30 rounded-2xl p-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-lg bg-italian-green/15 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-5 h-5 text-italian-green" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-medium text-gray-800 text-sm">
+                  Wine Tasting Experience with Villa Melzi Gardens
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-italian-red/10 text-italian-red">
+                  Wine Tasting
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-terracotta/10 text-terracotta">
+                  Alicia solo
+                </span>
+              </div>
+              <div className="text-xs text-gray-500 mt-0.5">
+                Bellagio &middot; Tue Sept 8 &middot; 12:00 PM &middot; 2 hours &middot; wine tasting + Villa Melzi Gardens entry
+              </div>
+              <p className="text-sm text-gray-500 mt-1.5 flex items-start gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-terracotta shrink-0 mt-0.5" />
+                Meet at the wine bar, Salita Serbelloni 34 &mdash; arrive by 11:55. ~2-min walk from Hotel Du Lac.
+              </p>
+              <p className="text-xs text-gray-400 mt-1.5">
+                GetYourGuide ref <span className="font-medium text-gray-500">GYGBLHKK529Q</span> &middot; PIN EZcwPyW@ &middot; e-tickets arrive by email ~Sept 2 (check spam &mdash; if missing by Sept 7 call Rigamonti Viaggi +39 329 097 3243) &middot; free cancel until Sept 1, 12:00 PM
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {activities.length === 0 ? (
         <div className="text-center py-12 bg-cream rounded-2xl">
           <MapPin className="w-8 h-8 text-terracotta/40 mx-auto mb-2" />
