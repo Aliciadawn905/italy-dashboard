@@ -252,6 +252,41 @@ const legs: Leg[] = [
       colors: [modeColorHex.train],
     },
   },
+  {
+    id: 5,
+    from: "Venice (Palazzetto Madonna)",
+    to: "Marco Polo Airport (VCE) — Alicia solo",
+    segments: [
+      { mode: "ferry", type: "Vaporetto Line 1 or 2", operator: "ACTV", from: "San Tomà stop ~09:00 (3 min from hotel, NO bridges — hotel-confirmed)", to: "Piazzale Roma ~09:15", duration: "~12–15 min (2 stops up the Grand Canal)", cost: "€9.50 (or covered by 72-hr pass)", reservationRequired: false },
+      { mode: "bus", type: "ATVO Venezia Express (or ACTV Line 5)", operator: "ATVO", from: "Piazzale Roma ~09:30", to: "VCE terminal ~09:55", duration: "~20–25 min, luggage hold under the coach", cost: "€10 (~$11)", reservationRequired: false },
+    ],
+    alternative: { mode: "ferry", operator: "Private water taxi via hotel reception", from: "Palazzetto Madonna's own dock (the hotel has a private riva at the entrance)", to: "VCE water taxi dock", duration: "~35 min + 10-min walk to terminal", cost: "€135–170 solo (~$150–190)", note: "The splurge option — the hotel arranges it and the boat picks up AT the hotel door. Ask reception at least 24 hrs before departure. Solo it's ~7× the bus route; worth it only if you want the lagoon crossing one last time." },
+    totalDuration: "~1 hr door-to-terminal (09:00 → ~09:55)",
+    totalCost: "~€20 total (~$22) · water taxi alternative €135–170",
+    tips: [
+      "Sept 12 (Sat) — departure day, Alicia traveling to VCE solo. Aer Lingus EI423, VCE 12:15 PM → Dublin (US Preclearance) → LAX.",
+      "Recommended solo route: San Tomà vaporetto → Piazzale Roma → ATVO airport coach. ~€20 all-in, ~1 hr, at the terminal by ~10:00 = 2h 15m before departure.",
+      "San Tomà is the hotel's stop — Palazzetto Madonna confirms there are NO bridges between the stop and the hotel, so rolling luggage is painless.",
+      "ATVO Venezia Express runs 2–3×/hour from Piazzale Roma, dedicated luggage hold, ~25 min. Buy at the ATVO kiosk/machine or atvo.it — grab the ~09:30 departure.",
+      "Hotel water taxi option: the hotel has its own dock at the entrance and arranges private taxis — tell reception ≥24 hrs before departure (i.e., by Friday morning Sept 11). €135–170 solo.",
+      "Shared water taxi (~€40 pp, GetYourGuide/Venice Shuttle) exists but runs on ITS schedule from set docks — for a 12:15 flight the bus route is more predictable and half the price.",
+      "Alilaguna Orange (€18) is NOT recommended from this hotel — nearest stops (Rialto/San Stae) mean a 10-min+ luggage walk with bridges, then a slow ~60-75 min ride.",
+      "Check-out before you leave — settle the €1,005 folio (room + city tax), cards accepted. Dublin preclearance: use the Global Entry lane, then walk straight out at LAX.",
+      "🆘 Palazzetto Madonna: +39 041 3071174 · info@palazzettomadonna.com — reception handles taxi bookings and knows the morning timings cold.",
+    ],
+    route: {
+      waypoints: [
+        [[45.4360, 12.3262], [45.4386, 12.3211], [45.4385, 12.3183]],
+        [[45.4385, 12.3183], [45.4680, 12.3050], [45.5048, 12.3460]],
+      ],
+      labels: [
+        { name: "San Tomà (hotel stop)", lat: 45.4360, lng: 12.3262 },
+        { name: "Piazzale Roma", lat: 45.4385, lng: 12.3183 },
+        { name: "Marco Polo (VCE)", lat: 45.5048, lng: 12.3460 },
+      ],
+      colors: [modeColorHex.ferry, modeColorHex.bus],
+    },
+  },
 ];
 
 const generalTips = [
