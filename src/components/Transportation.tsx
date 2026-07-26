@@ -207,7 +207,9 @@ const legs: Leg[] = [
       "Varenna-Esino station is a 7-min uphill walk from the ferry pier — give yourself 15 min with your bag.",
       "Trenord regional Varenna → Milano runs ~every hour. €7 turn-up-and-go ticket at the station. Not high-speed — no reservations needed.",
       "Venezia Santa Lucia is on the island (Grand Canal) — NOT Mestre (mainland). Confirmed 'S. Lucia' on the ticket ✓.",
-      "Arrival in Venice: vaporetto Line 1 or 2 from the station to your hotel stop (~€9.50 single, ~€35 for 72hr pass). Water taxi is €80-120 but hauls all luggage directly to hotel dock.",
+      "Arrival → Palazzetto Madonna: exit the station to the vaporetto docks on the Grand Canal (2 min). Line 2 toward Rialto/San Marco → San Tomà (~12-15 min, faster) or Line 1 (~20 min, scenic every-stop crawl). €9.50 single — or buy a multi-day ACTV pass at the station machines; it covers the family hops + the Sept 12 ride to Piazzale Roma.",
+      "🚶 Walk from San Tomà stop (150m, ~3 min, ZERO bridges): (1) off the pier, straight ahead on Calle Traghetto Vecchio · (2) LEFT at the first cross street, Calle del Campanile · (3) at the next corner turn RIGHT just BEFORE the bridge onto Fondamenta del Forner · hotel is on your right, facing the canal.",
+      "Don't walk from the station with luggage — 15-20 min crossing several stepped bridges. And skip the water taxi here (€70-90): San Tomà drops you practically at the door for €9.50.",
     ],
     route: {
       waypoints: [
@@ -266,7 +268,7 @@ const legs: Leg[] = [
     tips: [
       "Sept 12 (Sat) — departure day, Alicia traveling to VCE solo. Aer Lingus EI423, VCE 12:15 PM → Dublin (US Preclearance) → LAX.",
       "Recommended solo route: San Tomà vaporetto → Piazzale Roma → ATVO airport coach. ~€20 all-in, ~1 hr, at the terminal by ~10:00 = 2h 15m before departure.",
-      "San Tomà is the hotel's stop — Palazzetto Madonna confirms there are NO bridges between the stop and the hotel, so rolling luggage is painless.",
+      "🚶 Walk to San Tomà (150m, ~3 min, ZERO bridges — reverse of arrival): out the hotel door turn LEFT along Fondamenta del Forner · LEFT onto Calle del Campanile at the corner · RIGHT onto Calle Traghetto Vecchio · straight to the vaporetto pier.",
       "ATVO Venezia Express runs 2–3×/hour from Piazzale Roma, dedicated luggage hold, ~25 min. Buy at the ATVO kiosk/machine or atvo.it — grab the ~09:30 departure.",
       "Hotel water taxi option: the hotel has its own dock at the entrance and arranges private taxis — tell reception ≥24 hrs before departure (i.e., by Friday morning Sept 11). €135–170 solo.",
       "Shared water taxi (~€40 pp, GetYourGuide/Venice Shuttle) exists but runs on ITS schedule from set docks — for a 12:15 flight the bus route is more predictable and half the price.",
