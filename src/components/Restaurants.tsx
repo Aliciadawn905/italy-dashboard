@@ -17,6 +17,7 @@ interface FoodRec {
   mustTry: string;
   vibe: string;
   reservation: boolean;
+  booked?: string; // reservation details when confirmed
 }
 
 interface CityFood {
@@ -27,9 +28,10 @@ interface CityFood {
 
 const foodGuide: CityFood[] = [
   {
-    city: "Amalfi Coast",
+    city: "Sorrento / Amalfi Coast",
     week: "Week 1 — Relaxing",
     recs: [
+      { name: "Vesuvio Panoramic Restaurant (Hotel Mediterraneo, Sorrento)", category: "Fine Dining", price: "€€€", mustTry: "Terrace tasting menù", vibe: "Rooftop terrace over the Gulf of Naples with Vesuvius views — sunset-to-stars dinner.", reservation: true, booked: "Mon Aug 31, 21:30 · 2 people · Outdoor Terrace Table, tasting menù · Experience confirmed (TheFork)" },
       { name: "Lo Scoglio (Marina del Cantone)", category: "Fine Dining", price: "€€€", mustTry: "Spaghetti alle vongole", vibe: "Seafood temple on the water. Perfect for a relaxed long lunch.", reservation: true },
       { name: "Da Adolfo (Positano)", category: "Beach Restaurant", price: "€€", mustTry: "Fresh grilled fish", vibe: "Boat-access only! Take the free red-pennant boat. Utterly relaxing.", reservation: false },
       { name: "Villa Maria Restaurant (Ravello)", category: "Fine Dining", price: "€€€", mustTry: "Tasting menu with local wine", vibe: "Elegant terrace overlooking the valley. Perfect for a special dinner.", reservation: true },
@@ -170,12 +172,21 @@ export default function Restaurants({
                         <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">
                           {rec.category}
                         </span>
-                        {rec.reservation && (
+                        {rec.booked ? (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-italian-green text-white font-medium uppercase tracking-wide">
+                            Booked
+                          </span>
+                        ) : rec.reservation ? (
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-italian-red/10 text-italian-red font-medium">
                             Reserve
                           </span>
-                        )}
+                        ) : null}
                       </div>
+                      {rec.booked && (
+                        <p className="text-[11px] text-italian-green font-medium mt-1">
+                          ✓ {rec.booked}
+                        </p>
+                      )}
                       <p className="text-[11px] text-gray-500 mt-1">
                         <span className="font-medium text-terracotta">Must try:</span> {rec.mustTry}
                       </p>

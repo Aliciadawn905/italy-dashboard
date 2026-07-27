@@ -42,9 +42,9 @@ const suggestedItinerary: SuggestedDay[] = [
     day: 2,
     city: "Amalfi Coast",
     who: "Alicia & Jamie",
-    morning: "Boat tour along the coast",
-    afternoon: "Positano shopping & beach",
-    evening: "Villa Rufolo sunset (Ravello)",
+    morning: "Full rest day — beach club at La Tonnarella",
+    afternoon: "Sorrento old-town stroll, long lunch",
+    evening: "✓ BOOKED 21:30 — Vesuvio Panoramic Restaurant, Hotel Mediterraneo Sorrento (terrace tasting menù for 2)",
   },
   {
     day: 3,
