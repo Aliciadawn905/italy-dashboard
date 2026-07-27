@@ -145,7 +145,7 @@ const hotelData: CityHotels[] = [
           checkOut: "Thu, Sept 10, 2026",
           nights: 5,
           room: "Entire penthouse — 4 bedrooms, 3 baths, terrace access from 3 bedrooms, hot tub",
-          guests: "5 · Alicia departs Mon Sept 7, Jamie + 3 kids stay through Thu Sept 10",
+          guests: "5 guests (Alicia departs Mon Sept 7, Jamie + 3 kids through Thu Sept 10)",
           total: "TBD — add from confirmation",
           prepaymentDate: "Payment/cancellation terms TBD — check the Marriott H&V booking",
           breakfast: false,
