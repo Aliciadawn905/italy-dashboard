@@ -29,7 +29,7 @@ interface BookingDetails {
   guests: string;
   total: string;
   prepaymentDate: string;
-  refundable: boolean;
+  refundable?: boolean; // omit when cancellation terms are not yet on file
   breakfast: boolean;
   address: string;
   phone: string;
@@ -125,41 +125,33 @@ const hotelData: CityHotels[] = [
   },
   {
     city: "Rome",
-    week: "Week 2 · Days 8–10",
+    week: "Week 2 · Sept 5–10",
     vibe: "Sightseeing with Jamie's family",
-    tip: "For a group with Jamie's family, consider an apartment in Trastevere — more space, kitchen for breakfasts, more authentic, often cheaper per person. The neighborhood itself is one of Rome's best.",
+    tip: "Piazza Barberini penthouse locked in via Marriott Homes & Villas — 4 bedrooms fits everyone, and Trevi Fountain + Via Veneto are steps away. Split departure: Alicia leaves Mon Sept 7 (06:50 train to Milan/Bellagio), Jamie + kids stay through Thu Sept 10 (train to Venice). ⚠ Confirmation #, total, and host contact not on file yet — forward the Marriott booking email so it can be added here.",
     hotels: [
       {
-        name: "Trastevere Apartment (Airbnb/VRBO)",
+        name: "Prestigious Penthouse Piazza Barberini (Marriott Homes & Villas)",
         stars: 0,
-        price: "$$$",
-        features: "2-3 bedroom apartment in Rome's most charming neighborhood. Space for the whole family, kitchen, authentic living.",
-        bestFor: "Best for family week — space + location + value",
-        recommended: true,
-      },
-      {
-        name: "Hotel de Russie",
-        stars: 5,
         price: "$$$$",
-        features: "Near Piazza del Popolo, gardens, spa. Family-friendly with plenty of space.",
-        bestFor: "Luxury option that works for families",
-        link: "https://www.roccofortehotels.com/hotels-and-resorts/hotel-de-russie/",
-      },
-      {
-        name: "Hotel Locarno",
-        stars: 4,
-        price: "$$$",
-        features: "Art Deco charm, near Piazza del Popolo, romantic courtyard",
-        bestFor: "Stylish mid-range option",
-        link: "https://www.hotellocarno.com/en",
-      },
-      {
-        name: "Il Palazzetto",
-        stars: 4,
-        price: "$$$",
-        features: "Small, elegant, rooftop views over Rome from the Spanish Steps",
-        bestFor: "Great value for quality — smaller group",
-        link: "https://www.hotelhasslerroma.com/il-palazzetto/",
+        features: "4-bedroom / 3-bath penthouse on the 3rd floor of a historic building on Via di San Nicola da Tolentino, steps from Piazza Barberini, Trevi Fountain & Via Veneto. Three bedrooms open onto the terrace. Full kitchen, hot tub, A/C, elevator, full-day security, free WiFi. ~13-min walk to Termini.",
+        bestFor: "Booked — Sept 5 → 10 (Alicia through Sept 7, family through Sept 10)",
+        recommended: true,
+        booked: true,
+        link: "https://homes-and-villas.marriott.com/en/properties/40705128-rome-prestigious-penthouse-piazza-barberini",
+        booking: {
+          reservationCode: "TBD — add from Marriott confirmation email",
+          bookedBy: "Via Marriott Homes & Villas (Bonvoy)",
+          checkIn: "Sat, Sept 5, 2026",
+          checkOut: "Thu, Sept 10, 2026",
+          nights: 5,
+          room: "Entire penthouse — 4 bedrooms, 3 baths, terrace access from 3 bedrooms, hot tub",
+          guests: "5 · Alicia departs Mon Sept 7, Jamie + 3 kids stay through Thu Sept 10",
+          total: "TBD — add from confirmation",
+          prepaymentDate: "Payment/cancellation terms TBD — check the Marriott H&V booking",
+          breakfast: false,
+          address: "Via di San Nicola da Tolentino (Piazza Barberini), 00187 Rome, Italy",
+          phone: "Host contact via Marriott H&V app",
+        },
       },
     ],
   },
@@ -422,16 +414,18 @@ export default function Hotels() {
                                   <Coffee className="w-3 h-3" /> Breakfast included
                                 </span>
                               )}
-                              <span
-                                className={`text-[11px] px-2 py-1 rounded-full font-medium flex items-center gap-1 ${
-                                  hotel.booking.refundable
-                                    ? "bg-italian-green/10 text-italian-green"
-                                    : "bg-terracotta/10 text-terracotta"
-                                }`}
-                              >
-                                <Ban className="w-3 h-3" />
-                                {hotel.booking.refundable ? "Refundable" : "Non-refundable"}
-                              </span>
+                              {typeof hotel.booking.refundable === "boolean" && (
+                                <span
+                                  className={`text-[11px] px-2 py-1 rounded-full font-medium flex items-center gap-1 ${
+                                    hotel.booking.refundable
+                                      ? "bg-italian-green/10 text-italian-green"
+                                      : "bg-terracotta/10 text-terracotta"
+                                  }`}
+                                >
+                                  <Ban className="w-3 h-3" />
+                                  {hotel.booking.refundable ? "Refundable" : "Non-refundable"}
+                                </span>
+                              )}
                             </div>
 
                             {/* Contact */}

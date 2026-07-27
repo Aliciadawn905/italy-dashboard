@@ -133,8 +133,8 @@ const legs: Leg[] = [
       "\uD83C\uDF73 Breakfast \u2014 Marmorata dining room opens 07:30-10:30, but Sandra confirmed 10-min early access at 07:20 AM so you can eat before pickup. Quick espresso + pastry, then head to the van at 07:30.",
       "\uD83D\uDEE1\uFE0F Big cushion \u2014 Frecciarossa 8509 arrives Termini at 10:40, giving ~3h 25m buffer before family lands at Termini ~2:05 PM. Even a 90-min train delay wouldn't blow the meetup.",
       "Coastal drive Marmorata \u2192 Salerno is ~40 min via SS163 \u2192 A3 autostrada. 07:30 pickup puts you at Salerno ~08:10, ~1 hour before the 09:11 train.",
-      "Drop bags at Rome hotel/Airbnb around 11:15 AM, freshen up, walk back to Termini for the family meetup. Or wait at the station: lunch at Mercato Centrale (10-min walk) or espresso inside Termini until ~1:45 PM.",
-      "After family meetup: 2 taxis from Termini rank to Rome hotel (~\u20AC25 each, ~\u20AC50 total for 5 pax + luggage). Or metro if the hotel is near a station.",
+      "Drop bags at the Piazza Barberini penthouse around 11:15 AM (13-min walk or ~\u20AC15 taxi from Termini), freshen up, walk back to Termini for the family meetup. Or wait at the station: lunch at Mercato Centrale (10-min walk) or espresso inside Termini until ~1:45 PM.",
+      "After family meetup: 2 taxis from the Termini rank to the penthouse (Via di San Nicola da Tolentino, ~\u20AC15-20 each for 5 pax + luggage) \u2014 or it's a flat 13-min walk if the kids can roll their own bags. Barberini metro (Linea A, 1 stop from Termini) also works.",
       "\uD83C\uDD98 Hotel Marmorata: +39 089 877 777 \u00B7 info@hotelmarmorata.com \u2014 call Sandra if anything shifts.",
     ],
     route: {
@@ -163,7 +163,8 @@ const legs: Leg[] = [
     totalDuration: "~6h Rome → Bellagio (door-to-door)",
     totalCost: "€141 total (Alicia solo, including Trenord + ferry)",
     tips: [
-      "Sept 7 (Mon) — Alicia's solo leg while Jamie + family stay in Rome. Reunite in Venice on Sept 10.",
+      "Sept 7 (Mon) — Alicia's solo leg while Jamie + family stay in Rome (penthouse through Thu Sept 10). Reunite in Venice on Sept 10.",
+      "Early start: 06:50 train from Termini — pre-book a taxi from the Piazza Barberini penthouse for ~06:15 (10 min, ~€15; FreeNow app or have the host arrange). Termini is also a 13-min walk if you'd rather roll the bag in the quiet morning.",
       "✅ BOOKED — Frecciarossa 9608, Roma Termini 06:50 → Milano Centrale 10:00. 1st Business Area Silenzio. Carriage 2, seat 3D. PNR N36HBN. Ticket in /tickets folder.",
       "1h 10m buffer at Milano Centrale absorbs typical Freccia delays. Grab a panzerotti at Luini (5 min from platform) while you wait.",
       "Trenord ticket is cheap (€7) and bought on arrival — full flexibility to grab whichever regional runs next if the connection slips.",
