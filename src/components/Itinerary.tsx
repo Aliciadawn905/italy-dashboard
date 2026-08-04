@@ -99,7 +99,7 @@ const suggestedItinerary: SuggestedDay[] = [
     city: "Venice",
     who: "Full group",
     morning: "Murano Island (glass-blowing)",
-    afternoon: "Cannaregio neighborhood, cicchetti bar hop",
+    afternoon: "BOOKED: 1:30 PM lunch at Trattoria Dona Onesta (Dorsoduro) · then Cannaregio cicchetti stroll",
     evening: "Final celebratory dinner",
   },
   {

@@ -55,6 +55,7 @@ const foodGuide: CityFood[] = [
     city: "Venice",
     week: "Week 2 — Family Sightseeing",
     recs: [
+      { name: "Trattoria Dona Onesta (Dorsoduro)", category: "Trattoria", price: "€€", mustTry: "Homemade pasta + Venetian seafood", vibe: "Classic canal-side trattoria at Dorsoduro 3922 — 'the honest woman'. Last full-day lunch in Venice.", reservation: true, booked: "Fri Sept 11, 1:30–3:00 PM · 2 guests · Confirmed (easytablebooking) · Free cancel until 3h before, then €100 no-show fee · info@trattoriadonaonesta.com" },
       { name: "Alle Testiere", category: "Fine Dining", price: "€€€", mustTry: "Tasting menu — only 22 seats", vibe: "Venice's best small seafood restaurant. Reserve 2+ weeks ahead.", reservation: true },
       { name: "Osteria Al Squero (Dorsoduro)", category: "Wine Bar", price: "€€", mustTry: "Cicchetti + prosecco by the canal", vibe: "In front of a gondola workshop. Most charming bacaro in Venice.", reservation: false },
       { name: "Cantina Do Mori (near Rialto)", category: "Wine Bar", price: "€€", mustTry: "Stand-up cicchetti + prosecco", vibe: "Venice's oldest wine bar since 1462. Tiny, authentic, unforgettable.", reservation: false },
