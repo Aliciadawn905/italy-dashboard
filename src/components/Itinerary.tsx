@@ -98,7 +98,7 @@ const suggestedItinerary: SuggestedDay[] = [
     day: 13,
     city: "Venice",
     who: "Full group",
-    morning: "Murano Island (glass-blowing)",
+    morning: "BOOKED: 9:30 AM La Fenice Opera House entry + audio guide (Campo S. Fantin)",
     afternoon: "BOOKED: 1:30 PM lunch at Trattoria Dona Onesta (Dorsoduro) · then Cannaregio cicchetti stroll",
     evening: "Final celebratory dinner",
   },

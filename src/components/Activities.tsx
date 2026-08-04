@@ -142,6 +142,33 @@ export default function Activities({
             </div>
           </div>
         </div>
+        <div className="bg-italian-green/5 border border-italian-green/30 rounded-2xl p-4 mt-3">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-lg bg-italian-green/15 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-5 h-5 text-italian-green" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-medium text-gray-800 text-sm">
+                  La Fenice Opera House Entry Ticket with Audio Guide
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-italian-red/10 text-italian-red">
+                  Sightseeing
+                </span>
+              </div>
+              <div className="text-xs text-gray-500 mt-0.5">
+                Venice &middot; Fri Sept 11 &middot; morning entry, starts 9:30 AM (open 9:30 AM &ndash; 1:00 PM) &middot; audio guide included
+              </div>
+              <p className="text-sm text-gray-500 mt-1.5 flex items-start gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-terracotta shrink-0 mt-0.5" />
+                Campo S. Fantin 1965, San Marco &mdash; show the voucher at the ticket counter and collect the audio guide. Pairs with the 1:30 PM Dona Onesta lunch after.
+              </p>
+              <p className="text-xs text-gray-400 mt-1.5">
+                GetYourGuide ref <span className="font-medium text-gray-500">GYGZGZW52BXZ</span> &middot; ticket in the GetYourGuide app, no printing &middot; provider Venezia Unica by Vela Spa &middot; hours can change last-minute for rehearsals &mdash; check festfenice.com/en/orari the day before
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {activities.length === 0 ? (
