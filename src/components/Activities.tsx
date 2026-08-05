@@ -120,6 +120,33 @@ export default function Activities({
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="font-medium text-gray-800 text-sm">
+                  Positano &amp; Amalfi Boat Trip with Transfer
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-italian-red/10 text-italian-red">
+                  Boat Tour
+                </span>
+              </div>
+              <div className="text-xs text-gray-500 mt-0.5">
+                From Sorrento &middot; Tue Sept 1 &middot; starts 10:30 AM &middot; ~8 hours &middot; 2 adults &middot; $350.10 (auto-charges Aug 29)
+              </div>
+              <p className="text-sm text-gray-500 mt-1.5 flex items-start gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-terracotta shrink-0 mt-0.5" />
+                Hotel pickup &amp; drop-off at La Tonnarella (van + yacht) &mdash; provider calls 1&ndash;2 days before to set the pickup time (~30&ndash;40 min before start). Amalfi visit 1.5h, Positano visit 1.5h, swim stops at Sirenuses &amp; Positano, prosecco/snacks/limoncello onboard.
+              </p>
+              <p className="text-xs text-gray-400 mt-1.5">
+                GetYourGuide ref <span className="font-medium text-gray-500">GYGMX4BR4V4W</span> &middot; PIN PN3AxARJ &middot; provider Meditours +39 081 808 9453 &middot; free cancel until Aug 31, 10:30 AM &middot; weather-dependent (full refund if cancelled) &middot; bring cash: €10/pp landing fees not included &middot; ticket appears in GYG app after Aug 29 payment
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="bg-italian-green/5 border border-italian-green/30 rounded-2xl p-4 mt-3">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-lg bg-italian-green/15 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-5 h-5 text-italian-green" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-medium text-gray-800 text-sm">
                   Wine Tasting Experience with Villa Melzi Gardens
                 </span>
                 <span className="text-[11px] px-2 py-0.5 rounded-full bg-italian-red/10 text-italian-red">

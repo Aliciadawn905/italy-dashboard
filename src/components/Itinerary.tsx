@@ -50,9 +50,9 @@ const suggestedItinerary: SuggestedDay[] = [
     day: 3,
     city: "Amalfi Coast",
     who: "Alicia & Jamie",
-    morning: "Valle dei Mulini hike (Amalfi)",
-    afternoon: "Amalfi town, Duomo, limoncello tasting",
-    evening: "Departure prep for Marmorata (Sept 5 → Rome)",
+    morning: "BOOKED: Positano & Amalfi boat trip — hotel pickup, starts 10:30 AM (~8 hrs)",
+    afternoon: "On the water — Amalfi + Positano visits, swim stops, onboard prosecco & limoncello",
+    evening: "Back at La Tonnarella ~6:30 PM · optional pizza/pasta class (unbooked) or rest",
   },
   {
     day: 8,
