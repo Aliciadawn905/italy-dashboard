@@ -117,6 +117,34 @@ const legs: Leg[] = [
     },
   },
   {
+    id: 7,
+    from: "Sorrento (La Tonnarella)",
+    to: "Amalfi Coast — Marmorata",
+    segments: [
+      { mode: "bus", type: "Private taxi — CONFIRMED Aug 12 (arranged by Sandra)", operator: "Hotel Marmorata", from: "Hotel La Tonnarella 09:30", to: "Ravello Art Hotel Marmorata ~11:00", duration: "~90 min (coast road — can stretch toward 2h in traffic)", cost: "€200 · CASH to driver", reservationRequired: true },
+    ],
+    totalDuration: "~1.5–2 hrs door-to-door",
+    totalCost: "€200 cash for two",
+    tips: [
+      "✅ CONFIRMED Aug 12 — Sandra (info@marmorata.it) booked the taxi: pickup 9:30 AM at La Tonnarella, Wed Sept 2. €200 CASH to the driver — bring exact bills, drivers rarely carry change.",
+      "9:30 departure beats the day-tripper wave: SS163 is clear before ~9:00 and jammed 11 AM–4 PM. Expect ~90 min; don't stress if it runs longer.",
+      "Confirmed for 2 adults + ~4 bags.",
+      "Arrival ~11:00 is before the 2 PM check-in — drop bags at reception, then it's a 5-min walk into Amalfi town for lunch (casual, no reservation needed).",
+      "Backup if the taxi falls through: taxi to Sorrento Marina Piccola (€15–20) + Travelmar/NLG ferry to Amalfi (~1h, ~€25 pp) + 5-min taxi or walk to the hotel.",
+    ],
+    route: {
+      waypoints: [
+        [[40.6248, 14.3520], [40.628, 14.485], [40.634, 14.603], [40.6355, 14.6155]],
+      ],
+      labels: [
+        { name: "La Tonnarella (Sorrento)", lat: 40.6248, lng: 14.3520 },
+        { name: "Positano", lat: 40.628, lng: 14.485 },
+        { name: "Marmorata (Ravello)", lat: 40.6355, lng: 14.6155 },
+      ],
+      colors: [modeColorHex.bus],
+    },
+  },
+  {
     id: 1,
     from: "Ravello (Marmorata)",
     to: "Rome (family pickup)",
