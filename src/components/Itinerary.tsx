@@ -52,7 +52,7 @@ const suggestedItinerary: SuggestedDay[] = [
     who: "Alicia & Jamie",
     morning: "BOOKED: Positano & Amalfi boat trip — hotel pickup, starts 10:30 AM (~8 hrs)",
     afternoon: "On the water — Amalfi + Positano visits, swim stops, onboard prosecco & limoncello",
-    evening: "Back at La Tonnarella ~6:30 PM · optional pizza/pasta class (unbooked) or rest",
+    evening: "Back at La Tonnarella ~6:30 PM · rest (the optional pizza/pasta class was dropped in favor of the boat day)",
   },
   {
     day: 4,

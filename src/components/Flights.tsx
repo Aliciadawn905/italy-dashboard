@@ -37,6 +37,7 @@ interface BookedFlight {
   confirmation: string;
   pin?: string;
   addOns: string[];
+  insurance?: string;
   watchNote?: string;
 }
 
@@ -121,7 +122,9 @@ const bookedFlights: BookedFlight[] = [
     bookingSite: "Booking.com",
     confirmation: "40-953279322",
     pin: "1651",
-    addOns: ["Fast Track", "Trip Insurance"],
+    addOns: ["Fast Track", "Travel Protection · $329.94"],
+    insurance:
+      "XCover (Cover Genius) · $329.94 paid · insured: Alicia Sorensen. Covers: trip cancellation up to 100% of ticket cost · emergency medical up to $50,000 · trip interruption up to 150% of prepaid trip costs · baggage loss/theft up to $750 · flight delay 12+ hrs up to $500 (baggage, food, hotel) · 24/7 emergency assistance · includes a 1GB travel eSIM (activation email after booking). Not valid for residents of HI, KS, NY, WY. Claims via xcover.com.",
   },
   {
     id: "jamie-outbound",
@@ -599,6 +602,14 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
                         </span>
                       );
                     })}
+                  </div>
+                )}
+
+                {/* Insurance details */}
+                {bf.insurance && (
+                  <div className="text-[11px] text-gray-500 bg-white border border-gray-100 rounded-lg px-2.5 py-2 mb-3 flex items-start gap-1.5">
+                    <Shield className="w-3 h-3 text-gold-dark mt-0.5 shrink-0" />
+                    <span>{bf.insurance}</span>
                   </div>
                 )}
 

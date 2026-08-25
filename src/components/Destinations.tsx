@@ -37,9 +37,9 @@ const destinations: DestinationInfo[] = [
     bestMonths: "May–June or September–October (avoid July–August peak crowds and heat)",
     weather: "Mediterranean. 22–27°C in May/Sept. Hot and humid in summer.",
     baseRecommendation:
-      "Ravello (quieter, elevated, panoramic) or Positano (iconic, busy, beautiful)",
+      "BOOKED: Hotel La Tonnarella, Sorrento (Aug 30 – Sept 2) → Ravello Art Hotel Marmorata (Sept 2 – 5)",
     gettingThere:
-      "Fly into Naples (NAP). Private transfer or SITA Sud bus to coast (~1.5 hrs)",
+      "BOOKED: land FCO → Leonardo Express to Termini → Intercity 707 to Napoli Centrale (PNR ZQ5M25) → private car to La Tonnarella (€170 on the room bill, driver holds a 'Sorensen' sign)",
     highlights: [
       "Positano village — pastel cliffside houses and pebble beaches",
       "Villa Rufolo in Ravello — stunning gardens and sea views",
@@ -49,7 +49,6 @@ const destinations: DestinationInfo[] = [
       "Limoncello tasting from local producers",
     ],
     insiderTips: [
-      "Book hotels 6+ months ahead for summer dates",
       "Drive the coast road only if comfortable with narrow cliff roads — bus or boat is easier",
       "Limoncello is best bought directly from local producers",
       "The SITA buses are standing-room in August — go early",
@@ -66,7 +65,7 @@ const destinations: DestinationInfo[] = [
     bestMonths: "April–May or September–October",
     weather: "22–28°C in shoulder season. Peak summer is very hot and crowded.",
     baseRecommendation:
-      "Trastevere for charm and restaurants, or near Termini for transit convenience",
+      "BOOKED: Prestigious Penthouse Piazza Barberini (Marriott Homes & Villas), Sept 5 – 10 — 4BR/3BA, terrace, ~13-min walk to Termini",
     gettingThere:
       "BOOKED: 07:30 taxi Marmorata → Salerno station (€120, driver Dino), then Frecciarossa 8509 Salerno 09:11 → Roma Termini 10:40 (PNR NLKYF5, seats 3D/4D).",
     highlights: [
@@ -95,9 +94,9 @@ const destinations: DestinationInfo[] = [
     bestMonths: "April–May or September–October (avoid Acqua Alta flooding Nov–Jan)",
     weather: "18–24°C in shoulder season.",
     baseRecommendation:
-      "Cannaregio or Dorsoduro for a more local experience away from San Marco crowds",
+      "BOOKED: Palazzetto Madonna, San Polo 2902, Sept 10 – 12 (Deluxe Room, breakfast included)",
     gettingThere:
-      "Train from Rome (Frecciarossa, ~3.5 hrs) — spectacular scenery. Arrive at Santa Lucia station (island, not Mestre/mainland).",
+      "BOOKED: Alicia from Milan — Frecciarossa 9731, 13:45 → Venezia S. Lucia 16:12 (PNR N8AMY5). Family from Rome: Jamie's booking. Santa Lucia is the island station (not Mestre).",
     highlights: [
       "Grand Canal Vaporetto ride — Line 1 is the best orientation tour",
       "Piazza San Marco + St. Mark's Basilica — Byzantine golden mosaics",

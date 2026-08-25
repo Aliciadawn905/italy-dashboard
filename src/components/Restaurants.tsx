@@ -18,6 +18,7 @@ interface FoodRec {
   vibe: string;
   reservation: boolean;
   booked?: string; // reservation details when confirmed
+  pending?: boolean; // reservation requested but not yet confirmed
 }
 
 interface CityFood {
@@ -32,24 +33,15 @@ const foodGuide: CityFood[] = [
     week: "Week 1 — Relaxing",
     recs: [
       { name: "Vesuvio Panoramic Restaurant (Hotel Mediterraneo, Sorrento)", category: "Fine Dining", price: "€€€", mustTry: "Terrace tasting menù", vibe: "Rooftop terrace over the Gulf of Naples with Vesuvius views — sunset-to-stars dinner.", reservation: true, booked: "Mon Aug 31, 21:30 · 2 people · Outdoor Terrace Table, tasting menù · Experience confirmed (TheFork)" },
-      { name: "Sensi Restaurant (Amalfi)", category: "Fine Dining", price: "€€€", mustTry: "Seasonal tasting menù + sommelier wine pairing", vibe: "1 Michelin star (2026) in an 18th-century palazzo near the Duomo — a 15-min flat walk from the Marmorata, no car needed.", reservation: true, booked: "Thu Sept 3, 7:45 PM · 2 guests · Requested Aug 13 via Prenota Web — AWAITING restaurant confirmation email · dinner is tasting menù only · smart casual (no shorts/tank tops/caps) · late cancel <24h or no-show = €120 pp on card · table held 15 min" },
-      { name: "Lo Scoglio (Marina del Cantone)", category: "Fine Dining", price: "€€€", mustTry: "Spaghetti alle vongole", vibe: "Seafood temple on the water. Perfect for a relaxed long lunch.", reservation: true },
-      { name: "Da Adolfo (Positano)", category: "Beach Restaurant", price: "€€", mustTry: "Fresh grilled fish", vibe: "Boat-access only! Take the free red-pennant boat. Utterly relaxing.", reservation: false },
-      { name: "Villa Maria Restaurant (Ravello)", category: "Fine Dining", price: "€€€", mustTry: "Tasting menu with local wine", vibe: "Elegant terrace overlooking the valley. Perfect for a special dinner.", reservation: true },
-      { name: "Bar dell'Hotel Caruso (Ravello)", category: "Bar", price: "€€", mustTry: "Aperol Spritz with infinity pool views", vibe: "Ultimate relaxation aperitivo spot", reservation: false },
-      { name: "Sfogliatella + pizza fritta in Amalfi town", category: "Street Food", price: "€", mustTry: "Sfogliatella (flaky pastry)", vibe: "Casual wandering and tasting", reservation: false },
+      { name: "Sensi Restaurant (Amalfi)", category: "Fine Dining", price: "€€€", mustTry: "Seasonal tasting menù + sommelier wine pairing", vibe: "1 Michelin star (2026) in an 18th-century palazzo near the Duomo — a 15-min flat walk from the Marmorata, no car needed. Backups if the confirmation never lands: A' Paranza or Le Arcate, both in Atrani a 10-min walk away.", reservation: true, pending: true, booked: "Thu Sept 3, 7:45 PM · 2 guests · Requested Aug 13 via Prenota Web — AWAITING restaurant confirmation email (chase +39 089 871183 if silent) · dinner is tasting menù only · smart casual (no shorts/tank tops/caps) · late cancel <24h or no-show = €120 pp on card · table held 15 min" },
     ],
   },
   {
     city: "Rome",
     week: "Week 2 — Family Sightseeing",
     recs: [
-      { name: "Da Enzo al 29 (Trastevere)", category: "Trattoria", price: "€€", mustTry: "Cacio e pepe + carbonara", vibe: "Tiny, perfect Roman trattoria. The family will love it.", reservation: false },
-      { name: "Roscioli (Campo de' Fiori)", category: "Wine Bar", price: "€€", mustTry: "Charcuterie board + house wines", vibe: "Part deli, part wine bar, part restaurant. Extraordinary.", reservation: true },
-      { name: "Pizzarium (Prati, near Vatican)", category: "Street Food", price: "€", mustTry: "Pizza al taglio (by the slice)", vibe: "Rome's best pizza. Perfect quick lunch after the Vatican.", reservation: false },
-      { name: "Grazia & Graziella (Trastevere)", category: "Trattoria", price: "€€", mustTry: "Pasta all'amatriciana", vibe: "Family-run, cash only, soul of Rome. The kids will love it.", reservation: false },
-      { name: "Fatamorgana (near Navona)", category: "Gelato", price: "€", mustTry: "Creative seasonal flavors", vibe: "Best creative gelato in Rome", reservation: false },
-      { name: "Aperitivo in Campo de' Fiori", category: "Bar", price: "€€", mustTry: "Negroni or Aperol Spritz around 6–7pm", vibe: "Classic Roman evening ritual. People watching at its finest.", reservation: false },
+      { name: "Da Enzo al 29 (Trastevere)", category: "Trattoria", price: "€€", mustTry: "Cacio e pepe + carbonara", vibe: "Sept 6 Trastevere dinner pick #1 — walk-in, no reservation taken. Tiny, perfect Roman trattoria. The family will love it.", reservation: false },
+      { name: "Grazia & Graziella (Trastevere)", category: "Trattoria", price: "€€", mustTry: "Pasta all'amatriciana", vibe: "Sept 6 Trastevere dinner pick #2 — family-run, cash only, soul of Rome. The kids will love it.", reservation: false },
     ],
   },
   {
@@ -57,12 +49,7 @@ const foodGuide: CityFood[] = [
     week: "Week 2 — Family Sightseeing",
     recs: [
       { name: "Trattoria Dona Onesta (Dorsoduro)", category: "Trattoria", price: "€€", mustTry: "Homemade pasta + Venetian seafood", vibe: "Classic canal-side trattoria at Dorsoduro 3922 — 'the honest woman'. Last full-day lunch in Venice.", reservation: true, booked: "Fri Sept 11, 1:30–3:00 PM · 2 guests · Confirmed (easytablebooking) · Free cancel until 3h before, then €100 no-show fee · info@trattoriadonaonesta.com" },
-      { name: "Alle Testiere", category: "Fine Dining", price: "€€€", mustTry: "Tasting menu — only 22 seats", vibe: "Venice's best small seafood restaurant. Reserve 2+ weeks ahead.", reservation: true },
-      { name: "Osteria Al Squero (Dorsoduro)", category: "Wine Bar", price: "€€", mustTry: "Cicchetti + prosecco by the canal", vibe: "In front of a gondola workshop. Most charming bacaro in Venice.", reservation: false },
-      { name: "Cantina Do Mori (near Rialto)", category: "Wine Bar", price: "€€", mustTry: "Stand-up cicchetti + prosecco", vibe: "Venice's oldest wine bar since 1462. Tiny, authentic, unforgettable.", reservation: false },
-      { name: "Trattoria alla Madonna", category: "Trattoria", price: "€€", mustTry: "Risotto al nero di seppia (squid ink)", vibe: "Old-school Venetian. Best for families. Big portions.", reservation: false },
-      { name: "Cicchetti bar hop in Cannaregio", category: "Experience", price: "€€", mustTry: "Small plates + ombra at 5–6 bars in a row", vibe: "The local way to eat dinner in Venice. Fun for the whole family.", reservation: false },
-      { name: "Suso (near Rialto)", category: "Gelato", price: "€", mustTry: "Pistachio or seasonal fruit", vibe: "Best gelato in Venice", reservation: false },
+      { name: "Cicchetti bar hop in Cannaregio", category: "Experience", price: "€€", mustTry: "Small plates + ombra at 5–6 bars in a row", vibe: "Sept 11 final-evening option (Jamie's side) — the local way to eat dinner in Venice, no booking needed. Fun for the whole family.", reservation: false },
     ],
   },
 ];
@@ -149,7 +136,7 @@ export default function Restaurants({
           )}
           <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-gold" />
-            Dining Guide by City
+            Dining Plan by City &middot; booked + planned only
           </h3>
         </button>
 
@@ -175,8 +162,12 @@ export default function Restaurants({
                           {rec.category}
                         </span>
                         {rec.booked ? (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-italian-green text-white font-medium uppercase tracking-wide">
-                            Booked
+                          <span
+                            className={`text-[10px] px-1.5 py-0.5 rounded font-medium uppercase tracking-wide ${
+                              rec.pending ? "bg-gold text-white" : "bg-italian-green text-white"
+                            }`}
+                          >
+                            {rec.pending ? "Requested" : "Booked"}
                           </span>
                         ) : rec.reservation ? (
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-italian-red/10 text-italian-red font-medium">
@@ -185,8 +176,8 @@ export default function Restaurants({
                         ) : null}
                       </div>
                       {rec.booked && (
-                        <p className="text-[11px] text-italian-green font-medium mt-1">
-                          ✓ {rec.booked}
+                        <p className={`text-[11px] font-medium mt-1 ${rec.pending ? "text-gold-dark" : "text-italian-green"}`}>
+                          {rec.pending ? "🕐" : "✓"} {rec.booked}
                         </p>
                       )}
                       <p className="text-[11px] text-gray-500 mt-1">

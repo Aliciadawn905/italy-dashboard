@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Activity } from "@/lib/types";
-import { Plus, Trash2, ExternalLink, CheckCircle2, Circle, MapPin, Ticket } from "lucide-react";
+import { Plus, Trash2, ExternalLink, CheckCircle2, Circle, MapPin } from "lucide-react";
 import AddItemModal, {
   FormField,
   inputClass,
@@ -75,37 +75,6 @@ export default function Activities({
           Add Activity
         </button>
       </div>
-
-      {/* GetYourGuide quick-link banner */}
-      <a
-        href="https://www.getyourguide.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block group bg-gradient-to-r from-terracotta/10 via-gold/10 to-italian-green/10 border border-terracotta/20 rounded-2xl p-4 hover:border-terracotta/40 transition-colors"
-      >
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-lg bg-terracotta/15 flex items-center justify-center shrink-0">
-            <Ticket className="w-5 h-5 text-terracotta" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-medium text-gray-800 text-sm">
-                Book skip-the-line tickets &amp; tours on GetYourGuide
-              </span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-terracotta/15 text-terracotta font-medium uppercase tracking-wide">
-                Recommended
-              </span>
-            </div>
-            <p className="text-xs text-gray-500 mt-0.5">
-              Pre-book attractions across Italy &mdash; Colosseum, Vatican, Uffizi, Pompeii, boat tours, cooking classes
-            </p>
-          </div>
-          <div className="shrink-0 flex items-center gap-1 text-xs font-medium text-terracotta group-hover:underline">
-            Browse
-            <ExternalLink className="w-3.5 h-3.5" />
-          </div>
-        </div>
-      </a>
 
       {/* Confirmed bookings (hardcoded — booked outside the add-your-own list) */}
       <div>
