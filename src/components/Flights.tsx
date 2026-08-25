@@ -35,6 +35,7 @@ interface BookedFlight {
   price: string;
   bookingSite: string;
   confirmation: string;
+  airlineConfirmation?: string;
   pin?: string;
   addOns: string[];
   insurance?: string;
@@ -121,8 +122,11 @@ const bookedFlights: BookedFlight[] = [
     price: "$4,027.90",
     bookingSite: "Booking.com",
     confirmation: "40-953279322",
+    airlineConfirmation: "3AJHJ2",
     pin: "1651",
     addOns: ["Fast Track", "Travel Protection · $329.94"],
+    watchNote:
+      "Fast Track QR code arrives by EMAIL the day before flying (Sept 11) — one code per departure airport, so watch for the DUBLIN code for the DUB→LAX leg. Save to phone (or print); scan at the security fast lane. Non-transferable · offered by Gotogate with Airobot/Passnfly.",
     insurance:
       "XCover (Cover Genius) · $329.94 paid · insured: Alicia Sorensen. Covers: trip cancellation up to 100% of ticket cost · emergency medical up to $50,000 · trip interruption up to 150% of prepaid trip costs · baggage loss/theft up to $750 · flight delay 12+ hrs up to $500 (baggage, food, hotel) · 24/7 emergency assistance · includes a 1GB travel eSIM (activation email after booking). Not valid for residents of HI, KS, NY, WY. Claims via xcover.com.",
   },
@@ -619,6 +623,12 @@ export default function Flights({ flights, onAdd, onUpdate, onRemove }: FlightsP
                     <span className="text-gray-400">Confirmation:</span>{" "}
                     <span className="font-medium text-gray-700 tabular-nums">{bf.confirmation}</span>
                   </div>
+                  {bf.airlineConfirmation && (
+                    <div>
+                      <span className="text-gray-400">Airline conf:</span>{" "}
+                      <span className="font-medium text-gray-700 tabular-nums">{bf.airlineConfirmation}</span>
+                    </div>
+                  )}
                   {bf.pin && (
                     <div>
                       <span className="text-gray-400">PIN:</span>{" "}
