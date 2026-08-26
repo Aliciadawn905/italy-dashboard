@@ -282,6 +282,47 @@ export default function BudgetTracker() {
         </p>
       </div>
 
+      {/* The Money Picture — who has paid what (mirrors the printed trip companion) */}
+      <div className="bg-white rounded-xl border border-italian-green/25 overflow-hidden">
+        <div className="px-5 py-4 border-b border-gray-50 flex items-center justify-between flex-wrap gap-2">
+          <h3 className="font-serif font-semibold text-navy">💳 The Money Picture — for settling up</h3>
+          <span className="text-[11px] text-gray-400">Actuals from confirmed bookings · estimates below are separate</span>
+        </div>
+        <div className="px-5 py-4 space-y-3 text-sm">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="font-medium text-italian-green">✅ Shared &amp; already paid by Alicia</div>
+              <div className="text-xs text-gray-500 mt-0.5">
+                La Tonnarella €2,271 &middot; Marmorata €2,490 &middot; IC 707 train €53.80 &middot; private boat day $350.10 &middot; Rome train (FR 8509) €168
+              </div>
+            </div>
+            <div className="font-semibold text-italian-green tabular-nums whitespace-nowrap">€4,983 + $350</div>
+          </div>
+          <div className="flex items-start justify-between gap-4 border-t border-gray-50 pt-3">
+            <div>
+              <div className="font-medium text-navy">🏨 Shared, paid during the trip</div>
+              <div className="text-xs text-gray-500 mt-0.5">
+                Aug 30 car €170 (La Tonnarella room bill) &middot; Sandra&apos;s taxi €200 + Dino&apos;s van €120 (cash) &middot; dinners as they come
+              </div>
+            </div>
+            <div className="font-semibold text-navy tabular-nums whitespace-nowrap">€490 + meals</div>
+          </div>
+          <div className="flex items-start justify-between gap-4 border-t border-gray-50 pt-3">
+            <div>
+              <div className="font-medium text-terracotta">👑 Alicia&apos;s own (not shared) &middot; 🌟 Jamie&apos;s own</div>
+              <div className="text-xs text-gray-500 mt-0.5">
+                Alicia: her flights + insurance &middot; Bellagio hotel ~€969 &middot; Milan trains €175.90 &middot; wine tasting &middot; Palazzetto Madonna €1,005 at checkout.
+                Jamie: her flights &middot; Rome penthouse (cost in the Marriott app)
+              </div>
+            </div>
+            <div className="font-semibold text-terracotta whitespace-nowrap">separate</div>
+          </div>
+          <p className="text-[11px] text-gray-400 border-t border-gray-50 pt-2">
+            Settle up however you two like — this is just the ledger 😉 Matches the printed trip companion.
+          </p>
+        </div>
+      </div>
+
       <BudgetTable
         title="Week 1 — Sorrento + Amalfi/Marmorata"
         subtitle="Estimates per person"
